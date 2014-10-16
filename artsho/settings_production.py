@@ -1,8 +1,9 @@
 # flake8: noqa
 from settings_shared import *
+import os
 
 TEMPLATE_DIRS = (
-    "/var/www/artsho/artsho/artsho/templates",
+    os.path.join(os.path.dirname(__file__), "templates"),
 )
 
 MEDIA_ROOT = '/var/www/artsho/uploads/'
