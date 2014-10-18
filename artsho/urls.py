@@ -12,6 +12,9 @@ urlpatterns = patterns(
     '',
     (r'^accounts/', include('django.contrib.auth.urls')),
     (r'^$', views.IndexView.as_view()),
+
+    (r'^about/$', TemplateView.as_view(template_name="main/about.html")),
+    (r'^map/$', TemplateView.as_view(template_name="main/map.html")),
     (r'^admin/', include(admin.site.urls)),
     url(r'^_impersonate/', include('impersonate.urls')),
     (r'^stats/$', TemplateView.as_view(template_name="stats.html")),
