@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load markup %}
+{% load thumbnail %}
 
 {% block pagetitle %}{{object.title}}{% endblock %}
 {% block pageid %}artsho{{show.id}}{% endblock %}
@@ -11,4 +12,32 @@
 
 {% block content %}
 {{object.description|markdown}}
+
+{% if show.picture_set.count %}
+
+
+
+{% for picture in show.picture_set.all %}
+
+<div id="picture-{{picture.id}}" class="lightbox fade"  tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="lightbox-dialog">
+		<div class="lightbox-content">
+			<img src="{% thumbnail picture.image 960x960 %}">
+		</div>
+	</div>
+</div>
+
+<a data-toggle="lightbox"
+	 href="#picture-{{picture.id}}">
+	<img src="{% thumbnail picture.image 200x200 crop %}"
+			 width="200" height="200" />
+</a>
+{% endfor %}
+
+{% endif %}
+{% endblock %}
+
+{% block js %}
+<script src="{{STATIC_URL}}bootstrap-lightbox.js"></script>
+<link href="{{STATIC_URL}}bootstrap-lightbox.css" rel="stylesheet"></script>
 {% endblock %}
