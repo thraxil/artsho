@@ -72,6 +72,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'stagingcontext.staging_processor',
     'gacontext.ga_processor',
     'django.core.context_processors.static',
+    'artsho.main.contextprocessors.menu_items',
 )
 
 MIDDLEWARE_CLASSES = (
