@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load markup %}
+
+{% block pagetitle %}{{object.title}}{% endblock %}
+{% block pageid %}artsho{{show.id}}{% endblock %}
+
+{% block topcontent %}
+<p>{{show.year}} {{show.location}}</p>
+{% endblock %}
+
+
+{% block content %}
+{{object.description|markdown}}
+{% endblock %}

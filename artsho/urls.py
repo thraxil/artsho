@@ -16,6 +16,8 @@ urlpatterns = patterns(
     (r'^about/$', TemplateView.as_view(template_name="main/about.html")),
     (r'^map/$', TemplateView.as_view(template_name="main/map.html")),
     (r'^contact/$', TemplateView.as_view(template_name="main/contact.html")),
+
+    (r'^artsho/(?P<pk>\d+)/$', views.ShowDetails.as_view()),
     (r'^admin/', include(admin.site.urls)),
     url(r'^_impersonate/', include('impersonate.urls')),
     (r'^stats/$', TemplateView.as_view(template_name="stats.html")),
