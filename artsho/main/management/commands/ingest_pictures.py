@@ -16,7 +16,7 @@ class Command(BaseCommand):
             path = "pictures/%04d/%02d/%02d/" % (
                 now.year, now.month, now.day)
             try:
-                os.path.makedirs(
+                os.makedirs(
                     os.path.join(settings.MEDIA_ROOT, path)
                 )
             except:
