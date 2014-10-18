@@ -6,3 +6,6 @@ class Show(models.Model):
     year = models.IntegerField(default=2014)
     location = models.TextField(blank=True, default=u"")
     description = models.TextField(blank=True, default=u"")
+
+    def __unicode__(self):
+        return self.title
