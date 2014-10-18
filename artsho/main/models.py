@@ -7,6 +7,9 @@ class Show(models.Model):
     location = models.TextField(blank=True, default=u"")
     description = models.TextField(blank=True, default=u"")
 
+    class Meta:
+        ordering = ['year']
+
     def __unicode__(self):
         return self.title
 
