@@ -23,7 +23,7 @@
 	{% block css %}{% endblock %}
   <script src="{{STATIC_URL}}js/jquery-1.7.2.min.js"></script>
 </head>
-<body>
+<body id="{% block pageid %}{% endblock %}">
 <div class="container">
 
 <div class="row">
@@ -43,14 +43,14 @@
 {% block sidenav %}
 
 <div class="list-group">
-	<a class="list-group-item" href="/">NOW</a>
-	<a class="list-group-item" href="/about/">ABOUT</a>
-	<a class="list-group-item" href="/map/">MAP</a>
-	<a class="list-group-item" href="/artsho/1/">ARTSHO1</a>
-	<a class="list-group-item" href="/artsho/2/">ARTSHO2</a>
-	<a class="list-group-item" href="/artsho/3/">ARTSHO3</a>
-	<a class="list-group-item" href="/artsho/4/">ARTSHO4</a>
-	<a class="list-group-item" href="/contact/">CONTACT</a>
+	<a class="list-group-item" id="menu-now" href="/">NOW</a>
+	<a class="list-group-item" id="menu-about" href="/about/">ABOUT</a>
+	<a class="list-group-item" id="menu-map" href="/map/">MAP</a>
+	<a class="list-group-item" id="menu-artsho1" href="/artsho/1/">ARTSHO1</a>
+	<a class="list-group-item" id="menu-artsho2" href="/artsho/2/">ARTSHO2</a>
+	<a class="list-group-item" id="menu-artsho3" href="/artsho/3/">ARTSHO3</a>
+	<a class="list-group-item" id="menu-artsho4" href="/artsho/4/">ARTSHO4</a>
+	<a class="list-group-item" id="menu-contact" href="/contact/">CONTACT</a>
 </div>
 
 

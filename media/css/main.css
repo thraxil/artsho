@@ -35,3 +35,13 @@ body > .container {
   background-color: #333;
   color: #fff;
 }
+
+body#now #menu-now { font-weight: bold; }
+body#about #menu-about { font-weight: bold; }
+body#map #menu-map { font-weight: bold; }
+body#contact #menu-contact { font-weight: bold; }
+body#artsho1 #menu-artsho1 { font-weight: bold; }
+body#artsho2 #menu-artsho2 { font-weight: bold; }
+body#artsho3 #menu-artsho3 { font-weight: bold; }
+body#artsho4 #menu-artsho4 { font-weight: bold; }
+
