@@ -32,20 +32,13 @@ if 'test' in sys.argv or 'jenkins' in sys.argv:
         }
     }
 
-TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+TEST_RUNNER = 'discover_jenkins.runner.DiscoverCIRunner'
+TEST_COVERAGE_REPORT_HTML_DIR = 'reports'
 
-NOSE_ARGS = [
-    '--with-coverage',
-    '--cover-package=artsho',
-]
-
-JENKINS_TASKS = (
-    'django_jenkins.tasks.run_pylint',
-    'django_jenkins.tasks.with_coverage',
-    'django_jenkins.tasks.run_pep8',
-    'django_jenkins.tasks.run_pyflakes',
-)
 PROJECT_APPS = [
+    'artsho.main',
+]
+TEST_PROJECT_APPS = [
     'artsho.main',
 ]
 
@@ -107,14 +100,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'sorl.thumbnail',
     'django.contrib.admin',
-    'django_nose',
     'compressor',
     'django_statsd',
     'bootstrap3',
     'bootstrapform',
     'debug_toolbar',
     'waffle',
-    'django_jenkins',
+    'discover_jenkins',
     'smoketest',
     'infranil',
     'flatblocks',

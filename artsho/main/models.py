@@ -38,3 +38,48 @@ class Picture(models.Model):
 
     def get_absolute_url(self):
         return "/artsho/%d/picture/%d/" % (self.show.id, self.id)
+
+
+class Artist(models.Model):
+    name = models.TextField(blank=True, default=u"")
+    bio = models.TextField(blank=True, default=u"")
+    image = ImageWithThumbnailsField(
+        upload_to="artists/%Y/%m/%d",
+        thumbnail={
+            'size': (400, 200)
+            },
+        null=True,
+        )
+
+    class Meta:
+        ordering = ['name']
+
+    def __unicode__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return "/artist/%d/" % self.id
+
+
+class Item(models.Model):
+    show = models.ForeignKey(Show)
+    title = models.TextField(blank=True, default=u"")
+    description = models.TextField(blank=True, default=u"")
+    medium = models.TextField(blank=True, default=u"")
+
+    class Meta:
+        order_with_respect_to = 'show'
+
+    def __unicode__(self):
+        return self.title
+
+    def get_absolute_url(self):
+        return self.show.get_absolute_url() + "item/%d/" % self.id
+
+
+class ItemArtist(models.Model):
+    item = models.ForeignKey(Item)
+    artist = models.ForeignKey(Artist)
+
+    def __unicode__(self):
+        return "%s - %s" % (self.item, self.artist)
