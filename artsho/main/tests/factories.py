@@ -41,3 +41,4 @@ class NewsItemFactory(factory.DjangoModelFactory):
     title = "test news item"
     topcontent = "test top content"
     content = "test content"
+    published = True

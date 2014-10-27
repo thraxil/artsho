@@ -1,21 +1,29 @@
 {% extends 'base.html' %}
+{% load markup %}
 
 {% block pagetitle %}NOW{% endblock %}
 {% block pageid %}now{% endblock %}
 
 {% block topcontent %}
+{% if latest_news %}
+<p><b>{{latest_news.title}}</b></p>
+{{ latest_news.topcontent|markdown }}
+{% else %}
 <p><b>ARTSHO5 SAVE THE DATE!</b>
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed finibus mauris nec nulla bibendum aliquam. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed finibus ligula quis venenatis dapibus. Pellentesque volutpat nibh sed elementum pharetra. Curabitur non tempus diam, nec mattis purus. Nunc nec tortor consequat, vestibulum purus ut, volutpat diam. Suspendisse potenti. Sed at libero eleifend, commodo turpis vitae, placerat massa. Proin vitae urna vestibulum, cursus velit sit amet, aliquam tortor. Aenean non mauris sagittis, mattis nibh ut, scelerisque libero. Nulla lobortis, lectus ut accumsan aliquet, arcu nisl mattis metus, et fermentum ipsum diam id ante. Nulla iaculis commodo dolor et hendrerit. Nam eget ipsum quis mauris consequat laoreet. Pellentesque ac lorem ac magna vehicula luctus faucibus sit amet nisi. Ut efficitur interdum ex ac dictum.
 </p>
+{% endif %}
 {% endblock %}
 
 {% block content %}
-
+{% if latest_news %}
+{{ latest_news.content|markdown }}
+{% else %}
 <img src="{{STATIC_URL}}img/artsho5_poster.png"/>
 
 <div id="news-scroller">
 Some stuff goes in here.<br />
 Some stuff goes in here.<br />
 </div>
-
+{% endif %}
 {% endblock %}
