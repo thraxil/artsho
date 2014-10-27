@@ -1,5 +1,6 @@
 import factory
-from artsho.main.models import Show, Picture, Artist, Item, ItemArtist
+from artsho.main.models import (
+    Show, Picture, Artist, Item, ItemArtist, NewsItem)
 
 
 class ShowFactory(factory.DjangoModelFactory):
@@ -33,3 +34,10 @@ class ItemArtistFactory(factory.DjangoModelFactory):
     FACTORY_FOR = ItemArtist
     item = factory.SubFactory(ItemFactory)
     artist = factory.SubFactory(ArtistFactory)
+
+
+class NewsItemFactory(factory.DjangoModelFactory):
+    FACTORY_FOR = NewsItem
+    title = "test news item"
+    topcontent = "test top content"
+    content = "test content"

@@ -1,7 +1,7 @@
 from django.test import TestCase
 from .factories import (
     ShowFactory, PictureFactory, ArtistFactory,
-    ItemFactory, ItemArtistFactory)
+    ItemFactory, ItemArtistFactory, NewsItemFactory)
 
 
 class ShowTest(TestCase):
@@ -48,3 +48,9 @@ class ItemArtistTest(TestCase):
     def test_unicode(self):
         ia = ItemArtistFactory()
         self.assertEqual(str(ia), "test item - attilla the hun")
+
+
+class NewsItemTest(TestCase):
+    def test_unicode(self):
+        ni = NewsItemFactory()
+        self.assertEqual(str(ni), "test news item")

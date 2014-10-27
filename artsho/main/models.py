@@ -83,3 +83,29 @@ class ItemArtist(models.Model):
 
     def __unicode__(self):
         return "%s - %s" % (self.item, self.artist)
+
+
+class NewsItem(models.Model):
+    title = models.TextField(blank=True, default=u"")
+    published = models.BooleanField(default=False)
+    created = models.DateTimeField(auto_now_add=True)
+    topcontent = models.TextField(blank=True, default=u"")
+    content = models.TextField(blank=True, default=u"")
+
+    def __unicode__(self):
+        return self.title
+
+
+class NewsPicture(models.Model):
+    newsitem = models.ForeignKey(NewsItem)
+    image = ImageWithThumbnailsField(
+        upload_to="newspics/%Y/%m/%d",
+        thumbnail={
+            'size': (400, 200)
+            },
+        null=True,
+    )
+    caption = models.TextField(blank=True, default=u"")
+
+    class Meta:
+        order_with_respect_to = 'newsitem'
