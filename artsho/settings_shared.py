@@ -33,7 +33,7 @@ if 'test' in sys.argv or 'jenkins' in sys.argv:
     }
 
 TEST_RUNNER = 'discover_jenkins.runner.DiscoverCIRunner'
-TEST_COVERAGE_REPORT_HTML_DIR = 'reports'
+TEST_OUTPUT_DIR = 'reports'
 
 PROJECT_APPS = [
     'artsho.main',
