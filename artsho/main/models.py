@@ -40,6 +40,14 @@ class Picture(models.Model):
         return "/artsho/%d/picture/%d/" % (self.show.id, self.id)
 
 
+class ShowVideo(models.Model):
+    show = models.ForeignKey(Show)
+    youtube_id = models.TextField()
+
+    class Meta:
+        order_with_respect_to = 'show'
+
+
 class Artist(models.Model):
     name = models.TextField(blank=True, default=u"")
     bio = models.TextField(blank=True, default=u"")
