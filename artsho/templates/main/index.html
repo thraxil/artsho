@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load markup %}
+{% load thumbnail %}
 
 {% block pagetitle %}NOW{% endblock %}
 {% block pageid %}now{% endblock %}
@@ -18,6 +19,13 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed finibus mauris nec 
 {% block content %}
 {% if latest_news %}
 {{ latest_news.content|markdown }}
+
+{% if latest_news.newspicture_set.count %}
+{% for pic in latest_news.newspicture_set.all %}
+<img src="{% thumbnail pic.image 600x600 %}" alt="{{pic.caption}}" />
+{% endfor %}
+{% endif %}
+
 {% else %}
 <img src="{{STATIC_URL}}img/artsho5_poster.png"/>
 
