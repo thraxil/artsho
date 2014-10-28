@@ -27,11 +27,13 @@
 	</div>
 </div>
 
+<div class="show-thumb">
 <a data-toggle="lightbox"
 	 href="#picture-{{picture.id}}">
 	<img src="{% thumbnail picture.image 200x200 crop %}"
-			 width="200" height="200" />
+			 width="200" height="200"  class="img-responsive" />
 </a>
+</div>
 {% endfor %}
 
 {% endif %}

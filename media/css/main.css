@@ -45,3 +45,8 @@ body#artsho2 #menu-artsho2 { font-weight: bold; }
 body#artsho3 #menu-artsho3 { font-weight: bold; }
 body#artsho4 #menu-artsho4 { font-weight: bold; }
 
+.show-thumb {
+		width: 208px;
+		height: 208px;
+		float: left;
+}
