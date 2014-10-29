@@ -56,3 +56,13 @@ class EditTest(TestCase):
         self.assertEqual(r.status_code, 200)
         self.assertTrue("new title" in r.content)
 
+    def test_add_video(self):
+        s = ShowFactory()
+        r = self.c.post(
+            "/edit/show/%d/add_video/" % s.id,
+            dict(youtube_id="foobar")
+        )
+        self.assertEqual(r.status_code, 302)
+        r = self.c.get("/edit/show/%d/" % s.id)
+        self.assertEqual(r.status_code, 200)
+        self.assertTrue("iframe" in r.content)

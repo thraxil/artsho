@@ -65,10 +65,43 @@
 	<div class="panel-heading">Add Video</div>
 	<div class="panel-body">
 		<form action="add_video/" method="post">
-
+			<div class="form-group">
+				<label for="youtube_id">
+					Youtube ID
+				</label>
+				<input type="text" name="youtube_id" id="youtube_id"
+				class="form-control" />
+			</div>
+			<input type="submit" class="btn btn-primary" value="add video" />
 		</form>
 	</div>
 </div>
+
+{% if show.showvideo_set.count %}
+<div class="panel panel-default">
+	<div class="panel-heading">Videos</div>
+
+	<div class="panel-body">
+		{% for sv in show.showvideo_set.all %}
+
+<div class="row">
+<div class="col-md-1">
+<a href="/edit/showvideo/{{sv.id}}/delete/" class="btn btn-danger">Delete</a>
+</div>
+<div class="col-md-10">
+<div class="embed video-player">
+<iframe class="youtube-player" type="text/html"
+    width="853" height="480"
+    src="http://www.youtube.com/embed/{{v.youtube_id}}"
+    allowfullscreen frameborder="0">
+</iframe>
+</div>
+</div>
+</div>
+		{% endfor %}
+	</div>
+</div>
+{% endif %}
 
 </section>
 

@@ -1,5 +1,6 @@
 from django.views.generic.base import TemplateView
 from django.views.generic import DetailView, View
+from django.views.generic.edit import DeleteView
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
@@ -7,7 +8,7 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 
-from .models import Show, NewsItem
+from .models import Show, NewsItem, ShowVideo
 
 
 class LoggedInMixin(object):
@@ -42,8 +43,9 @@ class EditShowView(LoggedInMixin, View):
     template_name = "edit/show.html"
 
     def get(self, request, pk):
-        return render(request, self.template_name,
-                      dict(show=get_object_or_404(Show, pk=pk))
+        return render(
+            request, self.template_name,
+            dict(show=get_object_or_404(Show, pk=pk))
         )
 
     def post(self, request, pk):
@@ -56,3 +58,16 @@ class EditShowView(LoggedInMixin, View):
         messages.success(request, "Show updated")
         return HttpResponseRedirect(reverse('edit_show', args=[show.id]))
 
+
+class AddVideoToShowView(LoggedInMixin, View):
+    def post(self, request, pk):
+        show = get_object_or_404(Show, pk=pk)
+        ShowVideo.objects.create(
+            show=show, youtube_id=request.POST.get('youtube_id', ''))
+        messages.success(request, "video added to show")
+        return HttpResponseRedirect(reverse('edit_show', args=[show.id]))
+
+
+class DeleteShowVideoView(LoggedInMixin, DeleteView):
+    model = ShowVideo
+    success_url = "/edit/"
