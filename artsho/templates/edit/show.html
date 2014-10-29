@@ -1,0 +1,87 @@
+{% extends 'edit_base.html' %}
+
+{% block content %}
+<h1>Edit {{show.title}}</h1>
+
+{% if messages %}
+{% for message in messages %}
+<div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</div>
+{% endfor %}
+{% endif %}
+
+<h2>Basic Info</h2>
+
+<div class="panel panel-default">
+	<div class="panel-body">
+	<form action="." method="post" role="form">
+		<fieldset>
+			<div class="form-group">
+				<label for="title">
+					Title
+				</label>
+				<input type="text" name="title" id="title"
+				value="{{show.title}}" class="form-control" />
+				</input>
+			</div>
+
+			<div class="form-group">
+				<label for="year">
+					Year
+				</label>
+				<input type="text" name="year" id="year"
+				value="{{show.year}}" class="form-control" />
+				</input>
+			</div>
+
+			<div class="form-group">
+				<label for="location">
+					Location
+				</label>
+				<input type="text" name="location" id="location"
+				value="{{show.location}}" class="form-control" />
+				</input>
+			</div>
+
+			<div class="form-group">
+				<label for="description">
+					Description
+				</label>
+				<textarea name="description" id="description"
+									rows="10"
+									class="form-control">{{show.description}}</textarea>
+			</div>
+			<input type="submit" class="btn btn-primary" value="save info" />
+
+		</fieldset>
+	</form>
+	</div>
+</div>
+
+
+<section>
+	<h2>Videos</h2>
+
+<div class="panel panel-default">
+	<div class="panel-heading">Add Video</div>
+	<div class="panel-body">
+		<form action="add_video/" method="post">
+
+		</form>
+	</div>
+</div>
+
+</section>
+
+
+<section>
+	<h2>Pictures</h2>
+
+<div class="panel panel-default">
+	<div class="panel-heading">Add Picture</div>
+	<div class="panel-body">
+	</div>
+</div>
+
+</section>
+
+{% endblock %}

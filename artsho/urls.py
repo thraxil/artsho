@@ -18,6 +18,11 @@ urlpatterns = patterns(
     (r'^contact/$', TemplateView.as_view(template_name="main/contact.html")),
 
     (r'^artsho/(?P<pk>\d+)/$', views.ShowDetails.as_view()),
+
+    url(r'^edit/$', views.EditView.as_view(), name='edit_index'),
+    url(r'^edit/show/(?P<pk>\d+)/$',
+        views.EditShowView.as_view(), name='edit_show'),
+
     (r'^admin/', include(admin.site.urls)),
     url(r'^_impersonate/', include('impersonate.urls')),
     (r'^stats/$', TemplateView.as_view(template_name="stats.html")),

@@ -1,0 +1,24 @@
+{% extends 'edit_base.html' %}
+
+{% block content %}
+<h1>Edit Site Content</h1>
+
+<h2>News Items</h2>
+
+<div class="list-group">
+	<a class="list-group-item disabled" href="/edit/add_news/">Add New One</a>
+	<a class="list-group-item disabled" href="/edit/drafts/">Drafts</a>
+	<a class="list-group-item disabled" href="/edit/news_archive/">Archive</a>
+</div>
+
+<h2>Shows</h2>
+
+<div class="list-group">
+{% for show in all_shows %}
+  <a class="list-group-item" id="menu-artsho{{ show.id }}"
+		 href="{% url 'edit_show' show.id %}">{{show.title}}</a>
+{% endfor %}
+</div>
+
+
+{% endblock %}
