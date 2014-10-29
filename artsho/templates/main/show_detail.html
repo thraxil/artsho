@@ -13,10 +13,20 @@
 {% block content %}
 {{object.description|markdown}}
 
+{% if show.showvideo_set.count %}
+{% for v in show.showvideo_set.all %}
+<div class="embed video-player">
+<iframe class="youtube-player" type="text/html"
+    width="853" height="480"
+    src="http://www.youtube.com/embed/{{v.youtube_id}}"
+    allowfullscreen frameborder="0">
+</iframe>
+</div>
+
+{% endfor %}
+{% endif %}
+
 {% if show.picture_set.count %}
-
-
-
 {% for picture in show.picture_set.all %}
 
 <div id="picture-{{picture.id}}" class="lightbox fade"  tabindex="-1" role="dialog" aria-hidden="true">
