@@ -16,10 +16,17 @@
 {% endfor %}
 {% endif %}
 
-<h2>Basic Info</h2>
 
-<div class="panel panel-default">
-	<div class="panel-body">
+<ul class="nav nav-tabs" role="tablist">
+  <li role="presentation" class="active"><a href="#info" role="tab"
+  data-toggle="tab">Basic Info</a></li>
+  <li role="presentation"><a href="#videos" role="tab" data-toggle="tab">Videos</a></li>
+  <li role="presentation"><a href="#pictures" role="tab" data-toggle="tab">Pictures</a></li>
+</ul>
+
+<div class="tab-content">
+
+<div class="tab-pane active" id="info">
 	<form action="." method="post" role="form">
 		<fieldset>
 			<div class="form-group">
@@ -57,20 +64,16 @@
 									rows="10"
 									class="form-control">{{show.description}}</textarea>
 			</div>
-			<input type="submit" class="btn btn-primary" value="save info" />
+			<input type="submit" class="btn btn-primary" value="save" />
 
 		</fieldset>
 	</form>
-	</div>
 </div>
 
 
-<section>
-	<h2>Videos</h2>
+<div role="tabpanel" class="tab-pane" id="videos">
 
-<div class="panel panel-default">
-	<div class="panel-heading">Add Video</div>
-	<div class="panel-body">
+<h3>Add Video</h3>
 		<form action="add_video/" method="post">
 			<div class="form-group">
 				<label for="youtube_id">
@@ -81,14 +84,10 @@
 			</div>
 			<input type="submit" class="btn btn-primary" value="add video" />
 		</form>
-	</div>
-</div>
 
 {% if show.showvideo_set.count %}
-<div class="panel panel-default">
-	<div class="panel-heading">Videos</div>
+<h3>Videos</h3>
 
-	<div class="panel-body">
 		{% for sv in show.showvideo_set.all %}
 
 <div class="row">
@@ -106,19 +105,13 @@
 </div>
 </div>
 		{% endfor %}
-	</div>
-</div>
 {% endif %}
 
-</section>
+</div>
 
 
-<section>
-	<h2>Pictures</h2>
-
-<div class="panel panel-default">
-	<div class="panel-heading">Add Picture</div>
-	<div class="panel-body">
+<div role="tabpanel" class="tab-pane" id="pictures">
+<h3>Add Picture</h3>
 		<form action="add_picture/" method="post"
 					enctype="multipart/form-data" role="form">
 
@@ -129,13 +122,9 @@
 
 			<input type="submit" class="btn btn-primary" value="Upload"/>
 		</form>
-	</div>
-</div>
 
 {% if show.picture_set.count %}
-<div class="panel panel-default">
-	<div class="panel-heading">Pictures</div>
-	<div class="panel-body">
+<h3>Pictures</h3>
 
 {% for p in show.picture_set.all %}
 
@@ -144,11 +133,10 @@
 	<div class="caption"><a href="/edit/picture/{{p.id}}/delete/" class="btn btn-danger">Delete</a></div>
 </div>
 {% endfor %}
-		</table>
-	</div>
-</div>
+
 {% endif %}
 
-</section>
+</div>
+</div>
 
 {% endblock %}
