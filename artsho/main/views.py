@@ -93,3 +93,21 @@ class DeletePictureView(LoggedInMixin, DeleteView):
 
     def get_success_url(self):
         return reverse('edit_show', args=[self.object.show.id])
+
+
+class AddNewsView(LoggedInMixin, View):
+    template_name = "edit/add_news.html"
+
+    def get(self, request):
+        return render(
+            request, self.template_name,
+            dict())
+
+    def post(self, request):
+        NewsItem.objects.create(
+            title=request.POST.get('title', 'title is required'),
+            topcontent=request.POST.get('topcontent', ''),
+            content=request.POST.get('content', ''),
+            published=False,
+        )
+        return HttpResponseRedirect(reverse('edit_index'))
