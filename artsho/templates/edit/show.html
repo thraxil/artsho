@@ -131,16 +131,12 @@
 	<div class="panel-heading">Pictures</div>
 	<div class="panel-body">
 
-		<table class="table table-striped table-condensed">
 {% for p in show.picture_set.all %}
-<tr>
-	<td>
-		<img src="{% thumbnail p.image 100x100 crop %}" />
-	</td>
-	<td>
-		<a href="/edit/picture/{{p.id}}/delete/" class="btn btn-danger">Delete</a>
-	</td>
-</tr>
+
+<div class="thumbnail show-thumb">
+		<img src="{% thumbnail p.image 200x150 crop %}" class="img-responsive"/>
+	<div class="caption"><a href="/edit/picture/{{p.id}}/delete/" class="btn btn-danger">Delete</a></div>
+</div>
 {% endfor %}
 		</table>
 	</div>
