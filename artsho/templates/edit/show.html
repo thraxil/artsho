@@ -2,6 +2,12 @@
 {% load thumbnail %}
 
 {% block content %}
+
+<ol class="breadcrumb">
+  <li><a href="/edit/">Edit Site</a></li>
+  <li class="active">{{show.title}}</li>
+</ol>
+
 <h1>Edit {{show.title}}</h1>
 
 {% if messages %}
