@@ -22,6 +22,10 @@ urlpatterns = patterns(
     url(r'^edit/$', views.EditView.as_view(), name='edit_index'),
 
     url(r'^edit/add_news/$', views.AddNewsView.as_view(), name='add_news'),
+    url(r'^edit/news/drafts/$', views.NewsDraftsView.as_view(),
+        name='news_drafts'),
+    url(r'^edit/news/(?P<pk>\d+)/$', views.EditNewsItemView.as_view(),
+        name='edit_news_item'),
 
     url(r'^edit/show/(?P<pk>\d+)/$',
         views.EditShowView.as_view(), name='edit_show'),

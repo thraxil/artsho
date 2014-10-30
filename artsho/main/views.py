@@ -5,7 +5,7 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
 from django.contrib import messages
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 
 from .models import Show, NewsItem, ShowVideo, Picture
@@ -111,3 +111,19 @@ class AddNewsView(LoggedInMixin, View):
             published=False,
         )
         return HttpResponseRedirect(reverse('edit_index'))
+
+
+class NewsDraftsView(LoggedInMixin, TemplateView):
+    template_name = "edit/news_drafts.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(NewsDraftsView, self).get_context_data(**kwargs)
+        results = NewsItem.objects.filter(
+            published=False).order_by("-created")
+        context['drafts'] = results
+        return context
+
+
+class EditNewsItemView(LoggedInMixin, View):
+    def get(self, request, pk):
+        return HttpResponse("")

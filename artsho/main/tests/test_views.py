@@ -1,5 +1,6 @@
 from django.test import TestCase
 from django.test.client import Client
+from artsho.main.models import NewsItem
 from .factories import (
     NewsItemFactory, ShowFactory,
     PictureFactory, ShowVideoFactory,
@@ -101,3 +102,26 @@ class EditTest(TestCase):
                 "/edit/show/%d/add_picture/" % s.id,
                 dict(image=img))
             self.assertEqual(r.status_code, 302)
+
+    def test_add_news_form(self):
+        r = self.c.get("/edit/add_news/")
+        self.assertEqual(r.status_code, 200)
+
+    def test_add_news_item(self):
+        r = self.c.post("/edit/add_news/",
+                        dict(
+                            title="foo",
+                            content="bar",
+                            topcontent="baz"))
+        self.assertEqual(r.status_code, 302)
+        r = NewsItem.objects.filter(title="foo", content="bar",
+                                    topcontent="baz", published=False)
+        self.assertEqual(r.count(), 1)
+
+    def test_news_drafts_index(self):
+        r = self.c.get("/edit/news/drafts/")
+        self.assertEqual(r.status_code, 200)
+
+    def test_edit_news_item(self):
+        r = self.c.get("/edit/news/1/")
+        self.assertEqual(r.status_code, 200)
