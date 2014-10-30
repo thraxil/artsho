@@ -62,6 +62,7 @@ class EditShowView(LoggedInMixin, View):
 class AddVideoToShowView(LoggedInMixin, View):
     def post(self, request, pk):
         show = get_object_or_404(Show, pk=pk)
+        show.update_video_order()
         ShowVideo.objects.create(
             show=show, youtube_id=request.POST.get('youtube_id', ''))
         messages.success(request, "video added to show")
@@ -71,6 +72,7 @@ class AddVideoToShowView(LoggedInMixin, View):
 class AddPictureView(LoggedInMixin, View):
     def post(self, request, pk):
         show = get_object_or_404(Show, pk=pk)
+        show.update_picture_order()
         p = Picture.objects.create(show=show)
         p.save_image(request.FILES['image'])
         messages.success(request, "picture added to show")

@@ -22,6 +22,12 @@ class Show(models.Model):
     def get_absolute_url(self):
         return "/artsho/%d/" % self.id
 
+    def update_picture_order(self):
+        self.set_picture_order(self.get_picture_order())
+
+    def update_video_order(self):
+        self.set_showvideo_order(self.get_showvideo_order())
+
 
 class Picture(models.Model):
     show = models.ForeignKey(Show)
