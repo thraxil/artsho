@@ -8,7 +8,7 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 
-from .models import Show, NewsItem, ShowVideo
+from .models import Show, NewsItem, ShowVideo, Picture
 
 
 class LoggedInMixin(object):
@@ -70,4 +70,9 @@ class AddVideoToShowView(LoggedInMixin, View):
 
 class DeleteShowVideoView(LoggedInMixin, DeleteView):
     model = ShowVideo
+    success_url = "/edit/"
+
+
+class DeletePictureView(LoggedInMixin, DeleteView):
+    model = Picture
     success_url = "/edit/"

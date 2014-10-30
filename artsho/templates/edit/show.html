@@ -1,4 +1,5 @@
 {% extends 'edit_base.html' %}
+{% load thumbnail %}
 
 {% block content %}
 <h1>Edit {{show.title}}</h1>
@@ -114,6 +115,27 @@
 	<div class="panel-body">
 	</div>
 </div>
+
+{% if show.picture_set.count %}
+<div class="panel panel-default">
+	<div class="panel-heading">Pictures</div>
+	<div class="panel-body">
+
+		<table class="table table-striped table-condensed">
+{% for p in show.picture_set.all %}
+<tr>
+	<td>
+		<img src="{% thumbnail p.image 100x100 crop %}" />
+	</td>
+	<td>
+		<a href="/edit/picture/{{p.id}}/delete/" class="btn btn-danger">Delete</a>
+	</td>
+</tr>
+{% endfor %}
+		</table>
+	</div>
+</div>
+{% endif %}
 
 </section>
 

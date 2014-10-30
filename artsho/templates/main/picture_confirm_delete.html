@@ -1,0 +1,14 @@
+{% extends 'edit_base.html' %}
+{% load thumbnail %}
+{% block content %}
+
+<img src="{% thumbnail object.image 400x400 %}"/>
+<br />
+<br />
+
+<form action="." method="post">{% csrf_token %}
+<input class="btn btn-danger"
+                         type="submit" value="yes, delete this picture"/>
+</form>
+
+{% endblock %}
