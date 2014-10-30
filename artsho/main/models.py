@@ -1,7 +1,6 @@
 from django.db import models
 from datetime import datetime
 from django.conf import settings
-import re
 import os.path
 from django.template.defaultfilters import slugify
 from sorl.thumbnail.fields import ImageWithThumbnailsField
