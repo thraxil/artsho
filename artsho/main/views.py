@@ -72,7 +72,13 @@ class DeleteShowVideoView(LoggedInMixin, DeleteView):
     model = ShowVideo
     success_url = "/edit/"
 
+    def get_success_url(self):
+        return reverse('edit_show', args=[self.object.show.id])
+
 
 class DeletePictureView(LoggedInMixin, DeleteView):
     model = Picture
     success_url = "/edit/"
+
+    def get_success_url(self):
+        return reverse('edit_show', args=[self.object.show.id])

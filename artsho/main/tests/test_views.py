@@ -1,6 +1,9 @@
 from django.test import TestCase
 from django.test.client import Client
-from .factories import (NewsItemFactory, ShowFactory)
+from .factories import (
+    NewsItemFactory, ShowFactory,
+    PictureFactory, ShowVideoFactory,
+)
 from django.contrib.auth.models import User
 
 
@@ -66,3 +69,19 @@ class EditTest(TestCase):
         r = self.c.get("/edit/show/%d/" % s.id)
         self.assertEqual(r.status_code, 200)
         self.assertTrue("iframe" in r.content)
+
+    def test_delete_picture(self):
+        p = PictureFactory()
+        r = self.c.post(
+            "/edit/picture/%d/delete/" % p.id,
+            dict()
+        )
+        self.assertEqual(r.status_code, 302)
+
+    def test_delete_video(self):
+        p = ShowVideoFactory()
+        r = self.c.post(
+            "/edit/showvideo/%d/delete/" % p.id,
+            dict()
+        )
+        self.assertEqual(r.status_code, 302)

@@ -1,6 +1,8 @@
 import factory
 from artsho.main.models import (
-    Show, Picture, Artist, Item, ItemArtist, NewsItem)
+    Show, Picture, Artist, Item, ItemArtist, NewsItem,
+    ShowVideo,
+)
 
 
 class ShowFactory(factory.DjangoModelFactory):
@@ -17,6 +19,12 @@ class PictureFactory(factory.DjangoModelFactory):
     title = "test picture"
     caption = "test caption"
     image = "pictures/test.jpg"
+
+
+class ShowVideoFactory(factory.DjangoModelFactory):
+    FACTORY_FOR = ShowVideo
+    show = factory.SubFactory(ShowFactory)
+    youtube_id = "6mfvSSl9L9M"
 
 
 class ArtistFactory(factory.DjangoModelFactory):
