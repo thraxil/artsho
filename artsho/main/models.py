@@ -1,4 +1,9 @@
 from django.db import models
+from datetime import datetime
+from django.conf import settings
+import re
+import os.path
+from django.template.defaultfilters import slugify
 from sorl.thumbnail.fields import ImageWithThumbnailsField
 
 
@@ -38,6 +43,26 @@ class Picture(models.Model):
 
     def get_absolute_url(self):
         return "/artsho/%d/picture/%d/" % (self.show.id, self.id)
+
+    def save_image(self, f):
+        ext = f.name.split(".")[-1].lower()
+        basename = slugify(f.name.split(".")[-2].lower())[:20]
+        if ext not in ['jpg', 'jpeg', 'gif', 'png']:
+            # unsupported image format
+            return None
+        now = datetime.now()
+        path = "pictures/%04d/%02d/%02d/" % (now.year, now.month, now.day)
+        try:
+            os.makedirs(settings.MEDIA_ROOT + "/" + path)
+        except:
+            pass
+        full_filename = path + "%s.%s" % (basename, ext)
+        fd = open(settings.MEDIA_ROOT + "/" + full_filename, 'wb')
+        for chunk in f.chunks():
+            fd.write(chunk)
+        fd.close()
+        self.image = full_filename
+        self.save()
 
 
 class ShowVideo(models.Model):

@@ -113,6 +113,16 @@
 <div class="panel panel-default">
 	<div class="panel-heading">Add Picture</div>
 	<div class="panel-body">
+		<form action="add_picture/" method="post"
+					enctype="multipart/form-data" role="form">
+
+      <div class="form-group">
+        <label for="exampleInputFile">Image</label>
+        <input type="file" id="image" name="image">
+      </div>
+
+			<input type="submit" class="btn btn-primary" value="Upload"/>
+		</form>
 	</div>
 </div>
 

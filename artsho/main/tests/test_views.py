@@ -85,3 +85,19 @@ class EditTest(TestCase):
             dict()
         )
         self.assertEqual(r.status_code, 302)
+
+    def test_add_picture(self):
+        s = ShowFactory()
+        with open('media/img/artsho5_poster.png') as img:
+            r = self.c.post(
+                "/edit/show/%d/add_picture/" % s.id,
+                dict(image=img))
+            self.assertEqual(r.status_code, 302)
+
+    def test_add_picture_unsupported_extension(self):
+        s = ShowFactory()
+        with open('media/robots.txt') as img:
+            r = self.c.post(
+                "/edit/show/%d/add_picture/" % s.id,
+                dict(image=img))
+            self.assertEqual(r.status_code, 302)

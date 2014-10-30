@@ -24,6 +24,8 @@ urlpatterns = patterns(
         views.EditShowView.as_view(), name='edit_show'),
     url(r'^edit/show/(?P<pk>\d+)/add_video/$',
         views.AddVideoToShowView.as_view(), name='edit_show_add_video'),
+    url(r'^edit/show/(?P<pk>\d+)/add_picture/$',
+        views.AddPictureView.as_view(), name='edit_show_add_picture'),
     url(r'^edit/showvideo/(?P<pk>\d+)/delete/$',
         views.DeleteShowVideoView.as_view(), name='delete_show_video'),
     url(r'^edit/picture/(?P<pk>\d+)/delete/$',

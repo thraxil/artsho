@@ -68,6 +68,15 @@ class AddVideoToShowView(LoggedInMixin, View):
         return HttpResponseRedirect(reverse('edit_show', args=[show.id]))
 
 
+class AddPictureView(LoggedInMixin, View):
+    def post(self, request, pk):
+        show = get_object_or_404(Show, pk=pk)
+        p = Picture.objects.create(show=show)
+        p.save_image(request.FILES['image'])
+        messages.success(request, "picture added to show")
+        return HttpResponseRedirect(reverse('edit_show', args=[show.id]))
+
+
 class DeleteShowVideoView(LoggedInMixin, DeleteView):
     model = ShowVideo
     success_url = "/edit/"
