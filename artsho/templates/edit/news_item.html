@@ -1,0 +1,77 @@
+{% extends 'edit_base.html' %}
+
+{% block content %}
+<ol class="breadcrumb">
+  <li><a href="/edit/">Edit Site</a></li>
+  <li class="active">News Item: {{item.title}}</li>
+</ol>
+
+{% if messages %}
+{% for message in messages %}
+<div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</div>
+{% endfor %}
+{% endif %}
+
+<div class="row">
+
+<div class="col-md-10">
+<form action="." method="post">
+
+	<div class="form-group">
+		<label for="title">
+			Title
+		</label>
+		<input type="text" name="title" id="title"
+					 class="form-control" value="{{item.title}}"/>
+				</input>
+	</div>
+
+
+	<div class="form-group">
+		<label for="top-content">
+			Top Content
+		</label>
+		<textarea name="topcontent" id="top-content"
+							rows="5" class="form-control">{{item.topcontent}}</textarea>
+	</div>
+
+	<div class="form-group">
+		<label for="content">
+			Main Content
+		</label>
+		<textarea name="content" id="content"
+							rows="10" class="form-control">{{item.content}}</textarea>
+	</div>
+
+	<input type="submit" class="btn btn-primary" value="save" />
+
+</form>
+</div>
+
+<div class="col-md-2">
+{% if not item.published %}
+<div class="alert alert-warning">
+This news item is a draft.
+<form action="{% url 'publish_news_item' item.id %}" method="post">
+<input type="submit" value="Publish" class="btn btn-warning" />
+</form>
+</div>
+{% else %}
+<div class="alert alert-info">
+This article is published.
+<form action="{% url 'revert_news_item' item.id %}" method="post">
+<input type="submit" value="Revert to Draft" class="btn btn-info" />
+</form>
+
+</div>
+{% endif %}
+
+<div class="alert alert-danger">
+<a class="btn btn-danger" href="{% url 'delete_news_item' item.id %}">Delete</a>
+</div>
+</div>
+
+
+</div>
+
+{% endblock %}

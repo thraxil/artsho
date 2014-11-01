@@ -122,6 +122,29 @@ class EditTest(TestCase):
         r = self.c.get("/edit/news/drafts/")
         self.assertEqual(r.status_code, 200)
 
-    def test_edit_news_item(self):
-        r = self.c.get("/edit/news/1/")
+    def test_edit_news_item_form(self):
+        ni = NewsItemFactory()
+        r = self.c.get("/edit/news/%d/" % ni.id)
         self.assertEqual(r.status_code, 200)
+
+    def test_edit_news_item(self):
+        ni = NewsItemFactory()
+        r = self.c.post("/edit/news/%d/" % ni.id,
+                        dict(title="new title")
+        )
+        self.assertEqual(r.status_code, 302)
+        r = self.c.get("/edit/news/%d/" % ni.id)
+        self.assertEqual(r.status_code, 200)
+        self.assertTrue("new title" in r.content)
+
+    def test_edit_news_item_publish(self):
+        ni = NewsItemFactory()
+        r = self.c.post("/edit/news/%d/publish/" % ni.id,
+        )
+        self.assertEqual(r.status_code, 302)
+
+    def test_edit_news_item_revert(self):
+        ni = NewsItemFactory()
+        r = self.c.post("/edit/news/%d/revert/" % ni.id,
+        )
+        self.assertEqual(r.status_code, 302)

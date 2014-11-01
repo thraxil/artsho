@@ -104,13 +104,14 @@ class AddNewsView(LoggedInMixin, View):
             dict())
 
     def post(self, request):
-        NewsItem.objects.create(
+        ni = NewsItem.objects.create(
             title=request.POST.get('title', 'title is required'),
             topcontent=request.POST.get('topcontent', ''),
             content=request.POST.get('content', ''),
             published=False,
         )
-        return HttpResponseRedirect(reverse('edit_index'))
+        messages.success(request, "news item added")
+        return HttpResponseRedirect(reverse('edit_news_item', args=[ni.id]))
 
 
 class NewsDraftsView(LoggedInMixin, TemplateView):
@@ -125,5 +126,43 @@ class NewsDraftsView(LoggedInMixin, TemplateView):
 
 
 class EditNewsItemView(LoggedInMixin, View):
+    template_name = "edit/news_item.html"
+
     def get(self, request, pk):
-        return HttpResponse("")
+        ni = get_object_or_404(NewsItem, pk=pk)
+        return render(
+            request, self.template_name,
+            dict(item=ni)
+        )
+
+    def post(self, request, pk):
+        ni = get_object_or_404(NewsItem, pk=pk)
+        ni.title = request.POST.get('title', 'title is required')
+        ni.content = request.POST.get('content', '')
+        ni.topcontent = request.POST.get('topcontent', '')
+        ni.save()
+        messages.success(request, "news item edited")
+        return HttpResponseRedirect(reverse('edit_news_item', args=[ni.id]))
+
+
+class PublishNewsItemView(LoggedInMixin, View):
+    def post(self, request, pk):
+        ni = get_object_or_404(NewsItem, pk=pk)
+        ni.published = True
+        ni.save()
+        messages.success(request, "news item published")
+        return HttpResponseRedirect(reverse('edit_news_item', args=[ni.id]))
+
+
+class RevertNewsItemView(LoggedInMixin, View):
+    def post(self, request, pk):
+        ni = get_object_or_404(NewsItem, pk=pk)
+        ni.published = False
+        ni.save()
+        messages.success(request, "news item reverted to draft")
+        return HttpResponseRedirect(reverse('edit_news_item', args=[ni.id]))
+
+
+class DeleteNewsItemView(LoggedInMixin, DeleteView):
+    model = NewsItem
+    success_url = "/edit/"
