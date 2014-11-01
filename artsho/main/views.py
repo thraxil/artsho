@@ -125,6 +125,17 @@ class NewsDraftsView(LoggedInMixin, TemplateView):
         return context
 
 
+class NewsArchiveView(LoggedInMixin, TemplateView):
+    template_name = "edit/news_archive.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(NewsArchiveView, self).get_context_data(**kwargs)
+        results = NewsItem.objects.filter(
+            published=True).order_by("-created")
+        context['items'] = results
+        return context
+
+
 class EditNewsItemView(LoggedInMixin, View):
     template_name = "edit/news_item.html"
 

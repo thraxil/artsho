@@ -1,0 +1,19 @@
+{% extends 'edit_base.html' %}
+
+{% block content %}
+<ol class="breadcrumb">
+  <li><a href="/edit/">Edit Site</a></li>
+  <li class="active">News Item Archive</li>
+</ol>
+
+{% if items %}
+<div class="list-group">
+{% for i in items %}
+<a href="{% url 'edit_news_item' i.id %}" class="list-group-item">{{i.title}} <span class="text-muted">[{{i.created}}]</span></a>
+{% endfor %}
+</div>
+{% else %}
+<p>No published news items</p>
+{% endif %}
+
+{% endblock %}

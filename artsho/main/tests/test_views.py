@@ -122,6 +122,10 @@ class EditTest(TestCase):
         r = self.c.get("/edit/news/drafts/")
         self.assertEqual(r.status_code, 200)
 
+    def test_news_archive_index(self):
+        r = self.c.get("/edit/news/")
+        self.assertEqual(r.status_code, 200)
+
     def test_edit_news_item_form(self):
         ni = NewsItemFactory()
         r = self.c.get("/edit/news/%d/" % ni.id)
