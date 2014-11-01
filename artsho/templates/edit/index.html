@@ -12,8 +12,8 @@
 
 <div class="list-group">
 	<a class="list-group-item" href="/edit/add_news/">Add New One</a>
-	<a class="list-group-item" href="/edit/news/drafts/">Drafts</a>
-	<a class="list-group-item" href="/edit/news/">Archive</a>
+	<a class="list-group-item {% if not drafts %}disabled{% endif %}" href="/edit/news/drafts/">Drafts ({{drafts}})</a>
+	<a class="list-group-item {% if not published %}disabled{% endif %}" href="/edit/news/">Archive ({{published}})</a>
 </div>
 
 <h2>Shows</h2>

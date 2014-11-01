@@ -38,6 +38,14 @@ class ShowDetails(DetailView):
 class EditView(LoggedInMixin, TemplateView):
     template_name = "edit/index.html"
 
+    def get_context_data(self, **kwargs):
+        context = super(EditView, self).get_context_data(**kwargs)
+        context['drafts'] = NewsItem.objects.filter(
+            published=False).count()
+        context['published'] = NewsItem.objects.filter(
+            published=True).count()
+        return context
+
 
 class EditShowView(LoggedInMixin, View):
     template_name = "edit/show.html"
