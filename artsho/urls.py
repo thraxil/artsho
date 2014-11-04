@@ -28,6 +28,9 @@ urlpatterns = patterns(
         name='news_archive'),
     url(r'^edit/news/(?P<pk>\d+)/$', views.EditNewsItemView.as_view(),
         name='edit_news_item'),
+    url(r'^edit/news/(?P<pk>\d+)/add_picture/$',
+        views.AddNewsPicture.as_view(),
+        name='add_news_picture'),
 
     url(r'^edit/news/(?P<pk>\d+)/preview/$',
         views.PreviewNewsItemView.as_view(),
@@ -51,6 +54,8 @@ urlpatterns = patterns(
         views.DeleteShowVideoView.as_view(), name='delete_show_video'),
     url(r'^edit/picture/(?P<pk>\d+)/delete/$',
         views.DeletePictureView.as_view(), name='delete_picture'),
+    url(r'^edit/newspicture/(?P<pk>\d+)/delete/$',
+        views.DeleteNewsPictureView.as_view(), name='delete_newspicture'),
 
     (r'^admin/', include(admin.site.urls)),
     url(r'^_impersonate/', include('impersonate.urls')),

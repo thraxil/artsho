@@ -4,8 +4,10 @@ from artsho.main.models import NewsItem
 from .factories import (
     NewsItemFactory, ShowFactory,
     PictureFactory, ShowVideoFactory,
+    NewsPictureFactory,
 )
 from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
 
 
 class BasicTest(TestCase):
@@ -79,6 +81,14 @@ class EditTest(TestCase):
         )
         self.assertEqual(r.status_code, 302)
 
+    def test_delete_newspicture(self):
+        p = NewsPictureFactory()
+        r = self.c.post(
+            reverse('delete_newspicture', args=[p.id]),
+            dict()
+        )
+        self.assertEqual(r.status_code, 302)
+
     def test_delete_video(self):
         p = ShowVideoFactory()
         r = self.c.post(
@@ -95,11 +105,27 @@ class EditTest(TestCase):
                 dict(image=img))
             self.assertEqual(r.status_code, 302)
 
+    def test_add_newspicture(self):
+        s = NewsItemFactory()
+        with open('media/img/artsho5_poster.png') as img:
+            r = self.c.post(
+                reverse('add_news_picture', args=[s.id]),
+                dict(image=img))
+            self.assertEqual(r.status_code, 302)
+
     def test_add_picture_unsupported_extension(self):
         s = ShowFactory()
         with open('media/robots.txt') as img:
             r = self.c.post(
                 "/edit/show/%d/add_picture/" % s.id,
+                dict(image=img))
+            self.assertEqual(r.status_code, 302)
+
+    def test_add_newspicture_unsupported_extension(self):
+        s = NewsItemFactory()
+        with open('media/robots.txt') as img:
+            r = self.c.post(
+                reverse('add_news_picture', args=[s.id]),
                 dict(image=img))
             self.assertEqual(r.status_code, 302)
 

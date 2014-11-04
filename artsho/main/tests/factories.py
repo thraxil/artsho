@@ -1,7 +1,7 @@
 import factory
 from artsho.main.models import (
     Show, Picture, Artist, Item, ItemArtist, NewsItem,
-    ShowVideo,
+    ShowVideo, NewsPicture,
 )
 
 
@@ -50,3 +50,10 @@ class NewsItemFactory(factory.DjangoModelFactory):
     topcontent = "test top content"
     content = "test content"
     published = True
+
+
+class NewsPictureFactory(factory.DjangoModelFactory):
+    FACTORY_FOR = NewsPicture
+    newsitem = factory.SubFactory(NewsItemFactory)
+    caption = "test caption"
+    image = "pictures/test.jpg"

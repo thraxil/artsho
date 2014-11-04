@@ -1,4 +1,5 @@
 {% extends 'edit_base.html' %}
+{% load thumbnail %}
 
 {% block content %}
 <ol class="breadcrumb">
@@ -14,44 +15,76 @@
 
 <div class="row">
 
-<div class="col-md-10">
-<form action="." method="post">
+	<div class="col-md-10">
 
-	<div class="form-group">
-		<label for="title">
-			Title
-		</label>
-		<input type="text" name="title" id="title"
-					 class="form-control" value="{{item.title}}"/>
-				</input>
+		<ul class="nav nav-tabs" role="tablist">
+			<li role="presentation" class="active"><a href="#info" role="tab"
+																								data-toggle="tab">Basic Info</a></li>
+			<li role="presentation"><a href="#pictures" role="tab" data-toggle="tab">Pictures</a></li>
+		</ul>
+
+		<div class="tab-content">
+			<div class="tab-pane active" id="info">
+
+				<form action="." method="post">
+
+					<div class="form-group">
+						<label for="title">
+							Title
+						</label>
+						<input type="text" name="title" id="title"
+									 class="form-control" value="{{item.title}}" />
+					</div>
+
+
+					<div class="form-group">
+						<label for="top-content">
+							Top Content
+						</label>
+						<textarea name="topcontent" id="top-content"
+											rows="5" class="form-control">{{item.topcontent}}</textarea>
+					</div>
+
+					<div class="form-group">
+						<label for="content">
+							Main Content
+						</label>
+						<textarea name="content" id="content"
+											rows="10" class="form-control">{{item.content}}</textarea>
+					</div>
+
+					<input type="submit" class="btn btn-primary" value="save" />
+				</form>
+
+			</div>
+
+			<div role="tabpanel" class="tab-pane" id="pictures">
+				<h3>Add Picture</h3>
+				<form role="form" action="{% url 'add_news_picture' item.id %}"
+							enctype="multipart/form-data" method="post">
+					<input type="file" name="image" /><br />
+					<input type="submit" value="Add Picture" class="btn
+					btn-primary" />
+
+				</form>
+				{% if item.newspicture_set.count %}
+				<h3>Pictures</h3>
+
+				{% for p in item.newspicture_set.all %}
+				<div class="thumbnail show-thumb">
+					<img src="{% thumbnail p.image 200x150 crop %}" class="img-responsive"/>
+					<div class="caption"><a href="{% url 'delete_newspicture' p.id %}" class="btn btn-danger">Delete</a></div>
+				</div>
+				{% endfor %}
+				{% endif %}
+			</div>
+		</div>
 	</div>
 
-
-	<div class="form-group">
-		<label for="top-content">
-			Top Content
-		</label>
-		<textarea name="topcontent" id="top-content"
-							rows="5" class="form-control">{{item.topcontent}}</textarea>
-	</div>
-
-	<div class="form-group">
-		<label for="content">
-			Main Content
-		</label>
-		<textarea name="content" id="content"
-							rows="10" class="form-control">{{item.content}}</textarea>
-	</div>
-
-	<input type="submit" class="btn btn-primary" value="save" />
-
-</form>
-</div>
-
-<div class="col-md-2">
-<div class="alert alert-info">
-<a href="{% url 'preview_news_item' item.id %}" target="_blank" class="btn btn-info">Preview</a>
-</div>
+	<div class="col-md-2">
+		<div class="alert alert-info">
+			<a href="{% url 'preview_news_item' item.id %}" target="_blank" class="btn btn-info">Preview</a>
+		</div>
 
 
 {% if not item.published %}

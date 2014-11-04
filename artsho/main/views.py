@@ -8,7 +8,7 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 
-from .models import Show, NewsItem, ShowVideo, Picture
+from .models import Show, NewsItem, ShowVideo, Picture, NewsPicture
 
 
 class LoggedInMixin(object):
@@ -97,10 +97,16 @@ class DeleteShowVideoView(LoggedInMixin, DeleteView):
 
 class DeletePictureView(LoggedInMixin, DeleteView):
     model = Picture
-    success_url = "/edit/"
 
     def get_success_url(self):
         return reverse('edit_show', args=[self.object.show.id])
+
+
+class DeleteNewsPictureView(LoggedInMixin, DeleteView):
+    model = NewsPicture
+
+    def get_success_url(self):
+        return reverse('edit_news_item', args=[self.object.newsitem.id])
 
 
 class AddNewsView(LoggedInMixin, View):
@@ -147,6 +153,15 @@ class NewsArchiveView(LoggedInMixin, TemplateView):
 class PreviewNewsItemView(LoggedInMixin, DetailView):
     model = NewsItem
     template_name = "edit/preview_news_item.html"
+
+
+class AddNewsPicture(LoggedInMixin, View):
+    def post(self, request, pk):
+        ni = get_object_or_404(NewsItem, pk=pk)
+        p = NewsPicture.objects.create(newsitem=ni)
+        p.save_image(request.FILES['image'])
+        messages.success(request, "picture added to news item")
+        return HttpResponseRedirect(reverse('edit_news_item', args=[ni.id]))
 
 
 class EditNewsItemView(LoggedInMixin, View):
