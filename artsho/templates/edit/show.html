@@ -126,17 +126,60 @@
 {% if show.picture_set.count %}
 <h3>Pictures</h3>
 
+<div id="images">
 {% for p in show.picture_set.all %}
 
-<div class="thumbnail show-thumb">
+<div class="thumbnail show-thumb" id="{{p.id}}">
 		<img src="{% thumbnail p.image 200x150 crop %}" class="img-responsive"/>
 	<div class="caption"><a href="/edit/picture/{{p.id}}/delete/" class="btn btn-danger">Delete</a></div>
 </div>
 {% endfor %}
+</div>
 
 {% endif %}
 
 </div>
 </div>
+
+{% endblock %}
+
+
+{% block js %}
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+
+<script>
+var saveOrderOfImages = function() {
+  var url = "{% url 'reorder_show_pictures' show.id %}";
+  var worktodo = 0;
+  var data = {};
+  jQuery(".show-thumb").each(function(index, element) {
+     worktodo = 1;
+     var id = jQuery(element).attr('id');
+     data["pic_" + index] = id;
+  });
+  if (worktodo == 1) {
+       $.ajax({
+          url: url,
+          type: 'POST',
+          data: data
+       })
+  }
+};
+    
+
+$(function() {
+$( "#images" ).sortable({
+   items : 'div.show-thumb'
+
+// , tolerance : 'pointer'
+
+
+ , stop: function (event,ui) { saveOrderOfImages(); }
+});
+$( "#images" ).disableSelection();
+});
+</script>
 
 {% endblock %}

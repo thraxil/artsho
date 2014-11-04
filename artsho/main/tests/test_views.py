@@ -62,6 +62,16 @@ class EditTest(TestCase):
         self.assertEqual(r.status_code, 200)
         self.assertTrue("new title" in r.content)
 
+    def test_reorder_show_pictures(self):
+        s = ShowFactory()
+        p1 = PictureFactory(show=s)
+        p2 = PictureFactory(show=s)
+        r = self.c.post(
+            reverse('reorder_show_pictures', args=[s.id]),
+            dict(pic_1=p2.id, pic_2=p1.id))
+        self.assertEqual(r.status_code, 200)
+        self.assertEqual(r.content, "ok")
+
     def test_add_video(self):
         s = ShowFactory()
         r = self.c.post(

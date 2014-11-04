@@ -5,7 +5,7 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
 from django.contrib import messages
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.core.urlresolvers import reverse
 
 from .models import (
@@ -67,6 +67,16 @@ class EditShowView(LoggedInMixin, View):
         show.save()
         messages.success(request, "Show updated")
         return HttpResponseRedirect(reverse('edit_show', args=[show.id]))
+
+
+class ReorderShowPicturesView(LoggedInMixin, View):
+    def post(self, request, pk):
+        show = get_object_or_404(Show, pk=pk)
+        keys = [int(k[len('pic_'):]) for k in request.POST.keys()]
+        keys.sort()
+        sis = [int(request.POST["pic_%d" % k]) for k in keys]
+        show.set_picture_order(sis)
+        return HttpResponse("ok")
 
 
 class AddVideoToShowView(LoggedInMixin, View):

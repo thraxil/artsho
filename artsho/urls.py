@@ -48,6 +48,9 @@ urlpatterns = patterns(
         views.EditShowView.as_view(), name='edit_show'),
     url(r'^edit/show/(?P<pk>\d+)/add_video/$',
         views.AddVideoToShowView.as_view(), name='edit_show_add_video'),
+    url(r'^edit/show/(?P<pk>\d+)/reorder_pictures/$',
+        views.ReorderShowPicturesView.as_view(), name='reorder_show_pictures'),
+
     url(r'^edit/show/(?P<pk>\d+)/add_picture/$',
         views.AddPictureView.as_view(), name='edit_show_add_picture'),
     url(r'^edit/showvideo/(?P<pk>\d+)/delete/$',
