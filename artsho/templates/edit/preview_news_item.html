@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load markup %}
+{% load thumbnail %}
+
+{% block pagetitle %}NOW{% endblock %}
+{% block pageid %}now{% endblock %}
+
+{% block topcontent %}
+<p><b>{{object.title}}</b></p>
+{{ object.topcontent|markdown }}
+{% endblock %}
+
+{% block content %}
+{{ object.content|markdown }}
+
+{% if object.newspicture_set.count %}
+{% for pic in object.newspicture_set.all %}
+<img src="{% thumbnail pic.image 960x960 %}" alt="{{pic.caption}}"
+		 class="img-responsive" />
+{% endfor %}
+{% endif %}
+
+<div class="alert alert-warning">This is just a preview</div>
+{% endblock %}

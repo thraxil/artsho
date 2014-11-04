@@ -49,6 +49,11 @@
 </div>
 
 <div class="col-md-2">
+<div class="alert alert-info">
+<a href="{% url 'preview_news_item' item.id %}" target="_blank" class="btn btn-info">Preview</a>
+</div>
+
+
 {% if not item.published %}
 <div class="alert alert-warning">
 This news item is a draft.

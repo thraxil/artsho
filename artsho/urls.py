@@ -28,6 +28,11 @@ urlpatterns = patterns(
         name='news_archive'),
     url(r'^edit/news/(?P<pk>\d+)/$', views.EditNewsItemView.as_view(),
         name='edit_news_item'),
+
+    url(r'^edit/news/(?P<pk>\d+)/preview/$',
+        views.PreviewNewsItemView.as_view(),
+        name='preview_news_item'),
+
     url(r'^edit/news/(?P<pk>\d+)/publish/$',
         views.PublishNewsItemView.as_view(),
         name='publish_news_item'),

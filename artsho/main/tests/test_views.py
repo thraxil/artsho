@@ -131,6 +131,11 @@ class EditTest(TestCase):
         r = self.c.get("/edit/news/%d/" % ni.id)
         self.assertEqual(r.status_code, 200)
 
+    def test_preview_news_item(self):
+        ni = NewsItemFactory()
+        r = self.c.get("/edit/news/%d/preview/" % ni.id)
+        self.assertEqual(r.status_code, 200)
+
     def test_edit_news_item(self):
         ni = NewsItemFactory()
         r = self.c.post(

@@ -26,7 +26,7 @@ validate: ./ve/bin/python
 shell: ./ve/bin/python
 	$(MANAGE) shell_plus
 
-coverage: ./ve/bin/python
+coverage: ./ve/bin/python flake8
 	. ./ve/bin/activate && ./ve/bin/coverage run --source='artsho' ./manage.py test \
 	&& ./ve/bin/coverage html -d reports --omit='*migrations*,*settings_*'
 

@@ -144,6 +144,11 @@ class NewsArchiveView(LoggedInMixin, TemplateView):
         return context
 
 
+class PreviewNewsItemView(LoggedInMixin, DetailView):
+    model = NewsItem
+    template_name = "edit/preview_news_item.html"
+
+
 class EditNewsItemView(LoggedInMixin, View):
     template_name = "edit/news_item.html"
 
