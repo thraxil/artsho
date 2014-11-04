@@ -72,6 +72,16 @@ class EditTest(TestCase):
         self.assertEqual(r.status_code, 200)
         self.assertEqual(r.content, "ok")
 
+    def test_reorder_show_videos(self):
+        s = ShowFactory()
+        p1 = ShowVideoFactory(show=s)
+        p2 = ShowVideoFactory(show=s)
+        r = self.c.post(
+            reverse('reorder_show_videos', args=[s.id]),
+            dict(video_1=p2.id, video_2=p1.id))
+        self.assertEqual(r.status_code, 200)
+        self.assertEqual(r.content, "ok")
+
     def test_add_video(self):
         s = ShowFactory()
         r = self.c.post(

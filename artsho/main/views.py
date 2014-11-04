@@ -79,6 +79,16 @@ class ReorderShowPicturesView(LoggedInMixin, View):
         return HttpResponse("ok")
 
 
+class ReorderShowVideosView(LoggedInMixin, View):
+    def post(self, request, pk):
+        show = get_object_or_404(Show, pk=pk)
+        keys = [int(k[len('video_'):]) for k in request.POST.keys()]
+        keys.sort()
+        sis = [int(request.POST["video_%d" % k]) for k in keys]
+        show.set_showvideo_order(sis)
+        return HttpResponse("ok")
+
+
 class AddVideoToShowView(LoggedInMixin, View):
     def post(self, request, pk):
         show = get_object_or_404(Show, pk=pk)

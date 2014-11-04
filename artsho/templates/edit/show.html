@@ -88,9 +88,10 @@
 {% if show.showvideo_set.count %}
 <h3>Videos</h3>
 
+<div id="videos-list">
 		{% for sv in show.showvideo_set.all %}
 
-<div class="row">
+<div class="row show-video" id="{{sv.id}}">
 <div class="col-md-1">
 <a href="/edit/showvideo/{{sv.id}}/delete/" class="btn btn-danger">Delete</a>
 </div>
@@ -105,6 +106,7 @@
 </div>
 </div>
 		{% endfor %}
+</div>
 {% endif %}
 
 </div>
@@ -167,18 +169,39 @@ var saveOrderOfImages = function() {
        })
   }
 };
+
+var saveOrderOfVideos = function() {
+  var url = "{% url 'reorder_show_videos' show.id %}";
+  var worktodo = 0;
+  var data = {};
+  jQuery(".show-video").each(function(index, element) {
+     worktodo = 1;
+     var id = jQuery(element).attr('id');
+     data["video_" + index] = id;
+  });
+  if (worktodo == 1) {
+       $.ajax({
+          url: url,
+          type: 'POST',
+          data: data
+       })
+  }
+};
     
 
 $(function() {
-$( "#images" ).sortable({
-   items : 'div.show-thumb'
+  $( "#images" ).sortable({
+     items : 'div.show-thumb'
+   , stop: function (event,ui) { saveOrderOfImages(); }
+  });
+  $( "#images" ).disableSelection();
 
-// , tolerance : 'pointer'
+  $( "#videos-list" ).sortable({
+     items : 'div.show-video'
+   , stop: function (event,ui) { saveOrderOfVideos(); }
+  });
+  $( "#videos-list" ).disableSelection();
 
-
- , stop: function (event,ui) { saveOrderOfImages(); }
-});
-$( "#images" ).disableSelection();
 });
 </script>
 
