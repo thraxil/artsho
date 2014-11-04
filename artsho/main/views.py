@@ -8,7 +8,9 @@ from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 
-from .models import Show, NewsItem, ShowVideo, Picture, NewsPicture
+from .models import (
+    Show, NewsItem, ShowVideo, Picture, NewsPicture,
+    save_image)
 
 
 class LoggedInMixin(object):
@@ -82,7 +84,7 @@ class AddPictureView(LoggedInMixin, View):
         show = get_object_or_404(Show, pk=pk)
         show.update_picture_order()
         p = Picture.objects.create(show=show)
-        p.save_image(request.FILES['image'])
+        save_image(p, request.FILES['image'])
         messages.success(request, "picture added to show")
         return HttpResponseRedirect(reverse('edit_show', args=[show.id]))
 
@@ -159,7 +161,7 @@ class AddNewsPicture(LoggedInMixin, View):
     def post(self, request, pk):
         ni = get_object_or_404(NewsItem, pk=pk)
         p = NewsPicture.objects.create(newsitem=ni)
-        p.save_image(request.FILES['image'])
+        save_image(p, request.FILES['image'])
         messages.success(request, "picture added to news item")
         return HttpResponseRedirect(reverse('edit_news_item', args=[ni.id]))
 
