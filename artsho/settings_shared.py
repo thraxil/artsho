@@ -37,9 +37,11 @@ TEST_OUTPUT_DIR = 'reports'
 
 PROJECT_APPS = [
     'artsho.main',
+    'artsho.bidauth',
 ]
 TEST_PROJECT_APPS = [
     'artsho.main',
+    'artsho.bidauth',
 ]
 
 ALLOWED_HOSTS = ['localhost', '.spokehub.org']
@@ -115,6 +117,7 @@ INSTALLED_APPS = [
     'impersonate',
     'gunicorn',
     'artsho.main',
+    'artsho.bidauth',
 ]
 
 INTERNAL_IPS = ('127.0.0.1', )
