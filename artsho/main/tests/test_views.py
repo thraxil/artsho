@@ -4,7 +4,7 @@ from artsho.main.models import NewsItem
 from .factories import (
     NewsItemFactory, ShowFactory,
     PictureFactory, ShowVideoFactory,
-    NewsPictureFactory,
+    NewsPictureFactory, AuctionFactory,
 )
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
@@ -218,3 +218,13 @@ class EditTest(TestCase):
             "/edit/news/%d/revert/" % ni.id,
             dict())
         self.assertEqual(r.status_code, 302)
+
+
+class TestAuctionLoggedOut(TestCase):
+    def setUp(self):
+        self.c = Client()
+
+    def test_details_page(self):
+        a = AuctionFactory()
+        r = self.c.get(reverse('auction_details', args=[a.id]))
+        self.assertEquals(r.status_code, 200)

@@ -19,6 +19,9 @@ urlpatterns = patterns(
 
     (r'^artsho/(?P<pk>\d+)/$', views.ShowDetails.as_view()),
 
+    url(r'^auction/(?P<pk>\d+)/$', views.AuctionDetailsView.as_view(),
+        name='auction_details'),
+
     url(r'^edit/$', views.EditView.as_view(), name='edit_index'),
 
     url(r'^edit/add_news/$', views.AddNewsView.as_view(), name='add_news'),

@@ -13,7 +13,7 @@ from django.contrib.auth import REDIRECT_FIELD_NAME
 
 from .models import (
     Show, NewsItem, ShowVideo, Picture, NewsPicture,
-    save_image)
+    save_image, Auction)
 
 
 class StaffMixin(object):
@@ -235,3 +235,7 @@ class RevertNewsItemView(StaffMixin, View):
 class DeleteNewsItemView(StaffMixin, DeleteView):
     model = NewsItem
     success_url = "/edit/"
+
+
+class AuctionDetailsView(DetailView):
+    model = Auction

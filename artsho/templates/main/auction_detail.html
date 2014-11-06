@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Auction for {{auction.show.title}}</h1>
+
+{% ifequal auction.status "upcoming" %}
+<p>Auction will open on {{auction.start}}</p>
+{% endifequal %}
+
+{% ifequal auction.status "ongoing" %}
+<p>Auction will close around {{auction.end}}</p>
+{% endifequal %}
+
+{% ifequal auction.status "completed" %}
+<p>Auction closed on {{auction.end}}</p>
+{% endifequal %}
+
+{% endblock %}
