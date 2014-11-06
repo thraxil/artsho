@@ -118,6 +118,9 @@ class Auction(models.Model):
             ("completed", "completed"),
         ))
 
+    def __unicode__(self):
+        return "Auction for %s" % str(self.show)
+
 
 class AuctionItem(models.Model):
     auction = models.ForeignKey(Auction)
@@ -126,6 +129,9 @@ class AuctionItem(models.Model):
 
     class Meta:
         order_with_respect_to = 'auction'
+
+    def __unicode__(self):
+        return "%s - %s" % (str(self.auction), str(self.item))
 
 
 class Bid(models.Model):
@@ -136,6 +142,11 @@ class Bid(models.Model):
 
     class Meta:
         ordering = ('-amount',)
+
+    def __unicode__(self):
+        return "bid for $%d on %s by %s at %s" % (
+            self.amount, self.auctionitem.item, self.user.email,
+            self.entered)
 
 
 class NewsItem(models.Model):

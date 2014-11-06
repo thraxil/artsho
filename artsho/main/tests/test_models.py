@@ -1,7 +1,9 @@
 from django.test import TestCase
 from .factories import (
     ShowFactory, PictureFactory, ArtistFactory,
-    ItemFactory, ItemArtistFactory, NewsItemFactory)
+    ItemFactory, ItemArtistFactory, NewsItemFactory,
+    AuctionFactory, AuctionItemFactory, BidFactory,
+)
 
 
 class ShowTest(TestCase):
@@ -54,3 +56,21 @@ class NewsItemTest(TestCase):
     def test_unicode(self):
         ni = NewsItemFactory()
         self.assertEqual(str(ni), "test news item")
+
+
+class AuctionTest(TestCase):
+    def test_unicode(self):
+        a = AuctionFactory()
+        self.assertEqual(str(a), "Auction for test show")
+
+
+class AuctionItemTest(TestCase):
+    def test_unicode(self):
+        a = AuctionItemFactory()
+        self.assertEqual(str(a), "Auction for test show - test item")
+
+
+class BidTest(TestCase):
+    def test_unicode(self):
+        a = BidFactory()
+        self.assertTrue(str(a).startswith("bid for "))
