@@ -4,6 +4,7 @@ from django.conf import settings
 import os.path
 from django.template.defaultfilters import slugify
 from sorl.thumbnail.fields import ImageWithThumbnailsField
+from django.contrib.auth.models import User
 
 
 class Show(models.Model):
@@ -102,6 +103,39 @@ class ItemArtist(models.Model):
 
     def __unicode__(self):
         return "%s - %s" % (self.item, self.artist)
+
+
+class Auction(models.Model):
+    show = models.ForeignKey(Show)
+    start = models.DateField(blank=True)
+    end = models.DateField(blank=True)
+    status = models.CharField(
+        default="upcoming",
+        max_length=32,
+        choices=(
+            ("upcoming", "upcoming"),
+            ("ongoing", "ongoing"),
+            ("completed", "completed"),
+        ))
+
+
+class AuctionItem(models.Model):
+    auction = models.ForeignKey(Auction)
+    item = models.ForeignKey(Item)
+    starting_bid = models.PositiveIntegerField(default=1)
+
+    class Meta:
+        order_with_respect_to = 'auction'
+
+
+class Bid(models.Model):
+    auctionitem = models.ForeignKey(AuctionItem)
+    user = models.ForeignKey(User)
+    amount = models.PositiveIntegerField(default=1)
+    entered = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ('-amount',)
 
 
 class NewsItem(models.Model):
