@@ -37,7 +37,7 @@ class IndexTest(TestCase):
 class EditTest(TestCase):
     def setUp(self):
         self.c = Client()
-        self.u = User.objects.create(username='test')
+        self.u = User.objects.create(username='test', is_staff=True)
         self.u.set_password('test')
         self.u.save()
         self.c.login(username='test', password='test')
@@ -45,6 +45,19 @@ class EditTest(TestCase):
     def test_edit_index(self):
         r = self.c.get("/edit/")
         self.assertEqual(r.status_code, 200)
+
+    def test_anonymous(self):
+        c = Client()
+        r = c.get("/edit/")
+        self.assertEqual(r.status_code, 302)
+
+    def test_non_staff(self):
+        u2 = User.objects.create(username='test2', is_staff=False)
+        u2.set_password('test')
+        u2.save()
+        self.c.login(username='test2', password='test')
+        r = self.c.get("/edit/")
+        self.assertEqual(r.status_code, 403)
 
     def test_edit_show_form(self):
         s = ShowFactory()

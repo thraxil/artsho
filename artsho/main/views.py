@@ -1,22 +1,30 @@
 from django.views.generic.base import TemplateView
 from django.views.generic import DetailView, View
 from django.views.generic.edit import DeleteView
-from django.utils.decorators import method_decorator
-from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404
 from django.contrib import messages
-from django.http import HttpResponseRedirect, HttpResponse
+from django.conf import settings
+from django.http import (
+    HttpResponseRedirect, HttpResponse, HttpResponseForbidden)
 from django.core.urlresolvers import reverse
+from django.contrib.auth.views import redirect_to_login
+from django.contrib.auth import REDIRECT_FIELD_NAME
+
 
 from .models import (
     Show, NewsItem, ShowVideo, Picture, NewsPicture,
     save_image)
 
 
-class LoggedInMixin(object):
-    @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        return super(LoggedInMixin, self).dispatch(*args, **kwargs)
+class StaffMixin(object):
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user or request.user.is_anonymous():
+            return redirect_to_login(request.get_full_path(),
+                                     settings.LOGIN_URL,
+                                     REDIRECT_FIELD_NAME)
+        if not request.user.is_staff:
+            return HttpResponseForbidden()
+        return super(StaffMixin, self).dispatch(request, *args, **kwargs)
 
 
 class IndexView(TemplateView):
@@ -37,7 +45,7 @@ class ShowDetails(DetailView):
     model = Show
 
 
-class EditView(LoggedInMixin, TemplateView):
+class EditView(StaffMixin, TemplateView):
     template_name = "edit/index.html"
 
     def get_context_data(self, **kwargs):
@@ -49,7 +57,7 @@ class EditView(LoggedInMixin, TemplateView):
         return context
 
 
-class EditShowView(LoggedInMixin, View):
+class EditShowView(StaffMixin, View):
     template_name = "edit/show.html"
 
     def get(self, request, pk):
@@ -69,7 +77,7 @@ class EditShowView(LoggedInMixin, View):
         return HttpResponseRedirect(reverse('edit_show', args=[show.id]))
 
 
-class ReorderShowPicturesView(LoggedInMixin, View):
+class ReorderShowPicturesView(StaffMixin, View):
     def post(self, request, pk):
         show = get_object_or_404(Show, pk=pk)
         keys = [int(k[len('pic_'):]) for k in request.POST.keys()]
@@ -79,7 +87,7 @@ class ReorderShowPicturesView(LoggedInMixin, View):
         return HttpResponse("ok")
 
 
-class ReorderShowVideosView(LoggedInMixin, View):
+class ReorderShowVideosView(StaffMixin, View):
     def post(self, request, pk):
         show = get_object_or_404(Show, pk=pk)
         keys = [int(k[len('video_'):]) for k in request.POST.keys()]
@@ -89,7 +97,7 @@ class ReorderShowVideosView(LoggedInMixin, View):
         return HttpResponse("ok")
 
 
-class AddVideoToShowView(LoggedInMixin, View):
+class AddVideoToShowView(StaffMixin, View):
     def post(self, request, pk):
         show = get_object_or_404(Show, pk=pk)
         show.update_video_order()
@@ -99,7 +107,7 @@ class AddVideoToShowView(LoggedInMixin, View):
         return HttpResponseRedirect(reverse('edit_show', args=[show.id]))
 
 
-class AddPictureView(LoggedInMixin, View):
+class AddPictureView(StaffMixin, View):
     def post(self, request, pk):
         show = get_object_or_404(Show, pk=pk)
         show.update_picture_order()
@@ -109,7 +117,7 @@ class AddPictureView(LoggedInMixin, View):
         return HttpResponseRedirect(reverse('edit_show', args=[show.id]))
 
 
-class DeleteShowVideoView(LoggedInMixin, DeleteView):
+class DeleteShowVideoView(StaffMixin, DeleteView):
     model = ShowVideo
     success_url = "/edit/"
 
@@ -117,21 +125,21 @@ class DeleteShowVideoView(LoggedInMixin, DeleteView):
         return reverse('edit_show', args=[self.object.show.id])
 
 
-class DeletePictureView(LoggedInMixin, DeleteView):
+class DeletePictureView(StaffMixin, DeleteView):
     model = Picture
 
     def get_success_url(self):
         return reverse('edit_show', args=[self.object.show.id])
 
 
-class DeleteNewsPictureView(LoggedInMixin, DeleteView):
+class DeleteNewsPictureView(StaffMixin, DeleteView):
     model = NewsPicture
 
     def get_success_url(self):
         return reverse('edit_news_item', args=[self.object.newsitem.id])
 
 
-class AddNewsView(LoggedInMixin, View):
+class AddNewsView(StaffMixin, View):
     template_name = "edit/add_news.html"
 
     def get(self, request):
@@ -150,7 +158,7 @@ class AddNewsView(LoggedInMixin, View):
         return HttpResponseRedirect(reverse('edit_news_item', args=[ni.id]))
 
 
-class NewsDraftsView(LoggedInMixin, TemplateView):
+class NewsDraftsView(StaffMixin, TemplateView):
     template_name = "edit/news_drafts.html"
 
     def get_context_data(self, **kwargs):
@@ -161,7 +169,7 @@ class NewsDraftsView(LoggedInMixin, TemplateView):
         return context
 
 
-class NewsArchiveView(LoggedInMixin, TemplateView):
+class NewsArchiveView(StaffMixin, TemplateView):
     template_name = "edit/news_archive.html"
 
     def get_context_data(self, **kwargs):
@@ -172,12 +180,12 @@ class NewsArchiveView(LoggedInMixin, TemplateView):
         return context
 
 
-class PreviewNewsItemView(LoggedInMixin, DetailView):
+class PreviewNewsItemView(StaffMixin, DetailView):
     model = NewsItem
     template_name = "edit/preview_news_item.html"
 
 
-class AddNewsPicture(LoggedInMixin, View):
+class AddNewsPicture(StaffMixin, View):
     def post(self, request, pk):
         ni = get_object_or_404(NewsItem, pk=pk)
         p = NewsPicture.objects.create(newsitem=ni)
@@ -186,7 +194,7 @@ class AddNewsPicture(LoggedInMixin, View):
         return HttpResponseRedirect(reverse('edit_news_item', args=[ni.id]))
 
 
-class EditNewsItemView(LoggedInMixin, View):
+class EditNewsItemView(StaffMixin, View):
     template_name = "edit/news_item.html"
 
     def get(self, request, pk):
@@ -206,7 +214,7 @@ class EditNewsItemView(LoggedInMixin, View):
         return HttpResponseRedirect(reverse('edit_news_item', args=[ni.id]))
 
 
-class PublishNewsItemView(LoggedInMixin, View):
+class PublishNewsItemView(StaffMixin, View):
     def post(self, request, pk):
         ni = get_object_or_404(NewsItem, pk=pk)
         ni.published = True
@@ -215,7 +223,7 @@ class PublishNewsItemView(LoggedInMixin, View):
         return HttpResponseRedirect(reverse('edit_news_item', args=[ni.id]))
 
 
-class RevertNewsItemView(LoggedInMixin, View):
+class RevertNewsItemView(StaffMixin, View):
     def post(self, request, pk):
         ni = get_object_or_404(NewsItem, pk=pk)
         ni.published = False
@@ -224,6 +232,6 @@ class RevertNewsItemView(LoggedInMixin, View):
         return HttpResponseRedirect(reverse('edit_news_item', args=[ni.id]))
 
 
-class DeleteNewsItemView(LoggedInMixin, DeleteView):
+class DeleteNewsItemView(StaffMixin, DeleteView):
     model = NewsItem
     success_url = "/edit/"
