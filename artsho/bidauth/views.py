@@ -43,8 +43,8 @@ class LoginView(View):
         return render(request, self.template_name, dict())
 
     def post(self, request):
-        email = request.POST.get('email', None)
-        if email is None:
+        email = request.POST.get('email', '')
+        if email == '':
             return HttpResponse("please enter an email address")
         # existing or new user?
         r = User.objects.filter(email=email.lower())
