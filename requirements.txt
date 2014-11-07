@@ -34,6 +34,7 @@ sqlparse==0.1.11
 pycrypto==2.6
 paramiko==1.11.0
 Fabric==1.7
+itsdangerous==0.24
 
 sorl==3.1
 django-indexer==0.3.0

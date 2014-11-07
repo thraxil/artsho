@@ -65,6 +65,8 @@ urlpatterns = patterns(
     url(r'^edit/newspicture/(?P<pk>\d+)/delete/$',
         views.DeleteNewsPictureView.as_view(), name='delete_newspicture'),
 
+    (r'^bidauth/', include('artsho.bidauth.urls')),
+
     (r'^admin/', include(admin.site.urls)),
     url(r'^_impersonate/', include('impersonate.urls')),
     (r'^stats/$', TemplateView.as_view(template_name="stats.html")),

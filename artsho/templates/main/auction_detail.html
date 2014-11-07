@@ -1,4 +1,19 @@
 {% extends 'base.html' %}
+
+{% block topcontent %}
+{% if request.user.is_anonymous %}
+<div class="alert alert-info">
+<a href="{% url 'bidauth_login' %}" class="btn btn-info">Login/Register</a> to bid.
+</div>
+{% else %}
+<div class="alert alert-info">
+Logged in as {{request.user.email}}
+[<a href="/accounts/logout/">logout</a>]
+</div>
+{% endif %}
+
+{% endblock %}
+
 {% block content %}
 
 <h1>Auction for {{auction.show.title}}</h1>
