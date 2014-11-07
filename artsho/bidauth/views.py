@@ -8,6 +8,7 @@ from itsdangerous import URLSafeSerializer
 import time
 from .models import make_and_email_token, Token
 from django.contrib.auth import login as django_login
+from django.conf import settings
 
 
 class LoginView(View):
@@ -19,7 +20,7 @@ class LoginView(View):
 
         token = request.GET.get('token', False)
         if token:
-            s = URLSafeSerializer('secret-key')
+            s = URLSafeSerializer(settings.BIDAUTH_SECRET)
             sig_ok, payload = s.loads_unsafe(token)
             if not sig_ok:
                 return HttpResponse("bad token")

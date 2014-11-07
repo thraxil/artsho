@@ -163,6 +163,7 @@ SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
 LOGIN_REDIRECT_URL = "/"
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTOCOL', 'https')
+BIDAUTH_SECRET = 'this-gets-overridden-in-local_settings-on-production'
 
 LOGGING = {
     'version': 1,

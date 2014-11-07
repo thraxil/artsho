@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from itsdangerous import URLSafeSerializer
+from django.conf import settings
 import time
 
 
@@ -10,7 +11,7 @@ class Token(models.Model):
 
 
 def make_token(user):
-    s = URLSafeSerializer('secret-key')
+    s = URLSafeSerializer(settings.BIDAUTH_SECRET)
     return Token.objects.create(
         user=user,
         token=s.dumps(dict(
