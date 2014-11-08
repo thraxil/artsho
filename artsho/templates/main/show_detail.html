@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load markup %}
 {% load thumbnail %}
+{% load waffle_tags %}
 
 {% block pagetitle %}{{object.title}}{% endblock %}
 {% block pageid %}artsho{{show.id}}{% endblock %}
@@ -11,6 +12,13 @@
 
 
 {% block content %}
+{% flag auctions %}
+{% if object.auction %}
+<p><a href="{% url 'auction_details' object.auction.id %}">Visit the Auction for this Show</a></p>
+{% endif %}
+{% endflag %}
+
+
 {{object.description|markdown}}
 
 {% if show.showvideo_set.count %}

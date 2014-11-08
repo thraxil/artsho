@@ -28,6 +28,12 @@ class Show(models.Model):
     def update_video_order(self):
         self.set_showvideo_order(self.get_showvideo_order())
 
+    def auction(self):
+        if self.auction_set.all().count() == 0:
+            return None
+        else:
+            return self.auction_set.all()[0]
+
 
 class Picture(models.Model):
     show = models.ForeignKey(Show)

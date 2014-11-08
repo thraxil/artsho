@@ -15,6 +15,12 @@ class ShowTest(TestCase):
         s = ShowFactory()
         self.assertEqual(s.get_absolute_url(), "/artsho/1/")
 
+    def test_auction(self):
+        s = ShowFactory()
+        self.assertEqual(s.auction(), None)
+        a = AuctionFactory(show=s)
+        self.assertEqual(s.auction().id, a.id)
+
 
 class PictureTest(TestCase):
     def test_unicode(self):
