@@ -22,6 +22,7 @@
   data-toggle="tab">Basic Info</a></li>
   <li role="presentation"><a href="#videos" role="tab" data-toggle="tab">Videos</a></li>
   <li role="presentation"><a href="#pictures" role="tab" data-toggle="tab">Pictures</a></li>
+  <li role="presentation"><a href="#auction" role="tab" data-toggle="tab">Auction</a></li>
 </ul>
 
 <div class="tab-content">
@@ -141,6 +142,33 @@
 {% endif %}
 
 </div>
+
+<div role="tabpanel" class="tab-pane" id="auction">
+<h3>Auction</h3>
+{% if show.auction %}
+<p>Manage Auction [coming soon]</p>
+{% else %}
+<p>This show doesn't have an auction defined.</p>
+<form action="{% url 'add_auction' show.id %}" method="post" role="form">
+
+      <div class="form-group">
+        <label for="start">Start</label>
+				<input type="text" name="start" id="start" placeholder="YYYY-MM-DD"
+				class="form-control" />
+      </div>
+
+      <div class="form-group">
+        <label for="end">End</label>
+				<input type="text" name="end" id="end" placeholder="YYYY-MM-DD"
+				class="form-control" />
+      </div>
+
+			<input type="submit" value="Add Auction" class="btn btn-primary" />
+</form>
+{% endif %}
+
+</div>
+
 </div>
 
 {% endblock %}

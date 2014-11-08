@@ -114,6 +114,13 @@ class EditTest(TestCase):
         )
         self.assertEqual(r.status_code, 302)
 
+    def test_add_auction(self):
+        s = ShowFactory()
+        r = self.c.post(
+            reverse('add_auction', args=[s.id]),
+            dict(start='2014-11-01', end='2014-11-07'))
+        self.assertEqual(r.status_code, 302)
+
     def test_delete_newspicture(self):
         p = NewsPictureFactory()
         r = self.c.post(

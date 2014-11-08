@@ -117,6 +117,17 @@ class AddPictureView(StaffMixin, View):
         return HttpResponseRedirect(reverse('edit_show', args=[show.id]))
 
 
+class AddAuctionView(StaffMixin, View):
+    def post(self, request, pk):
+        show = get_object_or_404(Show, pk=pk)
+        Auction.objects.create(
+            show=show,
+            start=request.POST['start'],
+            end=request.POST['end'],
+        )
+        return HttpResponseRedirect(reverse('edit_show', args=[show.id]))
+
+
 class DeleteShowVideoView(StaffMixin, DeleteView):
     model = ShowVideo
     success_url = "/edit/"
