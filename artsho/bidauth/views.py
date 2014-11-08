@@ -11,6 +11,11 @@ from django.contrib.auth import login as django_login
 from django.conf import settings
 
 
+def within_an_hour(timestamp):
+    now = time.time()
+    return abs(now - timestamp) < 3600
+
+
 class LoginView(View):
     template_name = "bidauth/login.html"
 
@@ -25,9 +30,7 @@ class LoginView(View):
             if not sig_ok:
                 return HttpResponse("bad token")
             email = payload['email']
-            timestamp = payload['timestamp']
-            now = time.time()
-            if abs(now - timestamp) > 3600:
+            if not within_an_hour(payload['timestamp']):
                 # token's only valid for an hour
                 return HttpResponse("stale token")
             r = Token.objects.filter(
