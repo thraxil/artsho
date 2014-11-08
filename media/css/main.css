@@ -45,6 +45,20 @@ body#artsho2 #menu-artsho2 { font-weight: bold; }
 body#artsho3 #menu-artsho3 { font-weight: bold; }
 body#artsho4 #menu-artsho4 { font-weight: bold; }
 
+.menu-item {
+  display: block;
+  padding-top: 5px;
+	padding-bottom: 5px;
+	font-size: 150%;
+  color: #000;
+}
+
+.menu-item:hover {
+		text-decoration: none;
+		color: #000;
+    background-color: #f5f5f5;
+}
+
 .show-thumb {
 		width: 208px;
 		height: 208px;

@@ -43,15 +43,15 @@
 {% block sidenav %}
 
 <div class="list-group">
-	<a class="list-group-item" id="menu-now" href="/">NOW</a>
-	<a class="list-group-item" id="menu-about" href="/about/">ABOUT</a>
-	<a class="list-group-item" id="menu-map" href="/map/">MAP</a>
+	<a class="menu-item" id="menu-now" href="/">NOW</a>
+	<a class="menu-item" id="menu-about" href="/about/">ABOUT</a>
+	<a class="menu-item" id="menu-map" href="/map/">MAP</a>
 
 {% for show in all_shows %}
-	<a class="list-group-item" id="menu-artsho{{ show.id }}" href="{{show.get_absolute_url}}">{{show.title}}</a>
+	<a class="menu-item" id="menu-artsho{{ show.id }}" href="{{show.get_absolute_url}}">{{show.title}}</a>
 {% endfor %}
 
-	<a class="list-group-item" id="menu-contact" href="/contact/">CONTACT</a>
+	<a class="menu-item" id="menu-contact" href="/contact/">CONTACT</a>
 </div>
 
 
