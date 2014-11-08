@@ -31,15 +31,7 @@
 		<h1 id="logo-header">
 			<img src="{{STATIC_URL}}img/artsho_logo_black.png"/>
 		</h1>
-	</div>
 
-	<div class="col-md-10 topcontent">
-     <h2>{% block pagetitle %}{% endblock %}</h2>
-		 {% block topcontent %}{% endblock %}
-	</div>
-</div>
-	<div class="row">
-		<div class="col-md-2">
 {% block sidenav %}
 
 <div class="list-group">
@@ -68,8 +60,14 @@
 </footer>
 
 {% endblock %}
-		</div>
-		<div class="col-md-10">
+
+
+	</div>
+
+	<div class="col-md-10 topcontent">
+     <h2>{% block pagetitle %}{% endblock %}</h2>
+		 {% block topcontent %}{% endblock %}
+
 {% block content %}{% endblock %}
 
 		</div>
