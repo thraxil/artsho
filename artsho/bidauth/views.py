@@ -55,20 +55,23 @@ class LoginView(View):
         # existing or new user?
         r = User.objects.filter(email=email.lower())
         if r.count() == 0:
-            # new user
-            u = User.objects.create(
-                username=str(uuid.uuid4())[:25],
-                first_name=str(uuid.uuid4())[:25],
-                last_name=str(uuid.uuid4())[:25],
-                email=email.lower(),
-                is_staff=False,
-                is_superuser=False)
-            u.set_unusable_password()
-            u.save()
-            make_and_email_token(u)
+            self.make_token_for_new_user(request, email)
             return HttpResponse("you have been emailed a login link")
         else:
             # existing user. make them a new token
             u = r[0]
             make_and_email_token(u)
             return HttpResponse("you have been emailed a login link")
+
+    def make_token_for_new_user(self, request, email):
+        # new user
+        u = User.objects.create(
+            username=str(uuid.uuid4())[:25],
+            first_name=str(uuid.uuid4())[:25],
+            last_name=str(uuid.uuid4())[:25],
+            email=email.lower(),
+            is_staff=False,
+            is_superuser=False)
+        u.set_unusable_password()
+        u.save()
+        make_and_email_token(u)
