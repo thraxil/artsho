@@ -25,25 +25,28 @@ class LoginView(View):
 
         token = request.GET.get('token', False)
         if token:
-            s = URLSafeSerializer(settings.BIDAUTH_SECRET)
-            sig_ok, payload = s.loads_unsafe(token)
-            if not sig_ok:
-                return HttpResponse("bad token")
-            email = payload['email']
-            if not within_an_hour(payload['timestamp']):
-                # token's only valid for an hour
-                return HttpResponse("stale token")
-            r = Token.objects.filter(
-                token=token,
-                user__email=email)
-            if r.count() == 0:
-                return HttpResponse("token not found. probably already used")
-            u = r[0].user
-            u.backend = 'django.contrib.auth.backends.ModelBackend'
-            django_login(request, u)
-            r[0].delete()
-            return HttpResponseRedirect("/")
+            return self.validate_token(request, token)
         return render(request, self.template_name, dict())
+
+    def validate_token(self, request, token):
+        s = URLSafeSerializer(settings.BIDAUTH_SECRET)
+        sig_ok, payload = s.loads_unsafe(token)
+        if not sig_ok:
+            return HttpResponse("bad token")
+        email = payload['email']
+        if not within_an_hour(payload['timestamp']):
+            # token's only valid for an hour
+            return HttpResponse("stale token")
+        r = Token.objects.filter(
+            token=token,
+            user__email=email)
+        if r.count() == 0:
+            return HttpResponse("token not found. probably already used")
+        u = r[0].user
+        u.backend = 'django.contrib.auth.backends.ModelBackend'
+        django_login(request, u)
+        r[0].delete()
+        return HttpResponseRedirect("/")
 
     def post(self, request):
         email = request.POST.get('email', '')
