@@ -58,8 +58,7 @@ class LoginView(View):
             self.make_token_for_new_user(request, email)
         else:
             # existing user. make them a new token
-            u = r[0]
-            make_and_email_token(u)
+            make_and_email_token(r[0])
         return HttpResponse("you have been emailed a login link")
 
     def make_token_for_new_user(self, request, email):
