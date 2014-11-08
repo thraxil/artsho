@@ -29,6 +29,13 @@ def make_new_user(email):
     return u
 
 
+def get_or_create_user(email):
+    r = User.objects.filter(email=email.lower())
+    if r.count() == 0:
+        return make_new_user(email)
+    return r[0]
+
+
 class LoginView(View):
     template_name = "bidauth/login.html"
 
@@ -65,11 +72,7 @@ class LoginView(View):
         email = request.POST.get('email', '')
         if email == '':
             return HttpResponse("please enter an email address")
-        # existing or new user?
-        r = User.objects.filter(email=email.lower())
-        if r.count() == 0:
-            u = make_new_user(email)
-        else:
-            u = r[0]
+
+        u = get_or_create_user(email)
         make_and_email_token(u)
         return HttpResponse("you have been emailed a login link")
