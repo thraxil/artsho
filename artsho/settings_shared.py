@@ -44,7 +44,7 @@ TEST_PROJECT_APPS = [
     'artsho.bidauth',
 ]
 
-ALLOWED_HOSTS = ['localhost', '.spokehub.org']
+ALLOWED_HOSTS = ['localhost', '.spokehub.org', 'artsho.org', '.artsho.org']
 
 USE_TZ = True
 TIME_ZONE = 'GMT'
