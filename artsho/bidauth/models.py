@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from itsdangerous import URLSafeSerializer
 from django.conf import settings
+from django.core.mail import send_mail
+from django.core.urlresolvers import reverse
 import time
 
 
@@ -25,4 +27,17 @@ def make_and_email_token(user):
     # first, we take a moment to clean out old tokens for this user
     Token.objects.filter(user=user).delete()
     t = make_token(user)
-    print "http://localhost:8000/bidauth/login/?token=" + t.token
+    send_mail(
+        "Artsho login",
+        (
+            """To login, just visit this page:\n\n"""
+            """%s%s?token=%s"""
+            """\n\nThis link will be valid for one hour.\n"""
+        ) % (
+            settings.SITE_BASE,
+            reverse('bidauth_login'),
+            t.token),
+        settings.SERVER_EMAIL,
+        [user.email],
+        fail_silently=settings.DEBUG
+    )
