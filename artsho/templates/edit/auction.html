@@ -16,6 +16,17 @@
 {% endfor %}
 {% endif %}
 
+{% if auction.is_ongoing %}
+<form action="{% url 'end_auction' auction.id %}" method="post">
+<input type="submit" class="btn btn-warning"
+value="End the auction NOW" />
+</form>
+{% else %}
+<form action="{% url 'start_auction' auction.id %}" method="post" role="form">
+<input type="submit" class="btn btn-warning"
+value="Start the auction NOW" />
+</form>
+{% endif %}
 
 <ul class="nav nav-tabs" role="tablist">
   <li role="presentation" class="active"><a href="#info" role="tab"
@@ -23,6 +34,7 @@
 </ul>
 
 <div class="tab-content">
+
 
 <div class="tab-pane active" id="info">
 	<form action="." method="post" role="form">

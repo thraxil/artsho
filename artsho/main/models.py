@@ -127,6 +127,12 @@ class Auction(models.Model):
     def __unicode__(self):
         return "Auction for %s" % str(self.show)
 
+    def is_ongoing(self):
+        return self.status == 'ongoing'
+
+    def send_end_of_auction_emails(self):
+        pass
+
 
 class AuctionItem(models.Model):
     auction = models.ForeignKey(Auction)

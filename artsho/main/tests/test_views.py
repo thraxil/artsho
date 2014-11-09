@@ -242,6 +242,22 @@ class EditTest(TestCase):
         self.assertEqual(r.status_code, 200)
         self.assertTrue("3000" in r.content)
 
+    def test_end_auction(self):
+        a = AuctionFactory()
+        r = self.c.post(
+            reverse('end_auction', args=[a.id]),
+            dict()
+        )
+        self.assertEqual(r.status_code, 302)
+
+    def test_start_auction(self):
+        a = AuctionFactory()
+        r = self.c.post(
+            reverse('start_auction', args=[a.id]),
+            dict()
+        )
+        self.assertEqual(r.status_code, 302)
+
 
 class TestAuctionLoggedOut(TestCase):
     def setUp(self):

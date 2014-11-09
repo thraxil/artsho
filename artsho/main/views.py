@@ -269,3 +269,24 @@ class EditAuctionView(StaffMixin, View):
         messages.success(request, "Auction updated")
         return HttpResponseRedirect(
             reverse('edit_auction', args=[auction.id]))
+
+
+class EndAuctionView(StaffMixin, View):
+    def post(self, request, pk):
+        auction = get_object_or_404(Auction, pk=pk)
+        auction.status = 'complete'
+        auction.save()
+        auction.send_end_of_auction_emails()
+        messages.success(request, "Auction closed")
+        return HttpResponseRedirect(
+            reverse('edit_auction', args=[auction.id]))
+
+
+class StartAuctionView(StaffMixin, View):
+    def post(self, request, pk):
+        auction = get_object_or_404(Auction, pk=pk)
+        auction.status = 'ongoing'
+        auction.save()
+        messages.success(request, "Auction opened")
+        return HttpResponseRedirect(
+            reverse('edit_auction', args=[auction.id]))
