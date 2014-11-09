@@ -10,6 +10,7 @@ import time
 class Token(models.Model):
     user = models.ForeignKey(User)
     token = models.TextField(blank=False, db_index=True)
+    redirect_to = models.TextField(blank=True, default=u"")
 
 
 def make_token(user):
