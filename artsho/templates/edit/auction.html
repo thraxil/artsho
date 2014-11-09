@@ -1,0 +1,119 @@
+{% extends 'edit_base.html' %}
+{% load thumbnail %}
+
+{% block content %}
+
+<ol class="breadcrumb">
+  <li><a href="/edit/">Edit Site</a></li>
+  <li class="active">{{auction.title}}</li>
+</ol>
+
+<h1>Edit {{auction.show.title}}</h1>
+
+{% if messages %}
+{% for message in messages %}
+<div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</div>
+{% endfor %}
+{% endif %}
+
+
+<ul class="nav nav-tabs" role="tablist">
+  <li role="presentation" class="active"><a href="#info" role="tab"
+  data-toggle="tab">Basic Info</a></li>
+</ul>
+
+<div class="tab-content">
+
+<div class="tab-pane active" id="info">
+	<form action="." method="post" role="form">
+		<fieldset>
+			<div class="form-group">
+				<label for="start">
+					Start
+				</label>
+				<input type="text" name="start" id="start"
+				value="{{auction.start}}" class="form-control" />
+				</input>
+			</div>
+
+			<div class="form-group">
+				<label for="end">
+					End
+				</label>
+				<input type="text" name="end" id="end"
+				value="{{auction.end}}" class="form-control" />
+				</input>
+			</div>
+
+			<input type="submit" class="btn btn-primary" value="save" />
+
+		</fieldset>
+	</form>
+</div>
+
+</div>
+
+{% endblock %}
+
+
+{% block js %}
+{% comment %}
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+
+<script>
+var saveOrderOfImages = function() {
+  var url = "{% url 'reorder_show_pictures' show.id %}";
+  var worktodo = 0;
+  var data = {};
+  jQuery(".show-thumb").each(function(index, element) {
+     worktodo = 1;
+     var id = jQuery(element).attr('id');
+     data["pic_" + index] = id;
+  });
+  if (worktodo == 1) {
+       $.ajax({
+          url: url,
+          type: 'POST',
+          data: data
+       })
+  }
+};
+
+var saveOrderOfVideos = function() {
+  var url = "{% url 'reorder_show_videos' show.id %}";
+  var worktodo = 0;
+  var data = {};
+  jQuery(".show-video").each(function(index, element) {
+     worktodo = 1;
+     var id = jQuery(element).attr('id');
+     data["video_" + index] = id;
+  });
+  if (worktodo == 1) {
+       $.ajax({
+          url: url,
+          type: 'POST',
+          data: data
+       })
+  }
+};
+    
+
+$(function() {
+  $( "#images" ).sortable({
+     items : 'div.show-thumb'
+   , stop: function (event,ui) { saveOrderOfImages(); }
+  });
+  $( "#images" ).disableSelection();
+
+  $( "#videos-list" ).sortable({
+     items : 'div.show-video'
+   , stop: function (event,ui) { saveOrderOfVideos(); }
+  });
+  $( "#videos-list" ).disableSelection();
+
+});
+</script>
+{% endcomment %}
+{% endblock %}

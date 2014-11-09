@@ -69,6 +69,9 @@ urlpatterns = patterns(
     url(r'^edit/newspicture/(?P<pk>\d+)/delete/$',
         views.DeleteNewsPictureView.as_view(), name='delete_newspicture'),
 
+    url(r'^edit/auction/(?P<pk>\d+)/$',
+        views.EditAuctionView.as_view(), name='edit_auction'),
+
     (r'^bidauth/', include('artsho.bidauth.urls')),
 
     (r'^admin/', include(admin.site.urls)),

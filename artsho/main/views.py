@@ -250,3 +250,22 @@ class DeleteNewsItemView(StaffMixin, DeleteView):
 
 class AuctionDetailsView(DetailView):
     model = Auction
+
+
+class EditAuctionView(StaffMixin, View):
+    template_name = "edit/auction.html"
+
+    def get(self, request, pk):
+        return render(
+            request, self.template_name,
+            dict(auction=get_object_or_404(Auction, pk=pk))
+        )
+
+    def post(self, request, pk):
+        auction = get_object_or_404(Auction, pk=pk)
+        auction.start = request.POST.get('start', '')
+        auction.end = request.POST.get('end', '')
+        auction.save()
+        messages.success(request, "Auction updated")
+        return HttpResponseRedirect(
+            reverse('edit_auction', args=[auction.id]))

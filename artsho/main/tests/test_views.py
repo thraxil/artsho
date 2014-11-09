@@ -226,6 +226,22 @@ class EditTest(TestCase):
             dict())
         self.assertEqual(r.status_code, 302)
 
+    def test_edit_auction_form(self):
+        s = AuctionFactory()
+        r = self.c.get(reverse('edit_auction', args=[s.id]))
+        self.assertEqual(r.status_code, 200)
+
+    def test_edit_auction(self):
+        s = AuctionFactory()
+        r = self.c.post(
+            reverse('edit_auction', args=[s.id]),
+            dict(start='2000-01-01', end='3000-01-01')
+        )
+        self.assertEqual(r.status_code, 302)
+        r = self.c.get(reverse('edit_auction', args=[s.id]))
+        self.assertEqual(r.status_code, 200)
+        self.assertTrue("3000" in r.content)
+
 
 class TestAuctionLoggedOut(TestCase):
     def setUp(self):
