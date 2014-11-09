@@ -2,8 +2,27 @@
 
 {% block topcontent %}
 {% if request.user.is_anonymous %}
+
+
+<form action="{% url 'bidauth_login' %}" method="post" role="form">
+	<div class="modal fade" id="login-box">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body">
+					<input type="text" class="form-control"
+								 name="email" placeholder="email address" />
+					<input type="submit" value="login/register" class="btn btn-primary" />
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+
+
 <div class="alert alert-info">
-<a href="{% url 'bidauth_login' %}" class="btn btn-info">Login/Register</a> to bid.
+<a href="#login-box" class="btn btn-info"
+ data-toggle="modal"
+ data-target="#login-box">Login/Register</a> to bid.
 </div>
 {% else %}
 <div class="alert alert-info">
