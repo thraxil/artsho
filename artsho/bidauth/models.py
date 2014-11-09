@@ -13,21 +13,22 @@ class Token(models.Model):
     redirect_to = models.TextField(blank=True, default=u"")
 
 
-def make_token(user):
+def make_token(user, redirect="/"):
     s = URLSafeSerializer(settings.BIDAUTH_SECRET)
     return Token.objects.create(
         user=user,
         token=s.dumps(dict(
             email=user.email,
             timestamp=time.time()
-        ))
+        )),
+        redirect_to=redirect,
     )
 
 
-def make_and_email_token(user):
+def make_and_email_token(user, redirect="/"):
     # first, we take a moment to clean out old tokens for this user
     Token.objects.filter(user=user).delete()
-    t = make_token(user)
+    t = make_token(user, redirect)
     send_mail(
         "Artsho login",
         (

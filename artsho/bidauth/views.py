@@ -65,8 +65,9 @@ class LoginView(View):
         u = r[0].user
         u.backend = 'django.contrib.auth.backends.ModelBackend'
         django_login(request, u)
+        redirect = r[0].redirect_to
         r[0].delete()
-        return HttpResponseRedirect("/")
+        return HttpResponseRedirect(redirect)
 
     def post(self, request):
         email = request.POST.get('email', '')
@@ -74,5 +75,7 @@ class LoginView(View):
             return HttpResponse("please enter an email address")
 
         u = get_or_create_user(email)
-        make_and_email_token(u)
+        make_and_email_token(
+            u,
+            redirect=request.POST.get('next', '/'))
         return HttpResponse("you have been emailed a login link")

@@ -11,6 +11,7 @@
 				<div class="modal-body">
 					<input type="text" class="form-control"
 								 name="email" placeholder="email address" />
+					<input type="hidden" name="next" value="{{request.get_full_path}}" />
 					<input type="submit" value="login/register" class="btn btn-primary" />
 				</div>
 			</div>
