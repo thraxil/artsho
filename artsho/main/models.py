@@ -34,6 +34,15 @@ class Show(models.Model):
         else:
             return self.auction_set.all()[0]
 
+    def has_multiple_videos(self):
+        return self.showvideo_set.count() > 1
+
+    def first_video(self):
+        return self.showvideo_set.all()[0]
+
+    def rest_videos(self):
+        return self.showvideo_set.all()[1:]
+
 
 class Picture(models.Model):
     show = models.ForeignKey(Show)

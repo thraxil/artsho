@@ -21,14 +21,48 @@
 
 {{object.description|markdown}}
 
-{% if show.showvideo_set.count %}
-{% for v in show.showvideo_set.all %}
+{% with show.first_video as first_video %}
 <div class="embed video-player">
 <iframe class="youtube-player" type="text/html"
     width="853" height="480"
-    src="http://www.youtube.com/embed/{{v.youtube_id}}"
+    src="http://www.youtube.com/embed/{{first_video.youtube_id}}"
     allowfullscreen frameborder="0">
 </iframe>
+</div>
+
+{% endwith %}
+
+{% if show.has_multiple_videos %}
+{% for v in show.rest_videos %}
+
+<div id="video-{{v.id}}" class="lightbox fade" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="lightbox-dialog">
+		<div class="lightbox-content">
+			<div class="embed video-player">
+<!--
+				bootstrap lightbox can't figure out the width/height
+        and won't finish initializing if there isn't an image
+        in the lightbox. So we put one here that's the same
+        size as the video. then hide it. *ugh*.
+-->
+				<img class="hide" width="853" height="480"
+						 src="{{STATIC_URL}}img/480.png"/>
+				<iframe class="youtube-player" type="text/html"
+								width="853" height="480"
+								src="http://www.youtube.com/embed/{{v.youtube_id}}"
+								allowfullscreen frameborder="0">
+				</iframe>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="show-thumb">
+	<a data-toggle="lightbox"
+		 href="#video-{{v.id}}">
+		<img src="https://img.youtube.com/vi/{{v.youtube_id}}/0.jpg" 
+				 width="200" height="200" class="img-responsive" />
+	</a>
 </div>
 
 {% endfor %}

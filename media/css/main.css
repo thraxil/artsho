@@ -64,3 +64,7 @@ body#artsho4 #menu-artsho4 { font-weight: bold; }
 		height: 218px;
 		float: left;
 }
+
+.lightbox-dialog .video-player {
+  width: 853px;
+}
