@@ -4,6 +4,7 @@ from .factories import (
     ShowFactory, PictureFactory, ArtistFactory,
     ItemFactory, ItemArtistFactory, NewsItemFactory,
     AuctionFactory, AuctionItemFactory, BidFactory,
+    ShowVideoFactory,
 )
 
 
@@ -21,6 +22,19 @@ class ShowTest(TestCase):
         self.assertEqual(s.auction(), None)
         a = AuctionFactory(show=s)
         self.assertEqual(s.auction().id, a.id)
+
+    def test_has_multiple_videos(self):
+        s = ShowFactory()
+        self.assertFalse(s.has_multiple_videos())
+
+    def test_first_video(self):
+        sv = ShowVideoFactory()
+        self.assertEqual(sv.show.first_video().id, sv.id)
+
+    def test_rest_videos(self):
+        sv = ShowVideoFactory()
+        sv2 = ShowVideoFactory(show=sv.show)
+        self.assertEqual(sv2.show.rest_videos()[0].id, sv2.id)
 
 
 class PictureTest(TestCase):

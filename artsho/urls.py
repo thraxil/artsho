@@ -85,6 +85,9 @@ urlpatterns = patterns(
     url(r'^edit/item/(?P<pk>\d+)/delete/$',
         views.DeleteItemView.as_view(),
         name='delete_item'),
+    url(r'^edit/itemartist/(?P<pk>\d+)/delete/$',
+        views.DeleteItemArtistView.as_view(),
+        name='remove_artist_from_item'),
 
     (r'^bidauth/', include('artsho.bidauth.urls')),
 

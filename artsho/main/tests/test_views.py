@@ -6,6 +6,7 @@ from .factories import (
     PictureFactory, ShowVideoFactory,
     NewsPictureFactory, AuctionFactory,
     AuctionItemFactory, ItemFactory,
+    ItemArtistFactory,
 )
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
@@ -295,6 +296,15 @@ class EditTest(TestCase):
         i = ItemFactory()
         r = self.c.post(
             reverse("delete_item", args=(i.id,)))
+        self.assertEqual(r.status_code, 302)
+
+    def test_delete_itemartist(self):
+        ia = ItemArtistFactory()
+        r = self.c.post(reverse('remove_artist_from_item', args=[ia.id]))
+        self.assertEqual(r.status_code, 302)
+        ia = ItemArtistFactory()
+        AuctionItemFactory(item=ia.item)
+        r = self.c.post(reverse('remove_artist_from_item', args=[ia.id]))
         self.assertEqual(r.status_code, 302)
 
 

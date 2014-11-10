@@ -44,6 +44,16 @@
 			<input type="submit" value="Save" class="btn btn-primary"/>
 
 </form>
+{% if ai.item.itemartist_set.count %}
+<h3>Artist(s)</h3>
+<ul>
+{% for ia in ai.item.itemartist_set.all %}
+<li>{{ia.artist.name}} <a href="{% url 'remove_artist_from_item' ia.id %}" class="btn btn-xs btn-danger">remove</a></li>
+{% endfor %}
+</ul>
+{% endif %}
+
+
 <hr />
 <a href="{% url 'delete_item' ai.item.id %}" class="btn btn-danger">delete</a>
 

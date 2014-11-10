@@ -13,7 +13,9 @@ from django.contrib.auth import REDIRECT_FIELD_NAME
 
 from .models import (
     Show, NewsItem, ShowVideo, Picture, NewsPicture,
-    save_image, Auction, Item, AuctionItem)
+    save_image, Auction, Item, AuctionItem,
+    ItemArtist
+)
 
 
 class StaffMixin(object):
@@ -342,3 +344,14 @@ class DeleteItemView(StaffMixin, DeleteView):
                 args=[self.object.auctionitem_set.all()[0].auction.id])
         else:
             return reverse('edit_show', args=[self.object.show.id])
+
+
+class DeleteItemArtistView(StaffMixin, DeleteView):
+    model = ItemArtist
+
+    def get_success_url(self):
+        if self.object.item.auctionitem_set.count() > 0:
+            ai = self.object.item.auctionitem_set.all()[0]
+            return reverse('edit_auction_item', args=[ai.id])
+        else:
+            return reverse('edit_show', args=[self.object.item.show.id])
