@@ -13,7 +13,7 @@ from django.contrib.auth import REDIRECT_FIELD_NAME
 
 from .models import (
     Show, NewsItem, ShowVideo, Picture, NewsPicture,
-    save_image, Auction)
+    save_image, Auction, Item, AuctionItem)
 
 
 class StaffMixin(object):
@@ -290,3 +290,22 @@ class StartAuctionView(StaffMixin, View):
         messages.success(request, "Auction opened")
         return HttpResponseRedirect(
             reverse('edit_auction', args=[auction.id]))
+
+
+class AddItemToAuctionView(StaffMixin, View):
+    def post(self, request, pk):
+        auction = get_object_or_404(Auction, pk=pk)
+        i = Item.objects.create(
+            show=auction.show,
+            title=request.POST.get('title', 'untitled'),
+            description=request.POST.get('description', ''),
+            medium=request.POST.get('medium', ''),
+        )
+        i.add_artist_by_name(request.POST.get('artist', ""))
+        i.add_artist_by_name(request.POST.get('artist2', ""))
+        AuctionItem.objects.create(
+            item=i, auction=auction,
+            starting_bid=request.POST.get('starting_bid', 0),
+        )
+        messages.success(request, 'added auction item')
+        return HttpResponseRedirect(reverse('edit_auction', args=[auction.id]))

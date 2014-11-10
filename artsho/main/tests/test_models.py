@@ -1,4 +1,5 @@
 from django.test import TestCase
+from artsho.main.models import Artist
 from .factories import (
     ShowFactory, PictureFactory, ArtistFactory,
     ItemFactory, ItemArtistFactory, NewsItemFactory,
@@ -50,6 +51,19 @@ class ItemTest(TestCase):
     def test_get_absolute_url(self):
         i = ItemFactory()
         self.assertEqual(i.get_absolute_url(), "/artsho/1/item/1/")
+
+    def test_add_artist_by_name_new(self):
+        i = ItemFactory()
+        i.add_artist_by_name("nonexistent")
+        r = Artist.objects.filter(name="nonexistent")
+        self.assertEqual(r.count(), 1)
+
+    def test_add_artist_by_name_existing(self):
+        i = ItemFactory()
+        ArtistFactory(name="existing")
+        i.add_artist_by_name("existing")
+        r = Artist.objects.filter(name="existing")
+        self.assertEqual(r.count(), 1)
 
 
 class ItemArtistTest(TestCase):

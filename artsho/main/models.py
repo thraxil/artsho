@@ -102,6 +102,17 @@ class Item(models.Model):
     def get_absolute_url(self):
         return self.show.get_absolute_url() + "item/%d/" % self.id
 
+    def add_artist_by_name(self, name):
+        name = name.strip()
+        if name == "":
+            return
+        r = Artist.objects.filter(name=name)
+        if r.exists():
+            ItemArtist.objects.create(item=self, artist=r[0])
+        else:
+            artist = Artist.objects.create(name=name)
+            ItemArtist.objects.create(item=self, artist=artist)
+
 
 class ItemArtist(models.Model):
     item = models.ForeignKey(Item)

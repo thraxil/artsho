@@ -258,6 +258,18 @@ class EditTest(TestCase):
         )
         self.assertEqual(r.status_code, 302)
 
+    def test_add_item_to_auction(self):
+        a = AuctionFactory()
+        r = self.c.post(
+            reverse('add_item_to_auction', args=[a.id]),
+            dict(
+                title="some title",
+                artist="foo",
+                starting_bid="10",
+            )
+        )
+        self.assertEqual(r.status_code, 302)
+
 
 class TestAuctionLoggedOut(TestCase):
     def setUp(self):
