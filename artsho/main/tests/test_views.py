@@ -5,7 +5,7 @@ from .factories import (
     NewsItemFactory, ShowFactory,
     PictureFactory, ShowVideoFactory,
     NewsPictureFactory, AuctionFactory,
-    AuctionItemFactory,
+    AuctionItemFactory, ItemFactory,
 )
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
@@ -284,6 +284,18 @@ class EditTest(TestCase):
         self.assertEqual(r.status_code, 302)
         r = self.c.get(reverse("edit_auction_item", args=(ai.id,)))
         self.assertTrue("new title" in r.content)
+
+    def test_delete_auction_item(self):
+        ai = AuctionItemFactory()
+        r = self.c.post(
+            reverse("delete_item", args=(ai.item.id,)))
+        self.assertEqual(r.status_code, 302)
+
+    def test_delete_item(self):
+        i = ItemFactory()
+        r = self.c.post(
+            reverse("delete_item", args=(i.id,)))
+        self.assertEqual(r.status_code, 302)
 
 
 class TestAuctionLoggedOut(TestCase):

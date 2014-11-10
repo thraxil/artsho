@@ -330,3 +330,15 @@ class EditAuctionItemView(StaffMixin, View):
         messages.success(request, "updated auction item")
         return HttpResponseRedirect(
             reverse('edit_auction_item', args=[ai.id]))
+
+
+class DeleteItemView(StaffMixin, DeleteView):
+    model = Item
+
+    def get_success_url(self):
+        if self.object.auctionitem_set.count() > 0:
+            return reverse(
+                'edit_auction',
+                args=[self.object.auctionitem_set.all()[0].auction.id])
+        else:
+            return reverse('edit_show', args=[self.object.show.id])
