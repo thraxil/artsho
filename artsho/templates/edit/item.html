@@ -1,0 +1,49 @@
+{% extends 'edit_base.html' %}
+
+{% block content %}
+<ol class="breadcrumb">
+  <li><a href="/edit/">Edit Site</a></li>
+	<li><a href="{% url 'edit_show' ai.auction.show.id %}">{{ai.auction.show.title}}</a></li>
+	<li><a href="{% url 'edit_auction' ai.auction.id %}">Auction</a>
+  <li class="active">Item: {{ai.item.title}}</li>
+</ol>
+
+{% if messages %}
+{% for message in messages %}
+<div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</div>
+{% endfor %}
+{% endif %}
+
+
+<form action="." method="post" role="form">
+
+			<div class="form-group">
+				<label for="title">Title</label>
+				<input type="text" name="title" id="title"
+							 value="{{ai.item.title}}" class="form-control" />
+			</div>
+
+			<div class="form-group">
+				<label for="medium">Medium</label>
+				<input type="text" name="medium" id="medium"
+							 value="{{ai.item.medium}}" class="form-control" />
+			</div>
+
+			<div class="form-group">
+				<label for="starting_bid">Starting Bid</label>
+				<input type="text" name="starting_bid" id="starting_bid"
+							 value="{{ai.starting_bid}}" class="form-control" />
+			</div>
+
+			<div class="form-group">
+				<label for="description">Description</label>
+				<textarea name="description" value="description"
+									id="description" class="form-control"
+									rows="5">{{ai.item.description}}</textarea>
+			</div>
+			<input type="submit" value="Save" class="btn btn-primary"/>
+
+</form>
+
+
+{% endblock %}

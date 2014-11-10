@@ -309,3 +309,24 @@ class AddItemToAuctionView(StaffMixin, View):
         )
         messages.success(request, 'added auction item')
         return HttpResponseRedirect(reverse('edit_auction', args=[auction.id]))
+
+
+class EditAuctionItemView(StaffMixin, View):
+    template_name = "edit/item.html"
+
+    def get(self, request, pk):
+        ai = get_object_or_404(AuctionItem, pk=pk)
+        return render(request, self.template_name,
+                      dict(ai=ai))
+
+    def post(self, request, pk):
+        ai = get_object_or_404(AuctionItem, pk=pk)
+        ai.item.title = request.POST.get('title', 'untitled')
+        ai.item.description = request.POST.get('description', '')
+        ai.item.medium = request.POST.get('medium', '')
+        ai.starting_bid = request.POST.get('starting_bid', 0)
+        ai.save()
+        ai.item.save()
+        messages.success(request, "updated auction item")
+        return HttpResponseRedirect(
+            reverse('edit_auction_item', args=[ai.id]))

@@ -5,7 +5,8 @@
 
 <ol class="breadcrumb">
   <li><a href="/edit/">Edit Site</a></li>
-  <li class="active">{{auction.title}}</li>
+	<li><a href="{% url 'edit_show' auction.show.id %}">{{auction.show.title}}</a></li>
+  <li class="active">Auction</li>
 </ol>
 
 <h1>Edit {{auction.show.title}}</h1>
@@ -85,9 +86,15 @@ value="Start the auction NOW" />
 
 {% if auction.auctionitem_set.count %}
 <h3>Items</h3>
+
 <ul>
 {% for ai in auction.auctionitem_set.all %}
-<li>{{ai.item.title}}</li>
+<li><a href="{% url 'edit_auction_item' ai.id %}">{{ai.item.title}}</a>
+{% if ai.item.itemartist_set.count %}
+by {{ai.item.itemartist_set.all.0.artist.name}}
+{{ai.item.itemartist_set.all.1.artist.name}}
+{% endif %}
+
 {% endfor %}
 </ul>
 {% endif %}

@@ -79,6 +79,10 @@ urlpatterns = patterns(
         views.AddItemToAuctionView.as_view(),
         name='add_item_to_auction'),
 
+    url(r'^edit/item/(?P<pk>\d+)/$',
+        views.EditAuctionItemView.as_view(),
+        name='edit_auction_item'),
+
     (r'^bidauth/', include('artsho.bidauth.urls')),
 
     (r'^admin/', include(admin.site.urls)),
