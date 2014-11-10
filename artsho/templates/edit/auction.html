@@ -44,7 +44,7 @@ value="Start the auction NOW" />
 					Start
 				</label>
 				<input type="text" name="start" id="start"
-				value="{{auction.start}}" class="form-control" />
+				value="{{auction.start|date:"Y-m-d"}}" class="form-control" />
 				</input>
 			</div>
 
@@ -53,7 +53,7 @@ value="Start the auction NOW" />
 					End
 				</label>
 				<input type="text" name="end" id="end"
-				value="{{auction.end}}" class="form-control" />
+				value="{{auction.end|date:"Y-m-d"}}" class="form-control" />
 				</input>
 			</div>
 
