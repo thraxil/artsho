@@ -47,8 +47,6 @@
 </div>
 
 
-<footer>
-
 <div class="social-media">
 <a href="http://facebook.com/SpokehubNOW" target="_blank"><img src="{{STATIC_URL}}img/facebook.png"></a>
 <a href="http://instagram.com/spokehubnow" target="_blank"><img src="{{STATIC_URL}}img/instagram.png"></a>
@@ -57,7 +55,6 @@
 <span>ARTSHO is an initiative of Spokehub Ltd. You can follow our
 	adventures on Twitter, Instagram, and Facebook.</span>
 
-</footer>
 
 {% endblock %}
 
@@ -67,9 +64,7 @@
 	<div class="col-md-10 topcontent">
      <h2>{% block pagetitle %}{% endblock %}</h2>
 		 {% block topcontent %}{% endblock %}
-
-{% block content %}{% endblock %}
-
+     {% block content %}{% endblock %}
 		</div>
 	</div>
 </div>
