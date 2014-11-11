@@ -101,6 +101,7 @@ class Item(models.Model):
     title = models.TextField(blank=True, default=u"")
     description = models.TextField(blank=True, default=u"")
     medium = models.TextField(blank=True, default=u"")
+    starting_bid = models.PositiveIntegerField(default=1)
 
     class Meta:
         order_with_respect_to = 'show'
@@ -165,7 +166,6 @@ class Auction(models.Model):
 class AuctionItem(models.Model):
     auction = models.ForeignKey(Auction)
     item = models.ForeignKey(Item)
-    starting_bid = models.PositiveIntegerField(default=1)
 
     class Meta:
         order_with_respect_to = 'auction'

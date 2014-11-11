@@ -302,12 +302,12 @@ class AddItemToAuctionView(StaffMixin, View):
             title=request.POST.get('title', 'untitled'),
             description=request.POST.get('description', ''),
             medium=request.POST.get('medium', ''),
+            starting_bid=request.POST.get('starting_bid', 0),
         )
         i.add_artist_by_name(request.POST.get('artist', ""))
         i.add_artist_by_name(request.POST.get('artist2', ""))
         AuctionItem.objects.create(
             item=i, auction=auction,
-            starting_bid=request.POST.get('starting_bid', 0),
         )
         messages.success(request, 'added auction item')
         return HttpResponseRedirect(reverse('edit_auction', args=[auction.id]))
@@ -326,7 +326,7 @@ class EditAuctionItemView(StaffMixin, View):
         ai.item.title = request.POST.get('title', 'untitled')
         ai.item.description = request.POST.get('description', '')
         ai.item.medium = request.POST.get('medium', '')
-        ai.starting_bid = request.POST.get('starting_bid', 0)
+        ai.item.starting_bid = request.POST.get('starting_bid', 0)
         ai.save()
         ai.item.save()
         messages.success(request, "updated auction item")
