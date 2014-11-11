@@ -84,4 +84,5 @@ class AuctionItemFactory(factory.DjangoModelFactory):
 class BidFactory(factory.DjangoModelFactory):
     FACTORY_FOR = Bid
     auctionitem = factory.SubFactory(AuctionItemFactory)
+    item = factory.SubFactory(ItemFactory)
     user = factory.SubFactory(UserFactory)
