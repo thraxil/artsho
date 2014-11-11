@@ -176,6 +176,7 @@ class AuctionItem(models.Model):
 
 class Bid(models.Model):
     auctionitem = models.ForeignKey(AuctionItem)
+    item = models.ForeignKey(Item, null=True)
     user = models.ForeignKey(User)
     amount = models.PositiveIntegerField(default=1)
     entered = models.DateTimeField(auto_now_add=True)
