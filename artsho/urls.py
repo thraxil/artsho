@@ -78,6 +78,9 @@ urlpatterns = patterns(
     url(r'^edit/auction/(?P<pk>\d+)/add_item/$',
         views.AddItemToAuctionView.as_view(),
         name='add_item_to_auction'),
+    url(r'^edit/auctionitem/(?P<pk>\d+)/delete/$',
+        views.DeleteAuctionItemView.as_view(),
+        name='remove_item_from_auction'),
 
     url(r'^edit/item/(?P<pk>\d+)/$',
         views.EditAuctionItemView.as_view(),

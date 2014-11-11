@@ -319,6 +319,12 @@ class EditTest(TestCase):
         r = self.c.post(reverse('remove_artist_from_item', args=[ia.id]))
         self.assertEqual(r.status_code, 302)
 
+    def test_remove_item_from_auction(self):
+        ai = AuctionItemFactory()
+        r = self.c.post(
+            reverse('remove_item_from_auction', args=[ai.id]))
+        self.assertEqual(r.status_code, 302)
+
 
 class TestAuctionLoggedOut(TestCase):
     def setUp(self):

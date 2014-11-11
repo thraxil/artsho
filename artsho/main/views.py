@@ -369,3 +369,10 @@ class DeleteItemArtistView(StaffMixin, DeleteView):
             return reverse('edit_auction_item', args=[ai.id])
         else:
             return reverse('edit_show', args=[self.object.item.show.id])
+
+
+class DeleteAuctionItemView(StaffMixin, DeleteView):
+    model = AuctionItem
+
+    def get_success_url(self):
+        return reverse('edit_auction', args=[self.object.auction.id])

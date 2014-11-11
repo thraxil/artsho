@@ -1,0 +1,10 @@
+{% extends 'edit_base.html' %}
+
+{% block content %}
+<form action="." method="post">{% csrf_token %}
+<input class="btn btn-danger"
+                         type="submit" value="yes, remove item from
+																							this auction"/>
+</form>
+
+{% endblock %}

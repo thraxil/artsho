@@ -96,7 +96,7 @@ value="Start the auction NOW" />
 	<td>by {{ai.item.itemartist_set.all.0.artist.name}}
 		{{ai.item.itemartist_set.all.1.artist.name}}</td>
 {% endif %}
-	<td></td>
+	<td><a href="{% url 'remove_item_from_auction' ai.id %}" class="btn btn-xs btn-danger">remove</a></td>
 </tr>
 {% endfor %}
 </table>
