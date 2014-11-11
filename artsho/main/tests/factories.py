@@ -3,7 +3,7 @@ from datetime import datetime
 from django.contrib.auth.models import User
 from artsho.main.models import (
     Show, Picture, Artist, Item, ItemArtist, NewsItem,
-    ShowVideo, NewsPicture, Auction, AuctionItem,
+    ShowVideo, NewsPicture, Auction,
     Bid
 )
 
@@ -73,12 +73,6 @@ class AuctionFactory(factory.DjangoModelFactory):
     show = factory.SubFactory(ShowFactory)
     start = datetime.now()
     end = datetime.now()
-
-
-class AuctionItemFactory(factory.DjangoModelFactory):
-    FACTORY_FOR = AuctionItem
-    auction = factory.SubFactory(AuctionFactory)
-    item = factory.SubFactory(ItemFactory)
 
 
 class BidFactory(factory.DjangoModelFactory):

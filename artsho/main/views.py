@@ -13,7 +13,7 @@ from django.contrib.auth import REDIRECT_FIELD_NAME
 
 from .models import (
     Show, NewsItem, ShowVideo, Picture, NewsPicture,
-    save_image, Auction, Item, AuctionItem,
+    save_image, Auction, Item,
     ItemArtist, Artist
 )
 
@@ -306,73 +306,60 @@ class AddItemToAuctionView(StaffMixin, View):
         )
         i.add_artist_by_name(request.POST.get('artist', ""))
         i.add_artist_by_name(request.POST.get('artist2', ""))
-        AuctionItem.objects.create(
-            item=i, auction=auction,
-        )
         messages.success(request, 'added auction item')
         return HttpResponseRedirect(reverse('edit_auction', args=[auction.id]))
 
 
-class EditAuctionItemView(StaffMixin, View):
+class EditItemView(StaffMixin, View):
     template_name = "edit/item.html"
 
     def get(self, request, pk):
-        ai = get_object_or_404(AuctionItem, pk=pk)
+        item = get_object_or_404(Item, pk=pk)
         return render(request, self.template_name,
-                      dict(ai=ai, all_artists=Artist.objects.all()))
+                      dict(ai=item, all_artists=Artist.objects.all()))
 
     def post(self, request, pk):
-        ai = get_object_or_404(AuctionItem, pk=pk)
-        ai.item.title = request.POST.get('title', 'untitled')
-        ai.item.description = request.POST.get('description', '')
-        ai.item.medium = request.POST.get('medium', '')
-        ai.item.starting_bid = request.POST.get('starting_bid', 0)
-        ai.save()
-        ai.item.save()
+        item = get_object_or_404(Item, pk=pk)
+        item.title = request.POST.get('title', 'untitled')
+        item.description = request.POST.get('description', '')
+        item.medium = request.POST.get('medium', '')
+        item.starting_bid = request.POST.get('starting_bid', 0)
+        item.save()
         messages.success(request, "updated auction item")
         return HttpResponseRedirect(
-            reverse('edit_auction_item', args=[ai.id]))
+            reverse('edit_auction_item', args=[item.id]))
 
 
 class DeleteItemView(StaffMixin, DeleteView):
     model = Item
 
     def get_success_url(self):
-        if self.object.auctionitem_set.count() > 0:
-            return reverse(
-                'edit_auction',
-                args=[self.object.auctionitem_set.all()[0].auction.id])
-        else:
-            return reverse('edit_show', args=[self.object.show.id])
+        return reverse('edit_show', args=[self.object.show.id])
 
 
 class AddArtistToItemView(StaffMixin, View):
     def post(self, request, pk):
-        ai = get_object_or_404(AuctionItem, pk=pk)
+        item = get_object_or_404(Item, pk=pk)
         artist_id = request.POST.get('artist_id', '')
         if artist_id == "":
-            ai.item.add_artist_by_name(name=request.POST.get('name', ''))
+            item.add_artist_by_name(name=request.POST.get('name', ''))
         else:
             a = get_object_or_404(Artist, pk=artist_id)
-            ai.item.add_artist_by_name(a.name)
+            item.add_artist_by_name(a.name)
         messages.success(request, "added artist")
         return HttpResponseRedirect(
-            reverse('edit_auction_item', args=[ai.id]))
+            reverse('edit_auction_item', args=[item.id]))
 
 
 class DeleteItemArtistView(StaffMixin, DeleteView):
     model = ItemArtist
 
     def get_success_url(self):
-        if self.object.item.auctionitem_set.count() > 0:
-            ai = self.object.item.auctionitem_set.all()[0]
-            return reverse('edit_auction_item', args=[ai.id])
-        else:
-            return reverse('edit_show', args=[self.object.item.show.id])
+        return reverse('edit_show', args=[self.object.item.show.id])
 
 
 class DeleteAuctionItemView(StaffMixin, DeleteView):
-    model = AuctionItem
+    model = Item
 
     def get_success_url(self):
-        return reverse('edit_auction', args=[self.object.auction.id])
+        return reverse('edit_show', args=[self.object.show.id])

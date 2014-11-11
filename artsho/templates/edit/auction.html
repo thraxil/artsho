@@ -84,17 +84,17 @@ value="Start the auction NOW" />
 			<input type="submit" value="Add Item" />
 		</form>
 
-{% if auction.auctionitem_set.count %}
+{% if auction.show.item_set.count %}
 <h3>Items</h3>
 
 <table class="table table-striped">
 <tr><th>Item</th><th>Artist(s)</th><th></th></tr>
-{% for ai in auction.auctionitem_set.all %}
+{% for ai in auction.show.item_set.all %}
 <tr>
-	<td><a href="{% url 'edit_auction_item' ai.id %}">{{ai.item.title}}</a></td>
-{% if ai.item.itemartist_set.count %}
-	<td>by {{ai.item.itemartist_set.all.0.artist.name}}
-		{{ai.item.itemartist_set.all.1.artist.name}}</td>
+	<td><a href="{% url 'edit_auction_item' ai.id %}">{{ai.title}}</a></td>
+{% if ai.itemartist_set.count %}
+	<td>by {{ai.itemartist_set.all.0.artist.name}}
+		{{ai.itemartist_set.all.1.artist.name}}</td>
 {% endif %}
 	<td><a href="{% url 'remove_item_from_auction' ai.id %}" class="btn btn-xs btn-danger">remove</a></td>
 </tr>

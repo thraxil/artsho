@@ -3,7 +3,7 @@ from artsho.main.models import Artist
 from .factories import (
     ShowFactory, PictureFactory, ArtistFactory,
     ItemFactory, ItemArtistFactory, NewsItemFactory,
-    AuctionFactory, AuctionItemFactory, BidFactory,
+    AuctionFactory, BidFactory,
     ShowVideoFactory,
 )
 
@@ -79,6 +79,11 @@ class ItemTest(TestCase):
         r = Artist.objects.filter(name="existing")
         self.assertEqual(r.count(), 1)
 
+    def test_auction(self):
+        i = ItemFactory()
+        a = AuctionFactory(show=i.show)
+        self.assertEqual(i.auction().id, a.id)
+
 
 class ItemArtistTest(TestCase):
     def test_unicode(self):
@@ -96,12 +101,6 @@ class AuctionTest(TestCase):
     def test_unicode(self):
         a = AuctionFactory()
         self.assertEqual(str(a), "Auction for test show")
-
-
-class AuctionItemTest(TestCase):
-    def test_unicode(self):
-        a = AuctionItemFactory()
-        self.assertEqual(str(a), "Auction for test show - test item")
 
 
 class BidTest(TestCase):

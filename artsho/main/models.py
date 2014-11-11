@@ -123,6 +123,13 @@ class Item(models.Model):
         if r.count() == 0:
             ItemArtist.objects.create(item=self, artist=artist)
 
+    def auction(self):
+        r = Auction.objects.filter(show=self.show)
+        if r.count() > 0:
+            return r[0]
+        else:
+            return None
+
 
 def get_or_create_artist(name):
     r = Artist.objects.filter(name=name)
@@ -161,17 +168,6 @@ class Auction(models.Model):
 
     def send_end_of_auction_emails(self):
         pass
-
-
-class AuctionItem(models.Model):
-    auction = models.ForeignKey(Auction)
-    item = models.ForeignKey(Item)
-
-    class Meta:
-        order_with_respect_to = 'auction'
-
-    def __unicode__(self):
-        return "%s - %s" % (str(self.auction), str(self.item))
 
 
 class Bid(models.Model):

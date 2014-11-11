@@ -5,7 +5,7 @@ from .factories import (
     NewsItemFactory, ShowFactory,
     PictureFactory, ShowVideoFactory,
     NewsPictureFactory, AuctionFactory,
-    AuctionItemFactory, ItemFactory,
+    ItemFactory,
     ItemArtistFactory, ArtistFactory
 )
 from django.contrib.auth.models import User
@@ -276,12 +276,12 @@ class EditTest(TestCase):
         self.assertEqual(r.status_code, 302)
 
     def test_edit_auction_item_form(self):
-        ai = AuctionItemFactory()
+        ai = ItemFactory()
         r = self.c.get(reverse("edit_auction_item", args=(ai.id,)))
         self.assertEqual(r.status_code, 200)
 
     def test_edit_auction_item(self):
-        ai = AuctionItemFactory()
+        ai = ItemFactory()
         r = self.c.post(
             reverse("edit_auction_item", args=(ai.id,)),
             dict(title="new title"))
@@ -290,9 +290,9 @@ class EditTest(TestCase):
         self.assertTrue("new title" in r.content)
 
     def test_delete_auction_item(self):
-        ai = AuctionItemFactory()
+        ai = ItemFactory()
         r = self.c.post(
-            reverse("delete_item", args=(ai.item.id,)))
+            reverse("delete_item", args=(ai.id,)))
         self.assertEqual(r.status_code, 302)
 
     def test_delete_item(self):
@@ -302,7 +302,7 @@ class EditTest(TestCase):
         self.assertEqual(r.status_code, 302)
 
     def test_add_artist_to_item(self):
-        ai = AuctionItemFactory()
+        ai = ItemFactory()
         r = self.c.post(
             reverse("add_artist_to_item", args=[ai.id]),
             dict(name="new artist"))
@@ -318,12 +318,11 @@ class EditTest(TestCase):
         r = self.c.post(reverse('remove_artist_from_item', args=[ia.id]))
         self.assertEqual(r.status_code, 302)
         ia = ItemArtistFactory()
-        AuctionItemFactory(item=ia.item)
         r = self.c.post(reverse('remove_artist_from_item', args=[ia.id]))
         self.assertEqual(r.status_code, 302)
 
     def test_remove_item_from_auction(self):
-        ai = AuctionItemFactory()
+        ai = ItemFactory()
         r = self.c.post(
             reverse('remove_item_from_auction', args=[ai.id]))
         self.assertEqual(r.status_code, 302)

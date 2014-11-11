@@ -83,7 +83,7 @@ urlpatterns = patterns(
         name='remove_item_from_auction'),
 
     url(r'^edit/item/(?P<pk>\d+)/$',
-        views.EditAuctionItemView.as_view(),
+        views.EditItemView.as_view(),
         name='edit_auction_item'),
     url(r'^edit/item/(?P<pk>\d+)/delete/$',
         views.DeleteItemView.as_view(),
