@@ -14,7 +14,7 @@ from django.contrib.auth import REDIRECT_FIELD_NAME
 from .models import (
     Show, NewsItem, ShowVideo, Picture, NewsPicture,
     save_image, Auction, Item, AuctionItem,
-    ItemArtist
+    ItemArtist, Artist
 )
 
 
@@ -319,7 +319,7 @@ class EditAuctionItemView(StaffMixin, View):
     def get(self, request, pk):
         ai = get_object_or_404(AuctionItem, pk=pk)
         return render(request, self.template_name,
-                      dict(ai=ai))
+                      dict(ai=ai, all_artists=Artist.objects.all()))
 
     def post(self, request, pk):
         ai = get_object_or_404(AuctionItem, pk=pk)
@@ -344,6 +344,20 @@ class DeleteItemView(StaffMixin, DeleteView):
                 args=[self.object.auctionitem_set.all()[0].auction.id])
         else:
             return reverse('edit_show', args=[self.object.show.id])
+
+
+class AddArtistToItemView(StaffMixin, View):
+    def post(self, request, pk):
+        ai = get_object_or_404(AuctionItem, pk=pk)
+        artist_id = request.POST.get('artist_id', '')
+        if artist_id == "":
+            ai.item.add_artist_by_name(name=request.POST.get('name', ''))
+        else:
+            a = get_object_or_404(Artist, pk=artist_id)
+            ai.item.add_artist_by_name(a.name)
+        messages.success(request, "added artist")
+        return HttpResponseRedirect(
+            reverse('edit_auction_item', args=[ai.id]))
 
 
 class DeleteItemArtistView(StaffMixin, DeleteView):

@@ -115,12 +115,20 @@ class Item(models.Model):
         name = name.strip()
         if name == "":
             return
-        r = Artist.objects.filter(name=name)
-        if r.exists():
-            ItemArtist.objects.create(item=self, artist=r[0])
-        else:
-            artist = Artist.objects.create(name=name)
+        self.add_itemartist(get_or_create_artist(name))
+
+    def add_itemartist(self, artist):
+        r = ItemArtist.objects.filter(item=self, artist=artist)
+        if r.count() == 0:
             ItemArtist.objects.create(item=self, artist=artist)
+
+
+def get_or_create_artist(name):
+    r = Artist.objects.filter(name=name)
+    if r.exists():
+        return r[0]
+    else:
+        return Artist.objects.create(name=name)
 
 
 class ItemArtist(models.Model):
