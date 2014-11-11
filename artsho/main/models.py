@@ -175,8 +175,7 @@ class AuctionItem(models.Model):
 
 
 class Bid(models.Model):
-    auctionitem = models.ForeignKey(AuctionItem)
-    item = models.ForeignKey(Item, null=True)
+    item = models.ForeignKey(Item)
     user = models.ForeignKey(User)
     amount = models.PositiveIntegerField(default=1)
     entered = models.DateTimeField(auto_now_add=True)
@@ -186,7 +185,7 @@ class Bid(models.Model):
 
     def __unicode__(self):
         return "bid for $%d on %s by %s at %s" % (
-            self.amount, self.auctionitem.item, self.user.email,
+            self.amount, self.item, self.user.email,
             self.entered)
 
 
