@@ -46,11 +46,11 @@
 </form>
 {% if ai.item.itemartist_set.count %}
 <h3>Artist(s)</h3>
-<ul>
+<table class="table table-striped">
 {% for ia in ai.item.itemartist_set.all %}
-<li>{{ia.artist.name}} <a href="{% url 'remove_artist_from_item' ia.id %}" class="btn btn-xs btn-danger">remove</a></li>
+<tr><td>{{ia.artist.name}}</td><td><a href="{% url 'remove_artist_from_item' ia.id %}" class="btn btn-xs btn-danger">remove</a></td></tr>
 {% endfor %}
-</ul>
+</table>
 {% endif %}
 
 <h3>Add Artist</h3>

@@ -87,16 +87,19 @@ value="Start the auction NOW" />
 {% if auction.auctionitem_set.count %}
 <h3>Items</h3>
 
-<ul>
+<table class="table table-striped">
+<tr><th>Item</th><th>Artist(s)</th><th></th></tr>
 {% for ai in auction.auctionitem_set.all %}
-<li><a href="{% url 'edit_auction_item' ai.id %}">{{ai.item.title}}</a>
+<tr>
+	<td><a href="{% url 'edit_auction_item' ai.id %}">{{ai.item.title}}</a></td>
 {% if ai.item.itemartist_set.count %}
-by {{ai.item.itemartist_set.all.0.artist.name}}
-{{ai.item.itemartist_set.all.1.artist.name}}
+	<td>by {{ai.item.itemartist_set.all.0.artist.name}}
+		{{ai.item.itemartist_set.all.1.artist.name}}</td>
 {% endif %}
-
+	<td></td>
+</tr>
 {% endfor %}
-</ul>
+</table>
 {% endif %}
 
 	</div>
