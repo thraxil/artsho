@@ -10,6 +10,7 @@ from .factories import (
 )
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
+from django.test.utils import override_settings
 
 
 class BasicTest(TestCase):
@@ -139,6 +140,7 @@ class EditTest(TestCase):
         )
         self.assertEqual(r.status_code, 302)
 
+    @override_settings(MEDIA_ROOT="/tmp/")
     def test_add_picture(self):
         s = ShowFactory()
         with open('media/img/artsho5_poster.png') as img:
@@ -147,6 +149,7 @@ class EditTest(TestCase):
                 dict(image=img))
             self.assertEqual(r.status_code, 302)
 
+    @override_settings(MEDIA_ROOT="/tmp/")
     def test_add_newspicture(self):
         s = NewsItemFactory()
         with open('media/img/artsho5_poster.png') as img:
