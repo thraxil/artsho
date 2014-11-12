@@ -3,7 +3,7 @@ from datetime import datetime
 from django.contrib.auth.models import User
 from artsho.main.models import (
     Show, Picture, Artist, Item, ItemArtist, NewsItem,
-    ShowVideo, NewsPicture, Auction,
+    ShowVideo, NewsPicture, Auction, ItemPicture,
     Bid
 )
 
@@ -73,6 +73,12 @@ class ItemArtistFactory(factory.DjangoModelFactory):
     FACTORY_FOR = ItemArtist
     item = factory.SubFactory(ItemFactory)
     artist = factory.SubFactory(ArtistFactory)
+
+
+class ItemPictureFactory(factory.DjangoModelFactory):
+    FACTORY_FOR = ItemPicture
+    item = factory.SubFactory(ItemFactory)
+    image = "itempictures/test.jpg"
 
 
 class BidFactory(factory.DjangoModelFactory):

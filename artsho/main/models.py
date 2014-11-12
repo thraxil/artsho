@@ -163,6 +163,21 @@ class ItemArtist(models.Model):
         return "%s - %s" % (self.item, self.artist)
 
 
+class ItemPicture(models.Model):
+    item = models.ForeignKey(Item)
+    image = ImageWithThumbnailsField(
+        upload_to="itempictures/%Y/%m/%d",
+        thumbnail={
+            'size': (400, 200)
+            },
+        null=True,
+        )
+    dirname = "itempictures"
+
+    class Meta:
+        order_with_respect_to = 'item'
+
+
 class Bid(models.Model):
     item = models.ForeignKey(Item)
     user = models.ForeignKey(User)
