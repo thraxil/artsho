@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load thumbnail %}
 
 {% block topcontent %}
 {% if request.user.is_anonymous %}
@@ -46,8 +47,48 @@ Logged in as {{request.user.email}}
 <p>Auction will close around {{auction.end}}</p>
 {% endifequal %}
 
-{% ifequal auction.status "completed" %}
+{% ifequal auction.status "complete" %}
 <p>Auction closed on {{auction.end}}</p>
 {% endifequal %}
+
+{% ifnotequal auction.status "upcoming" %}
+{% comment %} show the auction items {% endcomment %}
+
+{% if auction.item_set.count %}
+<h2>Items up for Auction</h2>
+{% for item in auction.item_set.all %}
+<div class="auction-item panel panel-default">
+<div class="panel-body">
+<div class="row">
+<div class="col-md-3">
+{% for image in item.itempicture_set.all %}
+<div class="thumbnail">
+<img src="{% thumbnail image.image 200x200 crop %}" width="200"
+		 height="200" />
+</div>
+{% endfor %}
+</div>
+<div class="col-md-6">
+<dl class="dl-horizontal">
+<dt>Title</dt><dd>{{item.title}}</dd>
+<dt>Artist(s)</dt>
+<dd><ul class="list-inline">
+{% for ia in item.itemartist_set.all %}
+<li>{{ia.artist.name}}</li>
+{% endfor %}
+</ul>
+</dd>
+<dt>Medium</dt><dd>{{item.medium}}</dd>
+<dt>Description</dt><dd>{{item.description}}</dd>
+<dt>Current Bid</dt><dd>&#8364; {{item.starting_bid}}</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+{% endfor %}
+{% endif %}
+
+{% endifnotequal %}
 
 {% endblock %}
