@@ -1,4 +1,5 @@
 {% extends 'edit_base.html' %}
+{% load thumbnail %}
 
 {% block content %}
 <ol class="breadcrumb">
@@ -78,6 +79,34 @@
 <input type="submit" value="Add artist" class="btn btn-primary" />
 </form>
 
+<h3>Add Picture</h3>
+
+		<form action="{% url 'add_picture_to_item' ai.id %}" method="post"
+					enctype="multipart/form-data" role="form">
+
+      <div class="form-group">
+        <label for="exampleInputFile">Image</label>
+        <input type="file" id="image" name="image">
+      </div>
+
+			<input type="submit" class="btn btn-primary" value="Upload"/>
+		</form>
+
+{% if ai.itempicture_set.count %}
+<h3>Pictures</h3>
+
+<div id="images">
+{% for p in ai.itempicture_set.all %}
+
+<div class="thumbnail show-thumb" id="{{p.id}}">
+		<img src="{% thumbnail p.image 200x150 crop %}" class="img-responsive"/>
+	<div class="caption"><a href="/edit/itempicture/{{p.id}}/delete/" class="btn btn-danger">Delete</a></div>
+</div>
+{% endfor %}
+</div>
+
+{% endif %}
+<hr style="clear:both" />
 <h3>Delete</h3>
 <a href="{% url 'delete_item' ai.id %}" class="btn btn-danger">delete</a>
 

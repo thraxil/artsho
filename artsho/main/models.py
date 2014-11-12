@@ -154,6 +154,9 @@ class Item(models.Model):
         if r.count() == 0:
             ItemArtist.objects.create(item=self, artist=artist)
 
+    def update_picture_order(self):
+        self.set_itempicture_order(self.get_itempicture_order())
+
 
 class ItemArtist(models.Model):
     item = models.ForeignKey(Item)

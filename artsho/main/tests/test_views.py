@@ -327,6 +327,15 @@ class EditTest(TestCase):
             reverse('remove_item_from_auction', args=[ai.id]))
         self.assertEqual(r.status_code, 302)
 
+    @override_settings(MEDIA_ROOT="/tmp/")
+    def test_add_picture_to_item(self):
+        i = ItemFactory()
+        with open('media/img/artsho5_poster.png') as img:
+            r = self.c.post(
+                reverse('add_picture_to_item', args=[i.id]),
+                dict(image=img))
+            self.assertEqual(r.status_code, 302)
+
 
 class TestAuctionLoggedOut(TestCase):
     def setUp(self):

@@ -13,7 +13,7 @@ from django.contrib.auth import REDIRECT_FIELD_NAME
 
 from .models import (
     Show, NewsItem, ShowVideo, Picture, NewsPicture,
-    save_image, Auction, Item,
+    save_image, Auction, Item, ItemPicture,
     ItemArtist, Artist
 )
 
@@ -363,3 +363,14 @@ class DeleteAuctionItemView(StaffMixin, DeleteView):
 
     def get_success_url(self):
         return reverse('edit_auction', args=[self.object.auction.id])
+
+
+class AddItemPictureView(StaffMixin, View):
+    def post(self, request, pk):
+        item = get_object_or_404(Item, pk=pk)
+        item.update_picture_order()
+        p = ItemPicture.objects.create(item=item)
+        save_image(p, request.FILES['image'])
+        messages.success(request, "picture added to item")
+        return HttpResponseRedirect(
+            reverse('edit_auction_item', args=[item.id]))
