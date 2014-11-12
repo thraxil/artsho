@@ -41,18 +41,6 @@ class ArtistFactory(factory.DjangoModelFactory):
     name = "attilla the hun"
 
 
-class ItemFactory(factory.DjangoModelFactory):
-    FACTORY_FOR = Item
-    title = "test item"
-    show = factory.SubFactory(ShowFactory)
-
-
-class ItemArtistFactory(factory.DjangoModelFactory):
-    FACTORY_FOR = ItemArtist
-    item = factory.SubFactory(ItemFactory)
-    artist = factory.SubFactory(ArtistFactory)
-
-
 class NewsItemFactory(factory.DjangoModelFactory):
     FACTORY_FOR = NewsItem
     title = "test news item"
@@ -73,6 +61,18 @@ class AuctionFactory(factory.DjangoModelFactory):
     show = factory.SubFactory(ShowFactory)
     start = datetime.now()
     end = datetime.now()
+
+
+class ItemFactory(factory.DjangoModelFactory):
+    FACTORY_FOR = Item
+    title = "test item"
+    auction = factory.SubFactory(AuctionFactory)
+
+
+class ItemArtistFactory(factory.DjangoModelFactory):
+    FACTORY_FOR = ItemArtist
+    item = factory.SubFactory(ItemFactory)
+    artist = factory.SubFactory(ArtistFactory)
 
 
 class BidFactory(factory.DjangoModelFactory):

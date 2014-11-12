@@ -298,7 +298,7 @@ class AddItemToAuctionView(StaffMixin, View):
     def post(self, request, pk):
         auction = get_object_or_404(Auction, pk=pk)
         i = Item.objects.create(
-            show=auction.show,
+            auction=auction,
             title=request.POST.get('title', 'untitled'),
             description=request.POST.get('description', ''),
             medium=request.POST.get('medium', ''),
@@ -334,7 +334,7 @@ class DeleteItemView(StaffMixin, DeleteView):
     model = Item
 
     def get_success_url(self):
-        return reverse('edit_show', args=[self.object.show.id])
+        return reverse('edit_auction', args=[self.object.auction.id])
 
 
 class AddArtistToItemView(StaffMixin, View):
@@ -355,11 +355,11 @@ class DeleteItemArtistView(StaffMixin, DeleteView):
     model = ItemArtist
 
     def get_success_url(self):
-        return reverse('edit_show', args=[self.object.item.show.id])
+        return reverse('edit_auction_item', args=[self.object.item.id])
 
 
 class DeleteAuctionItemView(StaffMixin, DeleteView):
     model = Item
 
     def get_success_url(self):
-        return reverse('edit_show', args=[self.object.show.id])
+        return reverse('edit_auction', args=[self.object.auction.id])

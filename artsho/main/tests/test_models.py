@@ -79,11 +79,6 @@ class ItemTest(TestCase):
         r = Artist.objects.filter(name="existing")
         self.assertEqual(r.count(), 1)
 
-    def test_auction(self):
-        i = ItemFactory()
-        a = AuctionFactory(show=i.show)
-        self.assertEqual(i.auction().id, a.id)
-
 
 class ItemArtistTest(TestCase):
     def test_unicode(self):

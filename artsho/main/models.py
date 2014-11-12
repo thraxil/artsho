@@ -96,55 +96,12 @@ class Artist(models.Model):
         return "/artist/%d/" % self.id
 
 
-class Item(models.Model):
-    show = models.ForeignKey(Show)
-    title = models.TextField(blank=True, default=u"")
-    description = models.TextField(blank=True, default=u"")
-    medium = models.TextField(blank=True, default=u"")
-    starting_bid = models.PositiveIntegerField(default=1)
-
-    class Meta:
-        order_with_respect_to = 'show'
-
-    def __unicode__(self):
-        return self.title
-
-    def get_absolute_url(self):
-        return self.show.get_absolute_url() + "item/%d/" % self.id
-
-    def add_artist_by_name(self, name):
-        name = name.strip()
-        if name == "":
-            return
-        self.add_itemartist(get_or_create_artist(name))
-
-    def add_itemartist(self, artist):
-        r = ItemArtist.objects.filter(item=self, artist=artist)
-        if r.count() == 0:
-            ItemArtist.objects.create(item=self, artist=artist)
-
-    def auction(self):
-        r = Auction.objects.filter(show=self.show)
-        if r.count() > 0:
-            return r[0]
-        else:
-            return None
-
-
 def get_or_create_artist(name):
     r = Artist.objects.filter(name=name)
     if r.exists():
         return r[0]
     else:
         return Artist.objects.create(name=name)
-
-
-class ItemArtist(models.Model):
-    item = models.ForeignKey(Item)
-    artist = models.ForeignKey(Artist)
-
-    def __unicode__(self):
-        return "%s - %s" % (self.item, self.artist)
 
 
 class Auction(models.Model):
@@ -168,6 +125,42 @@ class Auction(models.Model):
 
     def send_end_of_auction_emails(self):
         pass
+
+
+class Item(models.Model):
+    auction = models.ForeignKey(Auction)
+    title = models.TextField(blank=True, default=u"")
+    description = models.TextField(blank=True, default=u"")
+    medium = models.TextField(blank=True, default=u"")
+    starting_bid = models.PositiveIntegerField(default=1)
+
+    class Meta:
+        order_with_respect_to = 'auction'
+
+    def __unicode__(self):
+        return self.title
+
+    def get_absolute_url(self):
+        return self.auction.show.get_absolute_url() + "item/%d/" % self.id
+
+    def add_artist_by_name(self, name):
+        name = name.strip()
+        if name == "":
+            return
+        self.add_itemartist(get_or_create_artist(name))
+
+    def add_itemartist(self, artist):
+        r = ItemArtist.objects.filter(item=self, artist=artist)
+        if r.count() == 0:
+            ItemArtist.objects.create(item=self, artist=artist)
+
+
+class ItemArtist(models.Model):
+    item = models.ForeignKey(Item)
+    artist = models.ForeignKey(Artist)
+
+    def __unicode__(self):
+        return "%s - %s" % (self.item, self.artist)
 
 
 class Bid(models.Model):
