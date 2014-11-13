@@ -157,6 +157,12 @@ class Item(models.Model):
     def update_picture_order(self):
         self.set_itempicture_order(self.get_itempicture_order())
 
+    def high_bid(self):
+        if self.bid_set.count() > 0:
+            return self.bid_set.all().order_by('-amount')[0].amount
+        else:
+            return self.starting_bid
+
 
 class ItemArtist(models.Model):
     item = models.ForeignKey(Item)

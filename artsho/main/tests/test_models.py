@@ -79,6 +79,15 @@ class ItemTest(TestCase):
         r = Artist.objects.filter(name="existing")
         self.assertEqual(r.count(), 1)
 
+    def test_high_bid_none(self):
+        i = ItemFactory()
+        self.assertEqual(i.high_bid(), i.starting_bid)
+
+    def test_high_bid_bids(self):
+        i = ItemFactory()
+        b = BidFactory(item=i, amount=i.starting_bid + 10)
+        self.assertEqual(i.high_bid(), b.amount)
+
 
 class ItemArtistTest(TestCase):
     def test_unicode(self):
