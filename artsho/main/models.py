@@ -123,6 +123,9 @@ class Auction(models.Model):
     def is_ongoing(self):
         return self.status == 'ongoing'
 
+    def is_completed(self):
+        return self.status == 'completed'
+
     def send_end_of_auction_emails(self):
         pass
 

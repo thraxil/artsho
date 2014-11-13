@@ -280,7 +280,7 @@ class EditAuctionView(StaffMixin, View):
 class EndAuctionView(StaffMixin, View):
     def post(self, request, pk):
         auction = get_object_or_404(Auction, pk=pk)
-        auction.status = 'complete'
+        auction.status = 'completed'
         auction.save()
         auction.send_end_of_auction_emails()
         messages.success(request, "Auction closed")

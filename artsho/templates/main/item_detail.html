@@ -56,7 +56,13 @@ Logged in as {{request.user.email}}
 				</dd>
 				<dt>Medium</dt><dd>{{item.medium}}</dd>
 				<dt>Description</dt><dd>{{item.description}}</dd>
+{% if item.auction.is_ongoing %}
 				<dt>Current Bid</dt><dd>&#8364; {{item.high_bid}}</dd>
+{% else %}
+{% if item.auction.is_completed %}
+				<dt>Winning Bid</dt><dd>&#8364; {{item.high_bid}}</dd>
+{% endif %}
+{% endif %}
 			</dl>
 		</div>
 	</div>

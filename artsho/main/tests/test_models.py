@@ -106,6 +106,12 @@ class AuctionTest(TestCase):
         a = AuctionFactory()
         self.assertEqual(str(a), "Auction for test show")
 
+    def test_is_completed(self):
+        a = AuctionFactory(status='ongoing')
+        self.assertFalse(a.is_completed())
+        a = AuctionFactory(status='completed')
+        self.assertTrue(a.is_completed())
+
 
 class BidTest(TestCase):
     def test_unicode(self):
