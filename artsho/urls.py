@@ -21,6 +21,8 @@ urlpatterns = patterns(
 
     url(r'^auction/(?P<pk>\d+)/$', views.AuctionDetailsView.as_view(),
         name='auction_details'),
+    url(r'^item/(?P<pk>\d+)/$', views.ItemDetailsView.as_view(),
+        name='item_details'),
 
     url(r'^edit/$', views.EditView.as_view(), name='edit_index'),
 

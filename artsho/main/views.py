@@ -254,6 +254,10 @@ class AuctionDetailsView(DetailView):
     model = Auction
 
 
+class ItemDetailsView(DetailView):
+    model = Item
+
+
 class EditAuctionView(StaffMixin, View):
     template_name = "edit/auction.html"
 

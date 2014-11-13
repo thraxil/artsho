@@ -63,14 +63,14 @@ Logged in as {{request.user.email}}
 <div class="col-md-3">
 {% for image in item.itempicture_set.all %}
 <div class="thumbnail">
-<img src="{% thumbnail image.image 200x200 crop %}" width="200"
-		 height="200" />
+<a href="{% url 'item_details' item.id %}"><img src="{% thumbnail image.image 200x200 crop %}" width="200"
+		 height="200" /></a>
 </div>
 {% endfor %}
 </div>
 <div class="col-md-6">
 <dl class="dl-horizontal">
-<dt>Title</dt><dd>{{item.title}}</dd>
+<dt>Title</dt><dd><a href="{% url 'item_details' item.id %}">{{item.title}}</a></dd>
 <dt>Artist(s)</dt>
 <dd><ul class="list-inline">
 {% for ia in item.itemartist_set.all %}
