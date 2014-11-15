@@ -72,7 +72,16 @@ Logged in as {{request.user.email}}
 <div class="auction-item panel panel-default">
 	<div class="panel-body">
 {% if not request.user.is_anonymous %}
-<form action="" method="post" role="form" class="form-inline" />
+
+{% if messages %}
+{% for message in messages %}
+<div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</div>
+{% endfor %}
+{% endif %}
+
+<form action="{% url 'bid_on_item' item.id %}" method="post" role="form" class="form-inline" />
+<fieldset><legend>Bid on this item</legend>
+
 <p class="help-block">Bids are rounded up to the nearest whole
 	Euro. Suggested bid is shown, but you can enter anything higher
 	than the current bid.</p>
@@ -86,6 +95,7 @@ Logged in as {{request.user.email}}
 	</div>
 </div>
 <input type="submit" class="btn btn-primary" value="Bid!" />
+</fieldset>
 </form>
 {% else %}
 [<a href="#login-box" class="btn btn-info"

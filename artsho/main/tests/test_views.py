@@ -345,3 +345,49 @@ class TestAuctionLoggedOut(TestCase):
         a = AuctionFactory()
         r = self.c.get(reverse('auction_details', args=[a.id]))
         self.assertEquals(r.status_code, 200)
+
+    def test_simple_bid(self):
+        i = ItemFactory(starting_bid=10)
+        r = self.c.post(
+            reverse('bid_on_item', args=[i.id]),
+            dict(bid=11)
+        )
+        self.assertEqual(r.status_code, 200)
+        # make sure the bid didn't get through
+        self.assertEqual(i.high_bid(), 10)
+
+
+class BiddingTest(TestCase):
+    def setUp(self):
+        self.c = Client()
+        self.u = User.objects.create(username='test', is_staff=True)
+        self.u.set_password('test')
+        self.u.save()
+        self.c.login(username='test', password='test')
+
+    def test_simple_bid(self):
+        i = ItemFactory(starting_bid=10)
+        r = self.c.post(
+            reverse('bid_on_item', args=[i.id]),
+            dict(bid=11)
+        )
+        self.assertEqual(r.status_code, 302)
+        self.assertEqual(i.high_bid(), 11)
+
+    def test_lower_bid(self):
+        i = ItemFactory(starting_bid=10)
+        r = self.c.post(
+            reverse('bid_on_item', args=[i.id]),
+            dict(bid=9)
+        )
+        self.assertEqual(r.status_code, 302)
+        self.assertEqual(i.high_bid(), 10)
+
+    def test_float_bid(self):
+        i = ItemFactory(starting_bid=10)
+        r = self.c.post(
+            reverse('bid_on_item', args=[i.id]),
+            dict(bid=11.2)
+        )
+        self.assertEqual(r.status_code, 302)
+        self.assertEqual(i.high_bid(), 11)

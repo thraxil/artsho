@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.views.generic.base import TemplateView
 from django.views.generic import DetailView, View
 from django.views.generic.edit import DeleteView
@@ -14,7 +15,7 @@ from django.contrib.auth import REDIRECT_FIELD_NAME
 from .models import (
     Show, NewsItem, ShowVideo, Picture, NewsPicture,
     save_image, Auction, Item, ItemPicture,
-    ItemArtist, Artist
+    ItemArtist, Artist, Bid
 )
 
 
@@ -256,6 +257,30 @@ class AuctionDetailsView(DetailView):
 
 class ItemDetailsView(DetailView):
     model = Item
+
+
+class BidOnItemView(View):
+    def post(self, request, pk):
+        item = get_object_or_404(Item, pk=pk)
+        if request.user.is_anonymous():
+            return HttpResponse("you must login before you can bid")
+        bid = request.POST.get('bid', '0')
+        bid = int(float(bid))
+        if bid > item.high_bid():
+            Bid.objects.create(
+                item=item,
+                user=request.user,
+                amount=bid
+            )
+            messages.success(request, u"you bid €%d on this item" % bid)
+        else:
+            messages.warning(
+                request, (
+                    "the bid you entered was lower than the current"
+                    " high bid, so it was ignored. Please try again.")
+                )
+        return HttpResponseRedirect(
+            reverse('item_details', args=[item.id]))
 
 
 class EditAuctionView(StaffMixin, View):

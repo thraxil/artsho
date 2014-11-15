@@ -163,7 +163,9 @@ class Item(models.Model):
 
     def high_bid(self):
         if self.bid_set.count() > 0:
-            return self.bid_set.all().order_by('-amount')[0].amount
+            return max(
+                self.bid_set.all().order_by('-amount')[0].amount,
+                self.starting_bid)
         else:
             return self.starting_bid
 
