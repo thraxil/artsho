@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load thumbnail %}
+{% load markup %}
 
 {% block topcontent %}
 {% if request.user.is_anonymous %}
@@ -70,7 +71,7 @@ Logged in as {{request.user.email}}
 {% endif %}
 {% endwith %}
 </div>
-<div class="col-md-6">
+<div class="col-md-9">
 <dl class="dl-horizontal">
 <dt>Title</dt><dd><a href="{% url 'item_details' item.id %}">{{item.title}}</a></dd>
 <dt>Artist(s)</dt>
@@ -80,10 +81,21 @@ Logged in as {{request.user.email}}
 {% endfor %}
 </ul>
 </dd>
-<dt>Medium</dt><dd>{{item.medium}}</dd>
-<dt>Description</dt><dd>{{item.description}}</dd>
+{% if item.medium %}<dt>Medium</dt><dd>{{item.medium}}</dd>{% endif %}
+{% if item.description %}<dt>Description</dt><dd>{{item.description|markdown}}</dd>{% endif %}
 <dt>Current Bid</dt><dd>&#8364; {{item.high_bid}}</dd>
 </dl>
+
+{% if item.auction.is_ongoing %}
+{% if not request.user.is_anonymous %}
+{% ifequal item.high_bidder.id request.user.id %}
+<div class="bg-success">
+<span class="glyphicon glyphicon-ok"></span> You are the current high bidder on this item!
+</div>
+{% endifequal %}
+{% endif %}
+{% endif %}
+
 </div>
 </div>
 </div>

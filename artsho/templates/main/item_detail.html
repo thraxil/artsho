@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load thumbnail %}
+{% load markup %}
 
 {% block topcontent %}
 {% if request.user.is_anonymous %}
@@ -46,7 +47,6 @@ Logged in as {{request.user.email}}
 	<div class="panel-body">
 		<div class="row">
 			<dl class="dl-horizontal">
-				<dt>Title</dt><dd>{{item.title}}</dd>
 				<dt>Artist(s)</dt>
 				<dd>
 					<ul class="list-inline">
@@ -55,8 +55,12 @@ Logged in as {{request.user.email}}
 						{% endfor %}
 					</ul>
 				</dd>
+{% if item.medium %}
 				<dt>Medium</dt><dd>{{item.medium}}</dd>
-				<dt>Description</dt><dd>{{item.description}}</dd>
+{% endif %}
+{% if item.description %}
+				<dt>Description</dt><dd>{{item.description|markdown}}</dd>
+{% endif %}
 {% if item.auction.is_ongoing %}
 				<dt>Current Bid</dt><dd><mark>&#8364; {{item.high_bid}}</mark>
 {% if item.bid_set.exists %}<span class="text-muted">({{ item.most_recent_bid.entered|timesince }} ago)</span>
