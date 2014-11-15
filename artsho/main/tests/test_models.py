@@ -110,6 +110,15 @@ class ItemTest(TestCase):
         i = ItemFactory(starting_bid=100)
         self.assertEqual(i.bid_suggestion(), 111)
 
+    def test_most_recent_bid_none(self):
+        i = ItemFactory()
+        self.assertEqual(i.most_recent_bid(), None)
+
+    def test_most_recent_bid_bids(self):
+        i = ItemFactory()
+        b = BidFactory(item=i, amount=i.starting_bid + 10)
+        self.assertEqual(i.most_recent_bid(), b)
+
 
 class ItemArtistTest(TestCase):
     def test_unicode(self):

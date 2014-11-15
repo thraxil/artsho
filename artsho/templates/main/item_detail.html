@@ -36,8 +36,9 @@ Logged in as {{request.user.email}}
 {% endblock %}
 
 {% block content %}
-<p><a href="{% url 'auction_details' item.auction.id %}">Back to
-		Auction</a></p>
+<ol class="breadcrumb">
+	<li><a href="{% url 'auction_details' item.auction.id %}"><span class="glyphicon glyphicon-home"></span> Auction Home</a></li>
+</ol>
 
 <h1>{{item.title}}</h1>
 
@@ -57,7 +58,10 @@ Logged in as {{request.user.email}}
 				<dt>Medium</dt><dd>{{item.medium}}</dd>
 				<dt>Description</dt><dd>{{item.description}}</dd>
 {% if item.auction.is_ongoing %}
-				<dt>Current Bid</dt><dd>&#8364; {{item.high_bid}}</dd>
+				<dt>Current Bid</dt><dd><mark>&#8364; {{item.high_bid}}</mark>
+{% if item.bid_set.exists %}<span class="text-muted">({{ item.most_recent_bid.entered|timesince }} ago)</span>
+{% endif %}
+</dd>
 {% else %}
 {% if item.auction.is_completed %}
 				<dt>Winning Bid</dt><dd>&#8364; {{item.high_bid}}</dd>

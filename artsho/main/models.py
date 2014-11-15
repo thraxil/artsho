@@ -188,6 +188,12 @@ class Item(models.Model):
         h = self.high_bid()
         return int(math.ceil(h * 1.1))
 
+    def most_recent_bid(self):
+        if self.bid_set.count() > 0:
+            return self.bid_set.all().order_by('-amount')[0]
+        else:
+            return None
+
 
 class ItemArtist(models.Model):
     item = models.ForeignKey(Item)
