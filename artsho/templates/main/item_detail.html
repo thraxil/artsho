@@ -69,6 +69,7 @@ Logged in as {{request.user.email}}
 </div>
 
 {% if item.auction.is_ongoing %}
+{% if not request.user.is_anonymous %}
 {% ifequal item.high_bidder.id request.user.id %}
 <div class="bs-callout bs-callout-success">
 <h4>Congratulations!</h4>
@@ -76,6 +77,7 @@ You are the current high bidder on this item.
 You can still increase your bid, though!
 </div>
 {% endifequal %}
+{% endif %}
 
 <div class="auction-item panel panel-default">
 	<div class="panel-body">
@@ -105,10 +107,6 @@ You can still increase your bid, though!
 <input type="submit" class="btn btn-primary" value="Bid!" />
 </fieldset>
 </form>
-{% else %}
-[<a href="#login-box" class="btn btn-info"
- data-toggle="modal"
- data-target="#login-box">Login/Register</a> to bid.]
 {% endif %}
 
 </div>
