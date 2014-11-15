@@ -4,7 +4,7 @@ from .factories import (
     ShowFactory, PictureFactory, ArtistFactory,
     ItemFactory, ItemArtistFactory, NewsItemFactory,
     AuctionFactory, BidFactory, ItemPictureFactory,
-    ShowVideoFactory,
+    ShowVideoFactory, UserFactory
 )
 
 
@@ -139,3 +139,9 @@ class BidTest(TestCase):
     def test_unicode(self):
         a = BidFactory()
         self.assertTrue(str(a).startswith("bid for "))
+
+    def test_email_previous_bidders(self):
+        b = BidFactory()
+        u = UserFactory(email="newemail@example.com", username='user2')
+        b2 = BidFactory(item=b.item, user=u, amount=b.amount + 10)
+        b2.email_previous_bidders()

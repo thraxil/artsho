@@ -7,6 +7,7 @@ import os.path
 from django.template.defaultfilters import slugify
 from sorl.thumbnail.fields import ImageWithThumbnailsField
 from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
 import math
 
 
@@ -236,6 +237,28 @@ class Bid(models.Model):
             settings.SERVER_EMAIL,
             [self.user.email],
             fail_silently=settings.DEBUG)
+
+    def email_previous_bidders(self):
+        bidders = set(
+            [b.user.email
+             for b
+             in self.item.bid_set.all()]) - set([self.user.email])
+        body = (
+            """Someone has entered a higher bid than you """
+            """on the item \"%s\".\n\nDon't let it get """
+            """away. Go to\n\n   %s%s\n\nand increase your bid."""
+        ) % (
+            self.item.title, settings.SITE_BASE,
+            reverse('item_details', args=[self.item.id])
+        )
+
+        for b in bidders:
+            send_mail(
+                "you have been outbid on an Artsho auction",
+                body,
+                settings.SERVER_EMAIL,
+                [b],
+                fail_silently=settings.DEBUG)
 
 
 class NewsItem(models.Model):
