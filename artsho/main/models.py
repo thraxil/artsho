@@ -134,6 +134,10 @@ class Auction(models.Model):
     def send_end_of_auction_emails(self):
         pass
 
+    def days_remaining(self):
+        n = datetime.now()
+        return self.end - n.date()
+
 
 class Item(models.Model):
     auction = models.ForeignKey(Auction)

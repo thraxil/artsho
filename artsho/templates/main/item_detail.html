@@ -77,6 +77,14 @@ Logged in as <b>{{request.user.email}}</b>
 </div>
 
 {% if item.auction.is_ongoing %}
+
+{% if item.auction.days_remaining.days %}
+<p class="text-info">{{item.auction.days_remaining.days}} days remaining</p>
+{% else %}
+<p class="bg-danger">Less than a day remaining in the auction! Get your bid in now!</p>
+{% endif %}
+
+
 {% if not request.user.is_anonymous %}
 {% ifequal item.high_bidder.id request.user.id %}
 <div class="bs-callout bs-callout-success">

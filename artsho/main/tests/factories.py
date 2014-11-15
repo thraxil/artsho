@@ -59,8 +59,8 @@ class NewsPictureFactory(factory.DjangoModelFactory):
 class AuctionFactory(factory.DjangoModelFactory):
     FACTORY_FOR = Auction
     show = factory.SubFactory(ShowFactory)
-    start = datetime.now()
-    end = datetime.now()
+    start = datetime.now().date()
+    end = datetime.now().date()
 
 
 class ItemFactory(factory.DjangoModelFactory):

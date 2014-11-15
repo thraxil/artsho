@@ -143,6 +143,10 @@ class AuctionTest(TestCase):
         a = AuctionFactory(status='completed')
         self.assertTrue(a.is_completed())
 
+    def test_days_remaining(self):
+        a = AuctionFactory()
+        self.assertTrue(a.days_remaining() is not None)
+
 
 class BidTest(TestCase):
     def test_unicode(self):

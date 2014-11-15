@@ -46,6 +46,11 @@ Logged in as <b>{{request.user.email}}</b>
 
 {% ifequal auction.status "ongoing" %}
 <p>This auction will close around <b>{{auction.end}}</b></p>
+{% if item.auction.days_remaining.days %}
+<p class="text-info">{{item.auction.days_remaining.days}} days remaining</p>
+{% else %}
+<p class="bg-danger">Less than a day remaining in the auction! Get your bid in now!</p>
+{% endif %}
 {% endifequal %}
 
 {% ifequal auction.status "complete" %}
@@ -59,6 +64,7 @@ Logged in as <b>{{request.user.email}}</b>
 
 {% ifnotequal auction.status "upcoming" %}
 {% comment %} show the auction items {% endcomment %}
+
 
 {% if auction.item_set.count %}
 <h2>Items up for Auction</h2>
