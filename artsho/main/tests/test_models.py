@@ -3,7 +3,7 @@ from artsho.main.models import Artist
 from .factories import (
     ShowFactory, PictureFactory, ArtistFactory,
     ItemFactory, ItemArtistFactory, NewsItemFactory,
-    AuctionFactory, BidFactory,
+    AuctionFactory, BidFactory, ItemPictureFactory,
     ShowVideoFactory,
 )
 
@@ -87,6 +87,15 @@ class ItemTest(TestCase):
         i = ItemFactory()
         b = BidFactory(item=i, amount=i.starting_bid + 10)
         self.assertEqual(i.high_bid(), b.amount)
+
+    def test_first_picture_none(self):
+        i = ItemFactory()
+        self.assertEqual(i.first_picture(), None)
+
+    def test_first_picture_populated(self):
+        i = ItemFactory()
+        p = ItemPictureFactory(item=i)
+        self.assertEqual(i.first_picture(), p)
 
 
 class ItemArtistTest(TestCase):

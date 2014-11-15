@@ -166,6 +166,12 @@ class Item(models.Model):
         else:
             return self.starting_bid
 
+    def first_picture(self):
+        if self.itempicture_set.exists():
+            return self.itempicture_set.all()[0]
+        else:
+            return None
+
 
 class ItemArtist(models.Model):
     item = models.ForeignKey(Item)

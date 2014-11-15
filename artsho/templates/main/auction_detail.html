@@ -61,12 +61,14 @@ Logged in as {{request.user.email}}
 <div class="panel-body">
 <div class="row">
 <div class="col-md-3">
-{% for image in item.itempicture_set.all %}
+{% with item.first_picture as image %}
+{% if image %}
 <div class="thumbnail">
 <a href="{% url 'item_details' item.id %}"><img src="{% thumbnail image.image 200x200 crop %}" width="200"
 		 height="200" /></a>
 </div>
-{% endfor %}
+{% endif %}
+{% endwith %}
 </div>
 <div class="col-md-6">
 <dl class="dl-horizontal">
