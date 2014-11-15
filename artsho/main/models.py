@@ -120,6 +120,7 @@ class Auction(models.Model):
             ("ongoing", "ongoing"),
             ("completed", "completed"),
         ))
+    description = models.TextField(blank=True, default=u"")
 
     def __unicode__(self):
         return "Auction for %s" % str(self.show)
