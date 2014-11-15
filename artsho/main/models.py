@@ -1,6 +1,8 @@
+# -*- coding: utf-8 -*-
 from django.db import models
 from datetime import datetime
 from django.conf import settings
+from django.core.mail import send_mail
 import os.path
 from django.template.defaultfilters import slugify
 from sorl.thumbnail.fields import ImageWithThumbnailsField
@@ -222,6 +224,18 @@ class Bid(models.Model):
         return "bid for $%d on %s by %s at %s" % (
             self.amount, self.item, self.user.email,
             self.entered)
+
+    def send_confirmation_email(self):
+        send_mail(
+            "Artsho bid confirmation",
+            (
+                u"""This email confirms that you have bid €%d on """
+                u"""\"%s\" and are currently the high bidder.\n\n"""
+                % (self.amount, self.item.title)
+            ),
+            settings.SERVER_EMAIL,
+            [self.user.email],
+            fail_silently=settings.DEBUG)
 
 
 class NewsItem(models.Model):

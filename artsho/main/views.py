@@ -267,12 +267,13 @@ class BidOnItemView(View):
         bid = request.POST.get('bid', '0')
         bid = int(float(bid))
         if bid > item.high_bid():
-            Bid.objects.create(
+            b = Bid.objects.create(
                 item=item,
                 user=request.user,
                 amount=bid
             )
             messages.success(request, u"you bid €%d on this item" % bid)
+            b.send_confirmation_email()
         else:
             messages.warning(
                 request, (
