@@ -304,6 +304,7 @@ class EditAuctionView(StaffMixin, View):
         auction = get_object_or_404(Auction, pk=pk)
         auction.start = request.POST.get('start', '')
         auction.end = request.POST.get('end', '')
+        auction.description = request.POST.get('description', '')
         auction.save()
         messages.success(request, "Auction updated")
         return HttpResponseRedirect(

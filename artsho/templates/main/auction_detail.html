@@ -41,16 +41,21 @@ Logged in as {{request.user.email}}
 <h1>Auction for {{auction.show.title}}</h1>
 
 {% ifequal auction.status "upcoming" %}
-<p>Auction will open on {{auction.start}}</p>
+<p>This auction will open on <b>{{auction.start}}</b></p>
 {% endifequal %}
 
 {% ifequal auction.status "ongoing" %}
-<p>Auction will close around {{auction.end}}</p>
+<p>This auction will close around <b>{{auction.end}}</b></p>
 {% endifequal %}
 
 {% ifequal auction.status "complete" %}
-<p>Auction closed on {{auction.end}}</p>
+<p>This auction closed on <b>{{auction.end}}</b></p>
 {% endifequal %}
+
+{% if auction.description %}
+{{auction.description|markdown}}
+{% endif %}
+
 
 {% ifnotequal auction.status "upcoming" %}
 {% comment %} show the auction items {% endcomment %}
