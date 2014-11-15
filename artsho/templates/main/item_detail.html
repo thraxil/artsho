@@ -79,9 +79,10 @@ You can still increase your bid, though!
 {% endifequal %}
 {% endif %}
 
+{% if not request.user.is_anonymous %}
 <div class="auction-item panel panel-default">
 	<div class="panel-body">
-{% if not request.user.is_anonymous %}
+
 
 {% if messages %}
 {% for message in messages %}
