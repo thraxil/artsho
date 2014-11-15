@@ -68,7 +68,37 @@ Logged in as {{request.user.email}}
 	</div>
 </div>
 
-<div class="col-md-3">
+{% if item.auction.is_ongoing %}
+<div class="auction-item panel panel-default">
+	<div class="panel-body">
+{% if not request.user.is_anonymous %}
+<form action="" method="post" role="form" class="form-inline" />
+<p class="help-block">Bids are rounded up to the nearest whole
+	Euro. Suggested bid is shown, but you can enter anything higher
+	than the current bid.</p>
+
+<div class="form-group">
+  <div class="input-group">
+		<label class="sr-only" for="bid">Bid Amount</label>
+		<div class="input-group-addon">&#8364;</div>
+		<input type="text" id="bid" name="bid"
+						 value="{{item.bid_suggestion}}" class="form-control" />
+	</div>
+</div>
+<input type="submit" class="btn btn-primary" value="Bid!" />
+</form>
+{% else %}
+[<a href="#login-box" class="btn btn-info"
+ data-toggle="modal"
+ data-target="#login-box">Login/Register</a> to bid.]
+{% endif %}
+
+</div>
+</div>
+{% endif %}
+
+
+<div class="row">
 {% for image in item.itempicture_set.all %}
 
 <img src="{% thumbnail image.image 960x600 %}" />

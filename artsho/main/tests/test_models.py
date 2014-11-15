@@ -97,6 +97,10 @@ class ItemTest(TestCase):
         p = ItemPictureFactory(item=i)
         self.assertEqual(i.first_picture(), p)
 
+    def test_bid_suggestion(self):
+        i = ItemFactory(starting_bid=100)
+        self.assertEqual(i.bid_suggestion(), 111)
+
 
 class ItemArtistTest(TestCase):
     def test_unicode(self):

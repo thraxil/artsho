@@ -5,6 +5,7 @@ import os.path
 from django.template.defaultfilters import slugify
 from sorl.thumbnail.fields import ImageWithThumbnailsField
 from django.contrib.auth.models import User
+import math
 
 
 class Show(models.Model):
@@ -171,6 +172,10 @@ class Item(models.Model):
             return self.itempicture_set.all()[0]
         else:
             return None
+
+    def bid_suggestion(self):
+        h = self.high_bid()
+        return int(math.ceil(h * 1.1))
 
 
 class ItemArtist(models.Model):
