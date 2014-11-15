@@ -69,6 +69,14 @@ Logged in as {{request.user.email}}
 </div>
 
 {% if item.auction.is_ongoing %}
+{% ifequal item.high_bidder.id request.user.id %}
+<div class="bs-callout bs-callout-success">
+<h4>Congratulations!</h4>
+You are the current high bidder on this item.
+You can still increase your bid, though!
+</div>
+{% endifequal %}
+
 <div class="auction-item panel panel-default">
 	<div class="panel-body">
 {% if not request.user.is_anonymous %}

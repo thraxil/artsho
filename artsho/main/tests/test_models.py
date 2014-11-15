@@ -88,6 +88,15 @@ class ItemTest(TestCase):
         b = BidFactory(item=i, amount=i.starting_bid + 10)
         self.assertEqual(i.high_bid(), b.amount)
 
+    def test_high_bidder_none(self):
+        i = ItemFactory()
+        self.assertEqual(i.high_bidder(), None)
+
+    def test_high_bidder_bids(self):
+        i = ItemFactory()
+        b = BidFactory(item=i, amount=i.starting_bid + 10)
+        self.assertEqual(i.high_bidder(), b.user)
+
     def test_first_picture_none(self):
         i = ItemFactory()
         self.assertEqual(i.first_picture(), None)

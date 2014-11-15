@@ -169,6 +169,12 @@ class Item(models.Model):
         else:
             return self.starting_bid
 
+    def high_bidder(self):
+        if self.bid_set.count() > 0:
+            return self.bid_set.all().order_by('-amount')[0].user
+        else:
+            return None
+
     def first_picture(self):
         if self.itempicture_set.exists():
             return self.itempicture_set.all()[0]
