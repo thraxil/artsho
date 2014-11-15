@@ -108,18 +108,19 @@ You can still increase your bid, though!
 <input type="submit" class="btn btn-primary" value="Bid!" />
 </fieldset>
 </form>
-{% endif %}
+
 
 </div>
 </div>
+{% endif %}
 {% endif %}
 
 
 <div class="row">
 {% for image in item.itempicture_set.all %}
-
+<div class="col-md-10">
 <img src="{% thumbnail image.image 960x600 %}" />
-
+</div>
 {% endfor %}
 </div>
 
