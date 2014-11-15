@@ -391,3 +391,12 @@ class BiddingTest(TestCase):
         )
         self.assertEqual(r.status_code, 302)
         self.assertEqual(i.high_bid(), 11)
+
+    def test_invalid_bid(self):
+        i = ItemFactory(starting_bid=10)
+        r = self.c.post(
+            reverse('bid_on_item', args=[i.id]),
+            dict(bid='g')
+        )
+        self.assertEqual(r.status_code, 302)
+        self.assertEqual(i.high_bid(), 10)

@@ -264,8 +264,15 @@ class BidOnItemView(View):
         item = get_object_or_404(Item, pk=pk)
         if request.user.is_anonymous():
             return HttpResponse("you must login before you can bid")
-        bid = request.POST.get('bid', '0')
-        bid = int(float(bid))
+        try:
+            bid = request.POST.get('bid', '0')
+            bid = int(float(bid))
+        except:
+            messages.warning(
+                request,
+                "oops! we couldn't parse that bid as a number.")
+            return HttpResponseRedirect(
+                reverse('item_details', args=[item.id]))
         if bid > item.high_bid():
             b = Bid.objects.create(
                 item=item,
