@@ -81,7 +81,6 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.transaction.TransactionMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'impersonate.middleware.ImpersonateMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'waffle.middleware.WaffleMiddleware',
 )
 
@@ -107,7 +106,6 @@ INSTALLED_APPS = [
     'django_statsd',
     'bootstrap3',
     'bootstrapform',
-    'debug_toolbar',
     'waffle',
     'discover_jenkins',
     'smoketest',
@@ -121,16 +119,6 @@ INSTALLED_APPS = [
 ]
 
 INTERNAL_IPS = ('127.0.0.1', )
-DEBUG_TOOLBAR_PANELS = (
-    'debug_toolbar.panels.version.VersionDebugPanel',
-    'debug_toolbar.panels.timer.TimerDebugPanel',
-    'debug_toolbar.panels.headers.HeaderDebugPanel',
-    'debug_toolbar.panels.request_vars.RequestVarsDebugPanel',
-    'debug_toolbar.panels.template.TemplateDebugPanel',
-    'debug_toolbar.panels.sql.SQLDebugPanel',
-    'debug_toolbar.panels.signals.SignalDebugPanel',
-)
-DEBUG_TOOLBAR_PATCH_SETTINGS = False
 
 STATSD_CLIENT = 'statsd.client'
 STATSD_PREFIX = 'artsho'
