@@ -139,6 +139,10 @@ class Auction(models.Model):
         return self.end - n.date()
 
 
+def lock_n(x, n=5.):
+    return int(math.ceil(x / float(n)) * float(n))
+
+
 class Item(models.Model):
     auction = models.ForeignKey(Auction)
     title = models.TextField(blank=True, default=u"")
@@ -191,7 +195,7 @@ class Item(models.Model):
 
     def bid_suggestion(self):
         h = self.high_bid()
-        return int(math.ceil(h * 1.1))
+        return lock_n(h * 1.1, 5.)
 
     def most_recent_bid(self):
         if self.bid_set.count() > 0:

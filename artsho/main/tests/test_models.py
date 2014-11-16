@@ -108,7 +108,7 @@ class ItemTest(TestCase):
 
     def test_bid_suggestion(self):
         i = ItemFactory(starting_bid=100)
-        self.assertEqual(i.bid_suggestion(), 111)
+        self.assertEqual(i.bid_suggestion(), 115)
 
     def test_most_recent_bid_none(self):
         i = ItemFactory()
