@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Auction Dashboard</h1>
+
+<div class="well">
+	Total Amount Raised: <b>&#8364; {{auction.total_raised}}</b>
+</div>
+
+<h2>Leaders</h2>
+<table class="table table-striped">
+{% for item in object.item_set.all %}
+<tr>
+	<th>{{item.title}}</th>
+	<th>&#8364; {{item.high_bid}}</th>
+	<th>{{ item.most_recent_bid.entered }}</th>
+	<th>{{item.most_recent_bid.user.email}}</th>
+</tr>
+{% endfor %}
+</table>
+
+<h2>All Bids</h2>
+
+<table class="table table-striped table-condensed">
+
+{% for bid in auction.all_bids %}
+<tr>
+	<td>{{bid.item.title}}</td>
+	<td>&#8364; {{bid.amount}}</td>
+	<td>{{bid.entered}}</td>
+	<td>{{bid.user.email}}</td>
+</tr>
+{% endfor %}
+
+</table>
+
+{% endblock %}

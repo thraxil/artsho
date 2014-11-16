@@ -147,6 +147,21 @@ class AuctionTest(TestCase):
         a = AuctionFactory()
         self.assertTrue(a.days_remaining() is not None)
 
+    def test_all_bids(self):
+        a = AuctionFactory()
+        self.assertFalse(a.all_bids().exists())
+
+    def test_total_raised_empty(self):
+        a = AuctionFactory()
+        self.assertEqual(a.total_raised(), 0)
+
+    def test_total_raised_bids(self):
+        a = AuctionFactory()
+        i = ItemFactory(auction=a)
+        BidFactory(item=i, amount=i.starting_bid+10)
+        ItemFactory(auction=a)
+        self.assertEqual(a.total_raised(), 11)
+
 
 class BidTest(TestCase):
     def test_unicode(self):

@@ -138,6 +138,18 @@ class Auction(models.Model):
         n = datetime.now()
         return self.end - n.date()
 
+    def all_bids(self):
+        return Bid.objects.filter(
+            item__auction=self,
+        ).order_by('-entered')
+
+    def total_raised(self):
+        s = 0
+        for i in self.item_set.all():
+            if i.high_bid() > i.starting_bid:
+                s += i.high_bid()
+        return s
+
 
 def lock_n(x, n=5.):
     return int(math.ceil(x / float(n)) * float(n))

@@ -255,6 +255,11 @@ class AuctionDetailsView(DetailView):
     model = Auction
 
 
+class AuctionDashboardView(StaffMixin, DetailView):
+    model = Auction
+    template_name = "main/auction_dashboard.html"
+
+
 class ItemDetailsView(DetailView):
     model = Item
 

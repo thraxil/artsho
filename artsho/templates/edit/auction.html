@@ -30,6 +30,8 @@ value="Start the auction NOW" />
 {% endif %}
 <br />
 
+<p><a href="{% url 'auction_dashboard' auction.id %}">View Bid Dashboard</a></p>
+
 <ul class="nav nav-tabs" role="tablist">
   <li role="presentation" class="active"><a href="#items" role="tab"
   data-toggle="tab">Auction Items</a></li>
