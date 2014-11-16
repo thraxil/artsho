@@ -150,6 +150,15 @@ class Auction(models.Model):
                 s += i.high_bid()
         return s
 
+    def send_broadcast_message(self, subject, body):
+        addresses = set([b.user.email for b in self.all_bids()])
+        send_mail(
+            subject,
+            body,
+            settings.SERVER_EMAIL,
+            list(addresses),
+            fail_silently=settings.DEBUG)
+
 
 def lock_n(x, n=5.):
     return int(math.ceil(x / float(n)) * float(n))

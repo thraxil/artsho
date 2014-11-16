@@ -24,6 +24,10 @@ urlpatterns = patterns(
     url(r'^auction/(?P<pk>\d+)/dashboard/$',
         views.AuctionDashboardView.as_view(),
         name='auction_dashboard'),
+    url(r'^auction/(?P<pk>\d+)/broadcast/$',
+        views.AuctionBroadcastView.as_view(),
+        name='auction_broadcast'),
+
     url(r'^item/(?P<pk>\d+)/$', views.ItemDetailsView.as_view(),
         name='item_details'),
     url(r'^item/(?P<pk>\d+)/bid/$', views.BidOnItemView.as_view(),

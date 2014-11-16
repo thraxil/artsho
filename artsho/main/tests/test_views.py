@@ -336,6 +336,14 @@ class EditTest(TestCase):
                 dict(image=img))
             self.assertEqual(r.status_code, 302)
 
+    def test_send_broadcast_message(self):
+        a = AuctionFactory()
+        r = self.c.post(
+            reverse('auction_broadcast', args=[a.id]),
+            dict(subject='test subject', body='test body')
+        )
+        self.assertEqual(r.status_code, 302)
+
 
 class TestAuctionLoggedOut(TestCase):
     def setUp(self):

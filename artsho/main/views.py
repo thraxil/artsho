@@ -260,6 +260,16 @@ class AuctionDashboardView(StaffMixin, DetailView):
     template_name = "main/auction_dashboard.html"
 
 
+class AuctionBroadcastView(StaffMixin, View):
+    def post(self, request, pk):
+        a = get_object_or_404(Auction, pk=pk)
+        a.send_broadcast_message(
+            request.POST.get('subject', 'artsho message'),
+            request.POST.get('body', ''))
+        return HttpResponseRedirect(
+            reverse('auction_dashboard', args=[a.id]))
+
+
 class ItemDetailsView(DetailView):
     model = Item
 

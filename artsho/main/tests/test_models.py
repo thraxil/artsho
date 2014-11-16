@@ -162,6 +162,10 @@ class AuctionTest(TestCase):
         ItemFactory(auction=a)
         self.assertEqual(a.total_raised(), 11)
 
+    def test_send_broadcast_message(self):
+        a = AuctionFactory()
+        a.send_broadcast_message("test", "test")
+
 
 class BidTest(TestCase):
     def test_unicode(self):
