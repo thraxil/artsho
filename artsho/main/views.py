@@ -296,6 +296,7 @@ class BidOnItemView(View):
             )
             messages.success(request, u"you bid €%d on this item" % bid)
             b.send_confirmation_email()
+            b.email_previous_bidders()
         else:
             messages.warning(
                 request, (
