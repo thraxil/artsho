@@ -136,3 +136,6 @@ body#artsho4 #menu-artsho4 { font-weight: bold; }
 .bs-callout-info h4 {
     color: #5bc0de;
 }
+.twitter-timeline {
+		padding-left: 50px;
+}
