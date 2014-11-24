@@ -71,32 +71,30 @@ Logged in as <b>{{request.user.email}}</b>
 <h2>Items up for Auction</h2>
 {% for item in auction.item_set.all %}
 <div class="auction-item panel panel-default">
-<div class="panel-body">
-<div class="row">
-<div class="col-md-3">
+	<div class="panel-body">
+		<div class="row">
+			<div class="col-md-12">
 {% with item.first_picture as image %}
 {% if image %}
 <div class="thumbnail">
-<a href="{% url 'item_details' item.id %}"><img src="{% thumbnail image.image 200x200 crop %}" width="200"
-		 height="200" /></a>
+<a href="{% url 'item_details' item.id %}"><img src="{% thumbnail image.image 800x800 crop %}" width="800"
+		 height="800" class="img-responsive" /></a>
 </div>
 {% endif %}
 {% endwith %}
-</div>
-<div class="col-md-9">
-<dl class="dl-horizontal">
-<dt>Title</dt><dd><a href="{% url 'item_details' item.id %}">{{item.title}}</a></dd>
-<dt>Artist(s)</dt>
-<dd><ul class="list-inline">
-{% for ia in item.itemartist_set.all %}
-<li>{{ia.artist.name}}</li>
-{% endfor %}
-</ul>
-</dd>
-{% if item.medium %}<dt>Medium</dt><dd>{{item.medium}}</dd>{% endif %}
-{% if item.description %}<dt>Description</dt><dd>{{item.description|markdown}}</dd>{% endif %}
-<dt>Current Bid</dt><dd>&#8364; {{item.high_bid}}</dd>
-</dl>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<dl class="dl-horizontal">
+					<dt>Title</dt><dd><a href="{% url 'item_details' item.id %}">{{item.title}}</a></dd>
+					<dt>Artist(s)</dt>
+					<dd>{% for ia in item.itemartist_set.all %}
+							{{ia.artist.name}}
+							{% endfor %}
+					</dd>
+					<dt>Current Bid</dt><dd>&#8364; {{item.high_bid}}</dd>
+				</dl>
 
 {% if item.auction.is_ongoing %}
 {% if not request.user.is_anonymous %}
