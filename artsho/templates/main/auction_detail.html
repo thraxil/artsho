@@ -77,8 +77,8 @@ Logged in as <b>{{request.user.email}}</b>
 {% with item.first_picture as image %}
 {% if image %}
 <div class="thumbnail">
-<a href="{% url 'item_details' item.id %}"><img src="{% thumbnail image.image 800x800 crop %}" width="800"
-		 height="800" class="img-responsive" /></a>
+<a href="{% url 'item_details' item.id %}"><img src="{% thumbnail image.image 600x600 crop %}" width="600"
+		 height="600" class="img-responsive" /></a>
 </div>
 {% endif %}
 {% endwith %}
