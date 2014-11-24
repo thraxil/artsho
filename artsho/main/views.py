@@ -90,6 +90,16 @@ class ReorderShowPicturesView(StaffMixin, View):
         return HttpResponse("ok")
 
 
+class ReorderAuctionItemsView(StaffMixin, View):
+    def post(self, request, pk):
+        auction = get_object_or_404(Auction, pk=pk)
+        keys = [int(k[len('item_'):]) for k in request.POST.keys()]
+        keys.sort()
+        sis = [int(request.POST["item_%d" % k]) for k in keys]
+        auction.set_item_order(sis)
+        return HttpResponse("ok")
+
+
 class ReorderShowVideosView(StaffMixin, View):
     def post(self, request, pk):
         show = get_object_or_404(Show, pk=pk)

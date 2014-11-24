@@ -68,6 +68,8 @@ urlpatterns = patterns(
         views.ReorderShowPicturesView.as_view(), name='reorder_show_pictures'),
     url(r'^edit/show/(?P<pk>\d+)/reorder_videos/$',
         views.ReorderShowVideosView.as_view(), name='reorder_show_videos'),
+    url(r'^edit/auction/(?P<pk>\d+)/reorder_items/$',
+        views.ReorderAuctionItemsView.as_view(), name='reorder_auction_items'),
 
     url(r'^edit/show/(?P<pk>\d+)/add_picture/$',
         views.AddPictureView.as_view(), name='edit_show_add_picture'),

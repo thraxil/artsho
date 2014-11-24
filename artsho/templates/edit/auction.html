@@ -89,10 +89,10 @@ value="Start the auction NOW" />
 {% if auction.item_set.count %}
 <h3>Items</h3>
 
-<table class="table table-striped">
+<table class="table table-striped sortable" id="items">
 <tr><th>Item</th><th>Artist(s)</th><th></th></tr>
 {% for ai in auction.item_set.all %}
-<tr>
+<tr id="{{ai.id}}">
 	<td><a href="{% url 'edit_auction_item' ai.id %}">{{ai.title}}</a></td>
 {% if ai.itemartist_set.count %}
 	<td>by {{ai.itemartist_set.all.0.artist.name}}
@@ -146,20 +146,19 @@ value="Start the auction NOW" />
 
 
 {% block js %}
-{% comment %}
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
   <script src="//code.jquery.com/jquery-1.10.2.js"></script>
   <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 
 <script>
-var saveOrderOfImages = function() {
-  var url = "{% url 'reorder_show_pictures' show.id %}";
+var saveOrderOfItems = function() {
+  var url = "{% url 'reorder_auction_items' auction.id %}";
   var worktodo = 0;
   var data = {};
-  jQuery(".show-thumb").each(function(index, element) {
+  jQuery("#items tr").each(function(index, element) {
      worktodo = 1;
      var id = jQuery(element).attr('id');
-     data["pic_" + index] = id;
+     data["item_" + index] = id;
   });
   if (worktodo == 1) {
        $.ajax({
@@ -169,40 +168,16 @@ var saveOrderOfImages = function() {
        })
   }
 };
-
-var saveOrderOfVideos = function() {
-  var url = "{% url 'reorder_show_videos' show.id %}";
-  var worktodo = 0;
-  var data = {};
-  jQuery(".show-video").each(function(index, element) {
-     worktodo = 1;
-     var id = jQuery(element).attr('id');
-     data["video_" + index] = id;
-  });
-  if (worktodo == 1) {
-       $.ajax({
-          url: url,
-          type: 'POST',
-          data: data
-       })
-  }
-};
-    
 
 $(function() {
-  $( "#images" ).sortable({
-     items : 'div.show-thumb'
-   , stop: function (event,ui) { saveOrderOfImages(); }
+  $( "#items" ).sortable({
+     items : 'tr'
+   , stop: function (event,ui) { saveOrderOfItems(); }
   });
-  $( "#images" ).disableSelection();
+  $( "#items" ).disableSelection();
 
-  $( "#videos-list" ).sortable({
-     items : 'div.show-video'
-   , stop: function (event,ui) { saveOrderOfVideos(); }
-  });
-  $( "#videos-list" ).disableSelection();
 
 });
 </script>
-{% endcomment %}
+
 {% endblock %}
