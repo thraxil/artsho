@@ -22,6 +22,7 @@
 {{object.description|markdown}}
 
 {% with show.first_video as first_video %}
+{% if first_video %}
 <div class="embed video-player">
 <iframe class="youtube-player" type="text/html"
     width="853" height="480"
@@ -29,7 +30,7 @@
     allowfullscreen frameborder="0">
 </iframe>
 </div>
-
+{% endif %}
 {% endwith %}
 
 {% if show.has_multiple_videos %}

@@ -10,6 +10,8 @@ site_media_root = os.path.join(os.path.dirname(__file__), "../media")
 
 urlpatterns = patterns(
     '',
+    (r'^accounts/logout/$',
+     'django.contrib.auth.views.logout', {'next_page': '/'}),
     (r'^accounts/', include('django.contrib.auth.urls')),
     (r'^$', views.IndexView.as_view()),
 

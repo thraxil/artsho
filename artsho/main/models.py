@@ -42,6 +42,9 @@ class Show(models.Model):
         return self.showvideo_set.count() > 1
 
     def first_video(self):
+        r = self.showvideo_set.all()
+        if not r.exists():
+            return None
         return self.showvideo_set.all()[0]
 
     def rest_videos(self):
