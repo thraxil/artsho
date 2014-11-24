@@ -139,3 +139,6 @@ body#artsho4 #menu-artsho4 { font-weight: bold; }
 .twitter-timeline {
 		padding-left: 50px;
 }
+.alert-grey {
+   background-color: #ccc;
+}

@@ -16,7 +16,7 @@
 {% ifequal auction.status "ongoing" %}
 <p>This auction will close around <b>{{auction.end}}</b></p>
 {% if auction.days_remaining_days %}
-<p class="text-info">{{auction.days_remaining_days}} days remaining</p>
+<h3>{{auction.days_remaining_days}} days remaining</h3>
 {% else %}
 <p class="bg-danger">Auction is closing very soon! Get your bid in now!</p>
 {% endif %}
@@ -49,13 +49,13 @@
 </form>
 
 
-<div class="alert alert-info">
+<div class="alert alert-grey">
 <a href="#login-box" class="btn btn-info"
  data-toggle="modal"
  data-target="#login-box">Login/Register</a> to bid.
 </div>
 {% else %}
-<div class="alert alert-info">
+<div class="alert alert-grey">
 Logged in as <b>{{request.user.email}}</b>
 [<a href="/accounts/logout/">logout</a>]
 </div>

@@ -3,6 +3,15 @@
 {% load markup %}
 
 {% block topcontent %}
+{% endblock %}
+
+{% block content %}
+<ol class="breadcrumb">
+	<li><a href="{% url 'auction_details' item.auction.id %}"><span class="glyphicon glyphicon-home"></span> Auction Home</a></li>
+</ol>
+
+<h1>{{item.title}}</h1>
+
 {% if request.user.is_anonymous %}
 
 
@@ -22,26 +31,18 @@
 </form>
 
 
-<div class="alert alert-info">
+<div class="alert alert-grey">
 <a href="#login-box" class="btn btn-info"
  data-toggle="modal"
  data-target="#login-box">Login/Register</a> to bid.
 </div>
 {% else %}
-<div class="alert alert-info">
+<div class="alert alert-grey">
 Logged in as <b>{{request.user.email}}</b>
 [<a href="/accounts/logout/">logout</a>]
 </div>
 {% endif %}
 
-{% endblock %}
-
-{% block content %}
-<ol class="breadcrumb">
-	<li><a href="{% url 'auction_details' item.auction.id %}"><span class="glyphicon glyphicon-home"></span> Auction Home</a></li>
-</ol>
-
-<h1>{{item.title}}</h1>
 
 <div class="auction-item panel panel-default">
 	<div class="panel-body">
@@ -79,7 +80,7 @@ Logged in as <b>{{request.user.email}}</b>
 {% if item.auction.is_ongoing %}
 
 {% if item.auction.days_remaining.days %}
-<p class="text-info">{{item.auction.days_remaining.days}} days remaining</p>
+<h3>{{item.auction.days_remaining.days}} days remaining</h3>
 {% else %}
 <p class="bg-danger">Auction is closing very soon! Get your bid in now!</p>
 {% endif %}
