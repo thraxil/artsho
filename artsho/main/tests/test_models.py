@@ -147,6 +147,10 @@ class AuctionTest(TestCase):
         a = AuctionFactory()
         self.assertTrue(a.days_remaining() is not None)
 
+    def test_days_remaining_days(self):
+        a = AuctionFactory()
+        self.assertTrue(a.days_remaining_days() > -1)
+
     def test_all_bids(self):
         a = AuctionFactory()
         self.assertFalse(a.all_bids().exists())

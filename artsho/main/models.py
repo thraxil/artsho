@@ -138,6 +138,9 @@ class Auction(models.Model):
         n = datetime.now()
         return self.end - n.date()
 
+    def days_remaining_days(self):
+        return self.days_remaining().days
+
     def all_bids(self):
         return Bid.objects.filter(
             item__auction=self,

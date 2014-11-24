@@ -46,8 +46,8 @@ Logged in as <b>{{request.user.email}}</b>
 
 {% ifequal auction.status "ongoing" %}
 <p>This auction will close around <b>{{auction.end}}</b></p>
-{% if item.auction.days_remaining.days %}
-<p class="text-info">{{item.auction.days_remaining.days}} days remaining</p>
+{% if item.auction.days_remaining_days %}
+<p class="text-info">{{item.auction.days_remaining_days}} days remaining</p>
 {% else %}
 <p class="bg-danger">Auction is closing very soon! Get your bid in now!</p>
 {% endif %}
