@@ -3,6 +3,33 @@
 {% load markup %}
 
 {% block topcontent %}
+{% endblock %}
+
+{% block content %}
+
+<h1>Auction for {{auction.show.title}}</h1>
+
+{% ifequal auction.status "upcoming" %}
+<p>This auction will open on <b>{{auction.start}}</b></p>
+{% endifequal %}
+
+{% ifequal auction.status "ongoing" %}
+<p>This auction will close around <b>{{auction.end}}</b></p>
+{% if auction.days_remaining_days %}
+<p class="text-info">{{auction.days_remaining_days}} days remaining</p>
+{% else %}
+<p class="bg-danger">Auction is closing very soon! Get your bid in now!</p>
+{% endif %}
+{% endifequal %}
+
+{% ifequal auction.status "complete" %}
+<p>This auction closed on <b>{{auction.end}}</b></p>
+{% endifequal %}
+
+{% if auction.description %}
+{{auction.description|markdown}}
+{% endif %}
+
 {% if request.user.is_anonymous %}
 
 
@@ -34,32 +61,6 @@ Logged in as <b>{{request.user.email}}</b>
 </div>
 {% endif %}
 
-{% endblock %}
-
-{% block content %}
-
-<h1>Auction for {{auction.show.title}}</h1>
-
-{% ifequal auction.status "upcoming" %}
-<p>This auction will open on <b>{{auction.start}}</b></p>
-{% endifequal %}
-
-{% ifequal auction.status "ongoing" %}
-<p>This auction will close around <b>{{auction.end}}</b></p>
-{% if item.auction.days_remaining_days %}
-<p class="text-info">{{item.auction.days_remaining_days}} days remaining</p>
-{% else %}
-<p class="bg-danger">Auction is closing very soon! Get your bid in now!</p>
-{% endif %}
-{% endifequal %}
-
-{% ifequal auction.status "complete" %}
-<p>This auction closed on <b>{{auction.end}}</b></p>
-{% endifequal %}
-
-{% if auction.description %}
-{{auction.description|markdown}}
-{% endif %}
 
 
 {% ifnotequal auction.status "upcoming" %}
