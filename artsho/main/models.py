@@ -332,7 +332,7 @@ class NewsPicture(models.Model):
 
 def save_image(s, f):
     ext = f.name.split(".")[-1].lower()
-    basename = slugify(f.name.split(".")[-2].lower())[:20]
+    basename = slugify(f.name.split(".")[-2].lower())[:20] + str(s.id)
     if ext not in ['jpg', 'jpeg', 'gif', 'png']:
         # unsupported image format
         return None
