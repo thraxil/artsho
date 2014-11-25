@@ -111,6 +111,8 @@ urlpatterns = patterns(
         name='remove_artist_from_item'),
     url(r'^edit/item/(?P<pk>\d+)/add_picture/$',
         views.AddItemPictureView.as_view(), name='add_picture_to_item'),
+    url(r'^edit/itempicture/(?P<pk>\d+)/delete/$',
+        views.DeleteItemPictureView.as_view(), name='delete_item_picture'),
 
     (r'^bidauth/', include('artsho.bidauth.urls')),
 

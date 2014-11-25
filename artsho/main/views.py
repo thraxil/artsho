@@ -149,6 +149,13 @@ class DeleteShowVideoView(StaffMixin, DeleteView):
         return reverse('edit_show', args=[self.object.show.id])
 
 
+class DeleteItemPictureView(StaffMixin, DeleteView):
+    model = ItemPicture
+
+    def get_success_url(self):
+        return reverse('edit_auction_item', args=[self.object.item.id])
+
+
 class DeletePictureView(StaffMixin, DeleteView):
     model = Picture
 
