@@ -51,7 +51,7 @@
 <h3>Artist(s)</h3>
 <table class="table table-striped">
 {% for ia in ai.itemartist_set.all %}
-<tr><td>{{ia.artist.name}}</td><td><a href="{% url 'remove_artist_from_item' ia.id %}" class="btn btn-xs btn-danger">remove</a></td></tr>
+<tr><td><a href="{% url 'edit_artist' ia.artist.id %}">{{ia.artist.name}}</a></td><td><a href="{% url 'remove_artist_from_item' ia.id %}" class="btn btn-xs btn-danger">remove</a></td></tr>
 {% endfor %}
 </table>
 {% endif %}

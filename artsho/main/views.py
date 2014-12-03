@@ -344,6 +344,25 @@ class EditAuctionView(StaffMixin, View):
             reverse('edit_auction', args=[auction.id]))
 
 
+class EditArtistView(StaffMixin, View):
+    template_name = "edit/artist.html"
+
+    def get(self, request, pk):
+        return render(
+            request, self.template_name,
+            dict(artist=get_object_or_404(Artist, pk=pk))
+        )
+
+    def post(self, request, pk):
+        artist = get_object_or_404(Artist, pk=pk)
+        artist.name = request.POST.get('name', '')
+        artist.bio = request.POST.get('bio', '')
+        artist.save()
+        messages.success(request, "Artist updated")
+        return HttpResponseRedirect(
+            reverse('edit_artist', args=[artist.id]))
+
+
 class EndAuctionView(StaffMixin, View):
     def post(self, request, pk):
         auction = get_object_or_404(Auction, pk=pk)

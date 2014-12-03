@@ -1,0 +1,49 @@
+{% extends 'edit_base.html' %}
+
+{% block content %}
+
+<ol class="breadcrumb">
+  <li><a href="/edit/">Edit Site</a></li>
+  <li class="active">Artist: {{artist.name}}</li>
+</ol>
+
+<h1>Edit Artist: {{artist.name}}</h1>
+
+<div class="well">
+<h4>Items</h4>
+<ul>
+{% for ia in artist.itemartist_set.all %}
+	<li><a href="{% url 'edit_auction_item' ia.item.id %}">{{ia.item.auction.show.title }}: {{ia.item.title}}</a></li>
+{% endfor %}
+</ul>
+</div>
+
+
+{% if messages %}
+{% for message in messages %}
+<div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}</div>
+{% endfor %}
+{% endif %}
+
+<hr />
+
+<form action="." method="post" role="form">
+
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" name="name" id="name"
+           value="{{artist.name}}" class="form-control" />
+  </div>
+
+  <div class="form-group">
+    <label for="bio">Bio</label>
+    <textarea name="bio" value="bio"
+              id="bio" class="form-control"
+              rows="5">{{artist.bio}}</textarea>
+  </div>
+
+	<input type="submit" value="Save" class="btn btn-primary" />
+</form>
+
+
+{% endblock %}

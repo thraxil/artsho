@@ -329,6 +329,19 @@ class EditTest(TestCase):
         r = self.c.post(reverse('remove_artist_from_item', args=[ia.id]))
         self.assertEqual(r.status_code, 302)
 
+    def test_edit_artist_form(self):
+        ia = ItemArtistFactory()
+        r = self.c.get(reverse('edit_artist', args=[ia.artist.id]))
+        self.assertEqual(r.status_code, 200)
+
+    def test_edit_artist(self):
+        ia = ItemArtistFactory()
+        r = self.c.post(reverse('edit_artist', args=[ia.artist.id]),
+                        dict(name="new name", bio="new bio"))
+        self.assertEqual(r.status_code, 302)
+        a = ia.item.itemartist_set.all()[0].artist
+        self.assertEqual(a.bio, "new bio")
+
     def test_remove_item_from_auction(self):
         ai = ItemFactory()
         r = self.c.post(
