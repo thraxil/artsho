@@ -52,7 +52,12 @@ Logged in as <b>{{request.user.email}}</b>
 				<dd>
 					<ul class="list-inline">
 						{% for ia in item.itemartist_set.all %}
-						<li>{{ia.artist.name}}</li>
+						<li>{{ia.artist.name}}
+{% if ia.artist.bio %}
+<hr />
+{{ia.artist.bio|markdown}}
+{% endif %}
+						</li>
 						{% endfor %}
 					</ul>
 				</dd>
