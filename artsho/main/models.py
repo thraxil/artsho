@@ -91,6 +91,7 @@ class Artist(models.Model):
             'size': (400, 200)
             },
         null=True,
+        blank=True,
         )
 
     class Meta:
