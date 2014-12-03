@@ -88,6 +88,14 @@ class EditTest(TestCase):
         self.assertEqual(r.status_code, 200)
         self.assertEqual(r.content, "ok")
 
+    def test_reorder_auction_items(self):
+        i = ItemFactory()
+        r = self.c.post(
+            reverse('reorder_auction_items', args=[i.auction.id]),
+            dict(item_1=i.id))
+        self.assertEqual(r.status_code, 200)
+        self.assertEqual(r.content, "ok")
+
     def test_reorder_show_videos(self):
         s = ShowFactory()
         p1 = ShowVideoFactory(show=s)

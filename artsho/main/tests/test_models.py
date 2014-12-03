@@ -31,6 +31,10 @@ class ShowTest(TestCase):
         sv = ShowVideoFactory()
         self.assertEqual(sv.show.first_video().id, sv.id)
 
+    def test_first_video_empty(self):
+        s = ShowFactory()
+        self.assertIsNone(s.first_video())
+
     def test_rest_videos(self):
         sv = ShowVideoFactory()
         sv2 = ShowVideoFactory(show=sv.show)
