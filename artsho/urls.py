@@ -99,6 +99,8 @@ urlpatterns = patterns(
 
     url(r'^edit/artist/(?P<pk>\d+)/$',
         views.EditArtistView.as_view(), name='edit_artist'),
+    url(r'^edit/artist/(?P<pk>\d+)/delete/$',
+        views.DeleteArtistView.as_view(), name='delete_artist'),
 
     url(r'^edit/item/(?P<pk>\d+)/$',
         views.EditItemView.as_view(),

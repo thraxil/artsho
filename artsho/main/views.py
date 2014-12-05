@@ -170,6 +170,11 @@ class DeleteNewsPictureView(StaffMixin, DeleteView):
         return reverse('edit_news_item', args=[self.object.newsitem.id])
 
 
+class DeleteArtistView(StaffMixin, DeleteView):
+    model = Artist
+    success_url = "/edit/"
+
+
 class AddNewsView(StaffMixin, View):
     template_name = "edit/add_news.html"
 
