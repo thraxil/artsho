@@ -5,7 +5,7 @@ from .factories import (
     NewsItemFactory, ShowFactory,
     PictureFactory, ShowVideoFactory,
     NewsPictureFactory, AuctionFactory,
-    ItemFactory,
+    ItemFactory, ItemPictureFactory,
     ItemArtistFactory, ArtistFactory
 )
 from django.contrib.auth.models import User
@@ -356,6 +356,11 @@ class EditTest(TestCase):
                 reverse('add_picture_to_item', args=[i.id]),
                 dict(image=img))
             self.assertEqual(r.status_code, 302)
+
+    def test_delete_item_picture(self):
+        i = ItemPictureFactory()
+        r = self.c.post(reverse('delete_item_picture', args=[i.id]))
+        self.assertEqual(r.status_code, 302)
 
     def test_send_broadcast_message(self):
         a = AuctionFactory()
