@@ -1,7 +1,13 @@
 language: python
 python:
   - "2.7"
+before_install:
+  - openssl aes-256-cbc -K $encrypted_ddcefa9967f0_key -iv $encrypted_ddcefa9967f0_iv -in artsho_rsa.enc -out artsho_rsa -d
 install:
   - ./bootstrap.py
 script:
   - make coverage
+after_success:
+  - chmod 600 artsho_rsa
+  - ssh-add artsho_rsa
+  - make travis_deploy

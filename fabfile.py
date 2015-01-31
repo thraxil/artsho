@@ -6,7 +6,7 @@ nginx_hosts = ['octopus.spokehub.org']
 
 
 def restart_gunicorn():
-    sudo("restart artsho")
+    sudo("restart artsho", shell=False)
 
 
 def prepare_deploy():
