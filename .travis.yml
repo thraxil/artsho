@@ -10,4 +10,4 @@ script:
 after_success:
   - chmod 600 artsho_rsa
   - ssh-add artsho_rsa
-  - make travis_deploy
+  - test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH == "master" && make travis_deploy
