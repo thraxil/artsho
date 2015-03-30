@@ -58,6 +58,6 @@ django-stagingcontext==0.1.0
 django-ga-context==0.1.0
 django-impersonate==0.9
 django-markwhat==2014.9.20
-gunicorn==19.1.1
+gunicorn==19.3.0
 django-infranil==0.1.0
 django-flatblocks==0.9
