@@ -32,7 +32,7 @@ if 'test' in sys.argv or 'jenkins' in sys.argv:
         }
     }
 
-TEST_RUNNER = 'discover_jenkins.runner.DiscoverCIRunner'
+TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 TEST_OUTPUT_DIR = 'reports'
 
 PROJECT_APPS = [
@@ -78,7 +78,6 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
-    'django.middleware.transaction.TransactionMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'impersonate.middleware.ImpersonateMiddleware',
     'waffle.middleware.WaffleMiddleware',
