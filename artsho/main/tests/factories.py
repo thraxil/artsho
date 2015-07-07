@@ -9,13 +9,17 @@ from artsho.main.models import (
 
 
 class UserFactory(factory.DjangoModelFactory):
-    FACTORY_FOR = User
+    class Meta:
+        model = User
+
     username = "testuser"
     email = "test@example.com"
 
 
 class ShowFactory(factory.DjangoModelFactory):
-    FACTORY_FOR = Show
+    class Meta:
+        model = Show
+
     title = "test show"
     year = 2014
     location = "timbuktu"
@@ -23,7 +27,9 @@ class ShowFactory(factory.DjangoModelFactory):
 
 
 class PictureFactory(factory.DjangoModelFactory):
-    FACTORY_FOR = Picture
+    class Meta:
+        model = Picture
+
     show = factory.SubFactory(ShowFactory)
     title = "test picture"
     caption = "test caption"
@@ -31,18 +37,24 @@ class PictureFactory(factory.DjangoModelFactory):
 
 
 class ShowVideoFactory(factory.DjangoModelFactory):
-    FACTORY_FOR = ShowVideo
+    class Meta:
+        model = ShowVideo
+
     show = factory.SubFactory(ShowFactory)
     youtube_id = "6mfvSSl9L9M"
 
 
 class ArtistFactory(factory.DjangoModelFactory):
-    FACTORY_FOR = Artist
+    class Meta:
+        model = Artist
+
     name = "attilla the hun"
 
 
 class NewsItemFactory(factory.DjangoModelFactory):
-    FACTORY_FOR = NewsItem
+    class Meta:
+        model = NewsItem
+
     title = "test news item"
     topcontent = "test top content"
     content = "test content"
@@ -50,38 +62,50 @@ class NewsItemFactory(factory.DjangoModelFactory):
 
 
 class NewsPictureFactory(factory.DjangoModelFactory):
-    FACTORY_FOR = NewsPicture
+    class Meta:
+        model = NewsPicture
+
     newsitem = factory.SubFactory(NewsItemFactory)
     caption = "test caption"
     image = "pictures/test.jpg"
 
 
 class AuctionFactory(factory.DjangoModelFactory):
-    FACTORY_FOR = Auction
+    class Meta:
+        model = Auction
+
     show = factory.SubFactory(ShowFactory)
     start = datetime.now().date()
     end = datetime.now().date()
 
 
 class ItemFactory(factory.DjangoModelFactory):
-    FACTORY_FOR = Item
+    class Meta:
+        model = Item
+
     title = "test item"
     auction = factory.SubFactory(AuctionFactory)
 
 
 class ItemArtistFactory(factory.DjangoModelFactory):
-    FACTORY_FOR = ItemArtist
+    class Meta:
+        model = ItemArtist
+
     item = factory.SubFactory(ItemFactory)
     artist = factory.SubFactory(ArtistFactory)
 
 
 class ItemPictureFactory(factory.DjangoModelFactory):
-    FACTORY_FOR = ItemPicture
+    class Meta:
+        model = ItemPicture
+
     item = factory.SubFactory(ItemFactory)
     image = "itempictures/test.jpg"
 
 
 class BidFactory(factory.DjangoModelFactory):
-    FACTORY_FOR = Bid
+    class Meta:
+        model = Bid
+
     item = factory.SubFactory(ItemFactory)
     user = factory.SubFactory(UserFactory)
