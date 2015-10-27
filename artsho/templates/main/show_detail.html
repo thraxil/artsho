@@ -76,6 +76,7 @@
 	<div class="lightbox-dialog">
 		<div class="lightbox-content">
 			<img src="{% thumbnail picture.image 960x960 %}">
+      {% if picture.caption %}<div class="lightbox-caption">{{picture.caption|markdown}}</div>{% endif %}
 		</div>
 	</div>
 </div>
