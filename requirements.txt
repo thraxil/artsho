@@ -36,6 +36,7 @@ paramiko==1.15.3
 Fabric==1.10.2
 itsdangerous==0.24
 astroid==1.4.1
+contextlib2==0.4.0
 
 sorl==3.1
 django-appconf==1.0.1
