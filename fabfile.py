@@ -18,7 +18,7 @@ def opbeat():
            "68fbae23422f4aa98cb810535e54c5f1/apps/dc48226e64/releases/")
     local("""curl %s \
     -H "Authorization: Bearer 2d0f64cf9464a3f383554dce3311e709fd928a5c" \
-    -d rev=`git log -n 1 --pretty=format:%H` \
+    -d rev=`git log -n 1 --pretty=format:%%H` \
     -d branch=`git rev-parse --abbrev-ref HEAD` \
     -d status=completed""" % url)
 
