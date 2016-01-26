@@ -29,9 +29,6 @@ STAGING_ENV = True
 
 STATSD_PREFIX = 'artsho-staging'
 
-if 'migrate' not in sys.argv:
-    INSTALLED_APPS.append('raven.contrib.django.raven_compat')
-
 try:
     from local_settings import *
 except ImportError:

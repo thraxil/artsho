@@ -27,9 +27,6 @@ COMPRESS_ROOT = "/var/www/artsho/artsho/media/"
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
-if 'migrate' not in sys.argv:
-    INSTALLED_APPS.append('raven.contrib.django.raven_compat')				
-
 INSTALLED_APPS += [
     'opbeat.contrib.django',
 ]
