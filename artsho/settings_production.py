@@ -30,6 +30,11 @@ TEMPLATE_DEBUG = DEBUG
 if 'migrate' not in sys.argv:
     INSTALLED_APPS.append('raven.contrib.django.raven_compat')				
 
+INSTALLED_APPS += [
+    'opbeat.contrib.django',
+]
+MIDDLEWARE_CLASSES.insert(0, 'opbeat.contrib.django.middleware.OpbeatAPMMiddleware')
+
 try:
     from local_settings import *
 except ImportError:
