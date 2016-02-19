@@ -4,9 +4,15 @@ python:
   - "2.7"
 before_install:
   - openssl aes-256-cbc -K $encrypted_ddcefa9967f0_key -iv $encrypted_ddcefa9967f0_iv -in artsho_rsa.enc -out artsho_rsa -d
+install:
+  - pip install -r requirements.txt
+  - pip install coveralls
 script:
   - make coverage
+  - python manage.py test artsho
+  - coverage run --source=artsho manage.py test artsho
 after_success:
+  - coveralls
   - chmod 600 artsho_rsa
   - ssh-add artsho_rsa
   - test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH == "master" && make travis_deploy
