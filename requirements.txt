@@ -18,10 +18,10 @@ fuzzywuzzy==0.10.0
 sure==1.2.24
 ptyprocess==0.5.1
 ipython==4.2.0
-ipdb==0.9.3
+ipdb==0.10.0
 rdflib==4.2.1
 coverage==4.0.3
-requests==2.9.1
+requests==2.10.0
 logilab-common==1.2.0
 logilab-astng==0.24.3
 colorama==0.3.7
@@ -34,7 +34,7 @@ factory_boy==2.7.0
 sqlparse==0.1.19
 pycrypto==2.6.1
 ecdsa==0.13
-paramiko==1.16.0
+paramiko==2.0.0
 Fabric==1.11.1
 itsdangerous==0.24
 astroid==1.4.5
@@ -43,7 +43,7 @@ backports-abc==0.4
 backports.ssl-match-hostname==3.5.0.1
 certifi==2016.2.28
 decorator==4.0.9
-funcsigs==1.0.0
+funcsigs==1.0.2
 html5lib==0.9999999
 ipython-genutils==0.1.0
 isodate==0.5.4
@@ -73,7 +73,7 @@ django-debug-toolbar==1.4
 django-waffle==0.11
 django-discover-jenkins==0.1.4
 django-smoketest==1.0.0
-django-extensions==1.6.1
+django-extensions==1.6.3
 django-stagingcontext==0.1.0
 django-ga-context==0.1.0
 django-impersonate==1.0.1
