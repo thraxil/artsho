@@ -1,5 +1,5 @@
 --index-url https://pypi.ccnmtl.columbia.edu/
-Django==1.9.5
+Django==1.9.6
 Markdown==2.6.6
 uuid==1.30
 psycopg2==2.6.1
@@ -38,7 +38,7 @@ paramiko==2.0.0
 Fabric==1.11.1
 itsdangerous==0.24
 astroid==1.4.5
-contextlib2==0.5.1
+contextlib2==0.5.3
 backports-abc==0.4
 backports.ssl-match-hostname==3.5.0.1
 certifi==2016.2.28
