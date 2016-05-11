@@ -65,7 +65,7 @@ class Picture(models.Model):
         )
     dirname = "pictures"
     rkey = models.CharField(max_length=256, default="", blank=True)
-    extension = models.CharField(max_length=256, default="jpg")
+    extension = models.CharField(max_length=256, default=".jpg")
 
     class Meta:
         order_with_respect_to = 'show'
@@ -97,7 +97,7 @@ class Artist(models.Model):
         blank=True,
         )
     rkey = models.CharField(max_length=256, default="", blank=True)
-    extension = models.CharField(max_length=256, default="jpg")
+    extension = models.CharField(max_length=256, default=".jpg")
 
     class Meta:
         ordering = ['name']
@@ -256,7 +256,7 @@ class ItemPicture(models.Model):
         )
     dirname = "itempictures"
     rkey = models.CharField(max_length=256, default="", blank=True)
-    extension = models.CharField(max_length=256, default="jpg")
+    extension = models.CharField(max_length=256, default=".jpg")
 
     class Meta:
         order_with_respect_to = 'item'
@@ -334,7 +334,7 @@ class NewsPicture(models.Model):
     caption = models.TextField(blank=True, default=u"")
     dirname = "newspics"
     rkey = models.CharField(max_length=256, default="", blank=True)
-    extension = models.CharField(max_length=256, default="jpg")
+    extension = models.CharField(max_length=256, default=".jpg")
 
     class Meta:
         order_with_respect_to = 'newsitem'
@@ -358,7 +358,7 @@ def save_image(s, f):
         fd.write(chunk)
     fd.close()
     s.image = full_filename
-    s.extension = ext
+    s.extension = "." + ext
     s.save()
     save_image_to_reticulum(s, f)
 
