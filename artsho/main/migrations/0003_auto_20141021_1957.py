@@ -3,7 +3,6 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
-import sorl.thumbnail.fields
 
 
 class Migration(migrations.Migration):
@@ -19,7 +18,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('name', models.TextField(default='', blank=True)),
                 ('bio', models.TextField(default='', blank=True)),
-                ('image', sorl.thumbnail.fields.ImageWithThumbnailsField(null=True, upload_to=b'artists/%Y/%m/%d')),
+                ('image', models.TextField(default='', blank=True)),
             ],
             options={
                 'ordering': ['name'],
