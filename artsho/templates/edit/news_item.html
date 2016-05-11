@@ -1,5 +1,5 @@
 {% extends 'edit_base.html' %}
-{% load thumbnail %}
+{% load reticulum %}
 
 {% block content %}
 <ol class="breadcrumb">
@@ -72,7 +72,7 @@
 
 				{% for p in item.newspicture_set.all %}
 				<div class="thumbnail show-thumb">
-					<img src="{% thumbnail p.image 200x150 crop %}" class="img-responsive"/>
+					<img src="{% reticulum_url p.rkey p.id p.extension '200w150h' %}" class="img-responsive"/>
 					<div class="caption"><a href="{% url 'delete_newspicture' p.id %}" class="btn btn-danger">Delete</a></div>
 				</div>
 				{% endfor %}

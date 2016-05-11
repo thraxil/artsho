@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load thumbnail %}
+{% load reticulum %}
 {% load markup %}
 
 {% block topcontent %}
@@ -140,7 +140,7 @@ You can still increase your bid, though!
 
 {% for image in item.itempicture_set.all %}
 <div class="img-responsive thumbnail">
-<img src="{% thumbnail image.image 960x600 %}" />
+<img src="{% reticulum_url image.rkey image.id image.extension '960w960h' %}" />
 </div>
 {% endfor %}
 

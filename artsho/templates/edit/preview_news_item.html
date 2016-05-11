@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load markup %}
-{% load thumbnail %}
+{% load reticulum %}
 
 {% block pagetitle %}NOW{% endblock %}
 {% block pageid %}now{% endblock %}
@@ -15,7 +15,7 @@
 
 {% if object.newspicture_set.count %}
 {% for pic in object.newspicture_set.all %}
-<img src="{% thumbnail pic.image 960x960 %}" alt="{{pic.caption}}"
+<img src="{% reticulum_url pic.rkey pic.id pic.extension '960w960h' %}" alt="{{pic.caption}}"
 		 class="img-responsive" />
 {% endfor %}
 {% endif %}

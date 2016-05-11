@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load markup %}
-{% load thumbnail %}
+{% load reticulum %}
 
 {% block pagetitle %}NOW{% endblock %}
 {% block pageid %}now{% endblock %}
@@ -22,7 +22,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed finibus mauris nec 
 
 {% if latest_news.newspicture_set.count %}
 {% for pic in latest_news.newspicture_set.all %}
-<img src="{% thumbnail pic.image 960x700 %}" alt="{{pic.caption}}"
+<img src="{% reticulum_url pic.rkey pic.id pic.extension '960w700h' %}" alt="{{pic.caption}}"
 		 class="img-responsive" />
 {% endfor %}
 {% endif %}

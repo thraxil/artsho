@@ -1,8 +1,8 @@
 {% extends 'edit_base.html' %}
-{% load thumbnail %}
+{% load reticulum %}
 {% block content %}
 
-<img src="{% thumbnail object.image 400x400 %}"/>
+<img src="{% reticulum_url object.rkey object.id object.extension '400s' %}"/>
 <br />
 <br />
 

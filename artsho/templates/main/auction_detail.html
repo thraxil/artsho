@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load thumbnail %}
+{% load reticulum %}
 {% load markup %}
 
 {% block topcontent %}
@@ -77,7 +77,7 @@ Logged in as <b>{{request.user.email}}</b>
 {% with item.first_picture as image %}
 {% if image %}
 <div class="thumbnail">
-<a href="{% url 'item_details' item.id %}"><img src="{% thumbnail image.image 600x600 crop %}" width="600"
+<a href="{% url 'item_details' item.id %}"><img src="{% reticulum_url image.rkey image.id image.extension '600s' %}" width="600"
 		 height="600" class="img-responsive" /></a>
 </div>
 {% endif %}
