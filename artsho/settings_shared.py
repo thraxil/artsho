@@ -153,6 +153,9 @@ LOGIN_REDIRECT_URL = "/"
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTOCOL', 'https')
 BIDAUTH_SECRET = 'this-gets-overridden-in-local_settings-on-production'
 
+RETICULUM_UPLOAD_BASE = 'http://reticulum.thraxil.org/'
+RETICULUM_PUBLIC_BASE = 'https://d2f33fmhbh7cs9.cloudfront.net'
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': True,

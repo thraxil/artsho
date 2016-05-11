@@ -9,6 +9,7 @@ from sorl.thumbnail.fields import ImageWithThumbnailsField
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 import math
+import requests
 
 
 class Show(models.Model):
@@ -357,4 +358,16 @@ def save_image(s, f):
         fd.write(chunk)
     fd.close()
     s.image = full_filename
+    s.extension = ext
+    s.save()
+    save_image_to_reticulum(s, f)
+
+
+def save_image_to_reticulum(s, f):
+    original_filename = f.name
+    files = {
+        'image': (original_filename, f),
+    }
+    r = requests.post(settings.RETICULUM_UPLOAD_BASE, files=files)
+    s.rkey = r.json()["hash"]
     s.save()
