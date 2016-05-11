@@ -63,6 +63,7 @@ class Picture(models.Model):
         null=True,
         )
     dirname = "pictures"
+    rkey = models.CharField(max_length=256, default="", blank=True)
 
     class Meta:
         order_with_respect_to = 'show'
@@ -93,6 +94,7 @@ class Artist(models.Model):
         null=True,
         blank=True,
         )
+    rkey = models.CharField(max_length=256, default="", blank=True)
 
     class Meta:
         ordering = ['name']
@@ -250,6 +252,7 @@ class ItemPicture(models.Model):
         null=True,
         )
     dirname = "itempictures"
+    rkey = models.CharField(max_length=256, default="", blank=True)
 
     class Meta:
         order_with_respect_to = 'item'
@@ -326,6 +329,7 @@ class NewsPicture(models.Model):
     )
     caption = models.TextField(blank=True, default=u"")
     dirname = "newspics"
+    rkey = models.CharField(max_length=256, default="", blank=True)
 
     class Meta:
         order_with_respect_to = 'newsitem'
