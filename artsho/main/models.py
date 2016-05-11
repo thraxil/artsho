@@ -3,12 +3,10 @@ from django.db import models
 from datetime import datetime
 from django.conf import settings
 from django.core.mail import send_mail
-import os.path
-from django.template.defaultfilters import slugify
-from sorl.thumbnail.fields import ImageWithThumbnailsField
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 import math
+import os.path
 import requests
 
 
@@ -56,14 +54,6 @@ class Picture(models.Model):
     show = models.ForeignKey(Show)
     title = models.TextField(blank=True, default=u"")
     caption = models.TextField(blank=True, default=u"")
-    image = ImageWithThumbnailsField(
-        upload_to="pictures/%Y/%m/%d",
-        thumbnail={
-            'size': (400, 200)
-            },
-        null=True,
-        )
-    dirname = "pictures"
     rkey = models.CharField(max_length=256, default="", blank=True)
     extension = models.CharField(max_length=256, default=".jpg")
 
@@ -88,14 +78,6 @@ class ShowVideo(models.Model):
 class Artist(models.Model):
     name = models.TextField(blank=True, default=u"")
     bio = models.TextField(blank=True, default=u"")
-    image = ImageWithThumbnailsField(
-        upload_to="artists/%Y/%m/%d",
-        thumbnail={
-            'size': (400, 200)
-            },
-        null=True,
-        blank=True,
-        )
     rkey = models.CharField(max_length=256, default="", blank=True)
     extension = models.CharField(max_length=256, default=".jpg")
 
@@ -247,14 +229,6 @@ class ItemArtist(models.Model):
 
 class ItemPicture(models.Model):
     item = models.ForeignKey(Item)
-    image = ImageWithThumbnailsField(
-        upload_to="itempictures/%Y/%m/%d",
-        thumbnail={
-            'size': (400, 200)
-            },
-        null=True,
-        )
-    dirname = "itempictures"
     rkey = models.CharField(max_length=256, default="", blank=True)
     extension = models.CharField(max_length=256, default=".jpg")
 
@@ -324,15 +298,7 @@ class NewsItem(models.Model):
 
 class NewsPicture(models.Model):
     newsitem = models.ForeignKey(NewsItem)
-    image = ImageWithThumbnailsField(
-        upload_to="newspics/%Y/%m/%d",
-        thumbnail={
-            'size': (400, 200)
-            },
-        null=True,
-    )
     caption = models.TextField(blank=True, default=u"")
-    dirname = "newspics"
     rkey = models.CharField(max_length=256, default="", blank=True)
     extension = models.CharField(max_length=256, default=".jpg")
 
@@ -341,26 +307,13 @@ class NewsPicture(models.Model):
 
 
 def save_image(s, f):
-    ext = f.name.split(".")[-1].lower()
-    basename = slugify(f.name.split(".")[-2].lower())[:20] + str(s.id)
+    ext = os.path.splitext(f.name)[1].lower()
     if ext not in ['jpg', 'jpeg', 'gif', 'png']:
         # unsupported image format
         return None
-    now = datetime.now()
-    path = "%s/%04d/%02d/%02d/" % (s.dirname, now.year, now.month, now.day)
-    try:
-        os.makedirs(settings.MEDIA_ROOT + "/" + path)
-    except:
-        pass
-    full_filename = path + "%s.%s" % (basename, ext)
-    fd = open(settings.MEDIA_ROOT + "/" + full_filename, 'wb')
-    for chunk in f.chunks():
-        fd.write(chunk)
-    fd.close()
-    s.image = full_filename
     s.extension = "." + ext
-    s.save()
     save_image_to_reticulum(s, f)
+    s.save()
 
 
 def save_image_to_reticulum(s, f):
@@ -370,4 +323,3 @@ def save_image_to_reticulum(s, f):
     }
     r = requests.post(settings.RETICULUM_UPLOAD_BASE, files=files)
     s.rkey = r.json()["hash"]
-    s.save()

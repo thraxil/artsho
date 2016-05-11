@@ -33,7 +33,8 @@ class PictureFactory(factory.DjangoModelFactory):
     show = factory.SubFactory(ShowFactory)
     title = "test picture"
     caption = "test caption"
-    image = "pictures/test.jpg"
+    rkey = "fe360f76f4d85057c306a253f0a60d662c7df5b0"
+    extension = ".jpg"
 
 
 class ShowVideoFactory(factory.DjangoModelFactory):
@@ -67,7 +68,8 @@ class NewsPictureFactory(factory.DjangoModelFactory):
 
     newsitem = factory.SubFactory(NewsItemFactory)
     caption = "test caption"
-    image = "pictures/test.jpg"
+    rkey = "fe360f76f4d85057c306a253f0a60d662c7df5b0"
+    extension = ".jpg"
 
 
 class AuctionFactory(factory.DjangoModelFactory):
@@ -100,7 +102,8 @@ class ItemPictureFactory(factory.DjangoModelFactory):
         model = ItemPicture
 
     item = factory.SubFactory(ItemFactory)
-    image = "itempictures/test.jpg"
+    rkey = "fe360f76f4d85057c306a253f0a60d662c7df5b0"
+    extension = ".jpg"
 
 
 class BidFactory(factory.DjangoModelFactory):
