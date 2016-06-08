@@ -128,7 +128,7 @@ EMAIL_SUBJECT_PREFIX = "[artsho] "
 EMAIL_HOST = 'localhost'
 SERVER_EMAIL = "artsho@spokehub.org"
 DEFAULT_FROM_EMAIL = SERVER_EMAIL
-SITE_BASE = "http://artsho.org"
+SITE_BASE = "https://artsho.org"
 
 STATIC_ROOT = os.path.join(os.path.dirname(__file__), "../media")
 STATICFILES_DIRS = (
