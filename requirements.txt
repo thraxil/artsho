@@ -53,7 +53,7 @@ path.py==8.2.1
 pbr==1.10.0
 pexpect==4.1.0
 pickleshare==0.7.2
-pyparsing==2.1.4
+pyparsing==2.1.5
 rcssmin==1.0.6
 rjsmin==1.0.12
 simplegeneric==0.8.1
