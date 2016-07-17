@@ -28,8 +28,8 @@ def deploy():
     with cd(code_dir):
         run("git pull origin master")
         run("make migrate")
-        run("./manage.py compress --settings=artsho.settings_production")
         run("make collectstatic")
+        run("./manage.py compress --settings=artsho.settings_production")
         for n in nginx_hosts:
             run(("rsync -avp media/ "
                  "%s:/var/www/artsho/artsho/media/") % n)
