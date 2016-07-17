@@ -144,6 +144,11 @@ COMPRESS_URL = "/media/"
 COMPRESS_ROOT = "media/"
 COMPRESS_OFFLINE = True
 
+COMPRESS_CSS_FILTERS = [
+    'compressor.filters.css_default.CssAbsoluteFilter',
+    'compressor.filters.cssmin.CSSMinFilter',
+]
+
 SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
 SESSION_COOKIE_HTTPONLY = True
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.JSONSerializer'
