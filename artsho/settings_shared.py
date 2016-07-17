@@ -130,9 +130,8 @@ SERVER_EMAIL = "artsho@spokehub.org"
 DEFAULT_FROM_EMAIL = SERVER_EMAIL
 SITE_BASE = "https://artsho.org"
 
-STATIC_ROOT = os.path.join(os.path.dirname(__file__), "../media")
-STATICFILES_DIRS = (
-)
+STATIC_ROOT = "/tmp/artsho/static"
+STATICFILES_DIRS = ["media/"]
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',

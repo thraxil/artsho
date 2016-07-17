@@ -41,7 +41,6 @@ AWS_SECRET_ACCESS_KEY = AWS_SECRET_KEY
 
 if AWS_S3_CUSTOM_DOMAIN:
     AWS_PRELOAD_METADATA = True
-    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
     S3_URL = 'https://%s/' % AWS_S3_CUSTOM_DOMAIN
     # static data, e.g. css, js, etc.
     STATICFILES_STORAGE = 'cacheds3storage.CompressorS3BotoStorage'
@@ -50,7 +49,10 @@ if AWS_S3_CUSTOM_DOMAIN:
     COMPRESS_OFFLINE = True
     COMPRESS_ROOT = STATIC_ROOT
     COMPRESS_URL = STATIC_URL
-    COMPRESS_STORAGE = 'cacheds3storage.CompressorS3BotoStorage'
+    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+    COMPRESS_STORAGE = 'cacheds3storage.MediaRootS3BotoStorage'
+    MEDIA_URL = S3_URL + 'uploads/'
+    AWS_QUERYSTRING_AUTH = False
 
 try:
     from local_settings import *
