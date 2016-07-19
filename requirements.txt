@@ -61,7 +61,7 @@ simplegeneric==0.8.1
 singledispatch==3.4.0.3
 traitlets==4.2.2
 wrapt==1.10.8
-boto==2.41.0
+boto==2.42.0
 
 django-appconf==1.0.2
 django_compressor==2.0
