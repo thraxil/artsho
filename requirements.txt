@@ -68,7 +68,7 @@ django_compressor==2.0
 django-statsd-mozilla==0.3.16
 django-bootstrap3==7.0.1
 django-bootstrap-form==3.2.1
-django-debug-toolbar==1.4
+django-debug-toolbar==1.5
 django-waffle==0.11.1
 django-discover-jenkins==0.1.4
 django-smoketest==1.0.0
