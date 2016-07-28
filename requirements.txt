@@ -36,7 +36,7 @@ ecdsa==0.13
 paramiko==2.0.1
 Fabric==1.11.1
 itsdangerous==0.24
-astroid==1.4.7
+astroid==1.4.8
 contextlib2==0.5.3
 backports-abc==0.4
 backports.ssl-match-hostname==3.5.0.1
