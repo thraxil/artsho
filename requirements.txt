@@ -33,7 +33,7 @@ factory_boy==2.7.0
 sqlparse==0.2.0
 pycrypto==2.6.1
 ecdsa==0.13
-paramiko==2.0.1
+paramiko==2.0.2
 Fabric==1.11.1
 itsdangerous==0.24
 astroid==1.4.7
