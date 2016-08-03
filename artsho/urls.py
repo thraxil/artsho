@@ -1,25 +1,28 @@
-from django.conf.urls import patterns, include, url
+import os.path
+import django.contrib.auth.views
+import django.views.static
+
+from django.conf.urls import include, url
 from django.contrib import admin
 from django.conf import settings
 from django.views.generic import TemplateView
 from artsho.main import views
-import os.path
 admin.autodiscover()
 
 site_media_root = os.path.join(os.path.dirname(__file__), "../media")
 
-urlpatterns = patterns(
-    '',
-    (r'^accounts/logout/$',
-     'django.contrib.auth.views.logout', {'next_page': '/'}),
-    (r'^accounts/', include('django.contrib.auth.urls')),
-    (r'^$', views.IndexView.as_view()),
+urlpatterns = [
+    url(r'^accounts/logout/$', django.contrib.auth.views.logout,
+        {'next_page': '/'}),
+    url(r'^accounts/', include('django.contrib.auth.urls')),
+    url(r'^$', views.IndexView.as_view()),
 
-    (r'^about/$', TemplateView.as_view(template_name="main/about.html")),
-    (r'^map/$', TemplateView.as_view(template_name="main/map.html")),
-    (r'^contact/$', TemplateView.as_view(template_name="main/contact.html")),
+    url(r'^about/$', TemplateView.as_view(template_name="main/about.html")),
+    url(r'^map/$', TemplateView.as_view(template_name="main/map.html")),
+    url(r'^contact/$', TemplateView.as_view(
+        template_name="main/contact.html")),
 
-    (r'^artsho/(?P<pk>\d+)/$', views.ShowDetails.as_view()),
+    url(r'^artsho/(?P<pk>\d+)/$', views.ShowDetails.as_view()),
 
     url(r'^auction/(?P<pk>\d+)/$', views.AuctionDetailsView.as_view(),
         name='auction_details'),
@@ -119,13 +122,13 @@ urlpatterns = patterns(
     url(r'^edit/itempicture/(?P<pk>\d+)/delete/$',
         views.DeleteItemPictureView.as_view(), name='delete_item_picture'),
 
-    (r'^bidauth/', include('artsho.bidauth.urls')),
+    url(r'^bidauth/', include('artsho.bidauth.urls')),
 
-    (r'^admin/', include(admin.site.urls)),
+    url(r'^admin/', include(admin.site.urls)),
     url(r'^_impersonate/', include('impersonate.urls')),
-    (r'^stats/$', TemplateView.as_view(template_name="stats.html")),
-    (r'smoketest/', include('smoketest.urls')),
-    (r'infranil/', include('infranil.urls')),
-    (r'^uploads/(?P<path>.*)$',
-     'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
-)
+    url(r'^stats/$', TemplateView.as_view(template_name="stats.html")),
+    url(r'smoketest/', include('smoketest.urls')),
+    url(r'infranil/', include('infranil.urls')),
+    url(r'^uploads/(?P<path>.*)$', django.views.static.serve,
+        {'document_root': settings.MEDIA_ROOT}),
+]
