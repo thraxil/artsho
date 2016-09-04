@@ -3,7 +3,6 @@ import os.path
 import sys
 
 DEBUG = True
-TEMPLATE_DEBUG = DEBUG
 
 ADMINS = ()
 
@@ -55,21 +54,26 @@ MEDIA_ROOT = "/var/www/artsho/uploads/"
 MEDIA_URL = '/uploads/'
 STATIC_URL = '/media/'
 SECRET_KEY = ')ng#)ef_u@_^zvvu@dxm7ql-yb^_!a6%v3v^j3b(mp+)l+5%@h'
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-)
 
-TEMPLATE_CONTEXT_PROCESSORS = (
-    'django.contrib.auth.context_processors.auth',
-    'django.core.context_processors.debug',
-    'django.core.context_processors.request',
-    'stagingcontext.staging_processor',
-    'gacontext.ga_processor',
-    'django.core.context_processors.static',
-    'artsho.main.contextprocessors.menu_items',
-    'django.contrib.messages.context_processors.messages',
-)
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [
+            os.path.join(os.path.dirname(__file__), "templates"),
+        ],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.contrib.auth.context_processors.auth',
+                'django.template.context_processors.debug',
+                'django.template.context_processors.media',
+                'django.template.context_processors.static',
+                'django.template.context_processors.tz',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
 
 MIDDLEWARE_CLASSES = [
     'django_statsd.middleware.GraphiteRequestTimingMiddleware',
@@ -84,11 +88,6 @@ MIDDLEWARE_CLASSES = [
 ]
 
 ROOT_URLCONF = 'artsho.urls'
-
-TEMPLATE_DIRS = (
-    "/var/www/artsho/templates/",
-    os.path.join(os.path.dirname(__file__), "templates"),
-)
 
 INSTALLED_APPS = [
     'django.contrib.auth',
