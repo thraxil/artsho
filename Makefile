@@ -8,3 +8,5 @@ deploy: ./ve/bin/python check jenkins
 
 travis_deploy: ./ve/bin/python check jenkins
 	./ve/bin/fab deploy -i artsho_rsa
+
+all: flake8 test

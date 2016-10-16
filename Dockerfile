@@ -1,7 +1,9 @@
-FROM ccnmtl/django.base
-RUN apt-get update && apt-get install -qy \
+FROM ccnmtl/django.base:latest
+RUN apt-get update \
+    && apt-get install -y \
 		binutils \
 		build-essential \
+		curl \
 		gcc \
 		libffi-dev \
 		libssl-dev \
@@ -15,26 +17,23 @@ RUN apt-get update && apt-get install -qy \
 		libssl-dev \
 		libxft-dev \
 		libxml2-dev \
+		libxslt-dev \
 		libxslt1-dev \
 		python-all-dev \
 		python-dev \
 		python-beautifulsoup \
 		python-ldap \
 		python-tk \
-&& apt-get clean \
-&& rm -rf /var/lib/apt/lists/*
-RUN /ve/bin/pip install wheel
+    && apt-get clean \
+		&& rm -rf /var/lib/apt/lists/* \
+		&& /ve/bin/pip install wheel
+COPY package.json /node/
+RUN cd /node && npm install && touch /node/node_modules/sentinal
+COPY requirements.txt /app/requirements.txt
+RUN /ve/bin/pip install -r /app/requirements.txt && touch /ve/sentinal
 WORKDIR /app
-COPY package.json /app/package.json
-RUN npm install
-ADD requirements.txt
-RUN /ve/bin/pip install --no-index -f /wheelhouse -r /wheelhouse/requirements.txt \
-  && rm -rf /wheelhouse
-
 COPY . /app/
-RUN /ve/bin/flake8 /app/artsho/ --max-complexity=5 \
-  && /ve/bin/python manage.py test \
-  && npm install
+RUN VE=/ve/ MANAGE="/ve/bin/python manage.py" NODE_MODULES=/node/node_modules make all
 EXPOSE 8000
 ADD docker-run.sh /run.sh
 ENV APP artsho
