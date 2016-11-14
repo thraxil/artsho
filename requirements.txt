@@ -40,7 +40,7 @@ Fabric==1.12.0
 itsdangerous==0.24
 astroid==1.4.8
 contextlib2==0.5.4
-backports-abc==0.4
+backports-abc==0.5
 backports.ssl-match-hostname==3.5.0.1
 certifi==2016.9.26
 decorator==4.0.10
