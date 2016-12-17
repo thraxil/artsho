@@ -31,7 +31,7 @@ six==1.10.0
 ipaddress==1.0.17
 python-dateutil==2.6.0
 Faker==0.7.3
-factory_boy==2.8.0
+factory_boy==2.8.1
 sqlparse==0.2.2
 pycrypto==2.6.1
 ecdsa==0.13
