@@ -31,7 +31,7 @@ six==1.10.0
 ipaddress==1.0.17
 python-dateutil==2.6.0
 
-Faker==0.7.5
+Faker==0.7.7
 
 factory_boy==2.8.1
 
