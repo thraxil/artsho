@@ -18,7 +18,7 @@ lxml==3.7.2
 fuzzywuzzy==0.14.0
 sure==1.4.0
 ptyprocess==0.5.1
-ipython==5.2.1
+ipython==5.2.2
 ipdb==0.10.2
 rdflib==4.2.2
 coverage==4.3
