@@ -52,7 +52,7 @@ certifi==2017.1.23
 decorator==4.0.11
 funcsigs==1.0.2
 html5lib==0.999999999
-ipython-genutils==0.1.0
+ipython-genutils==0.2.0
 isodate==0.5.4
 keepalive==0.5
 lazy-object-proxy==1.2.2
