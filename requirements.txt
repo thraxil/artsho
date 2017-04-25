@@ -40,7 +40,7 @@ sqlparse==0.2.3
 pycrypto==2.6.1
 ecdsa==0.13
 
-Fabric==1.13.1
+Fabric==1.13.2
 
 paramiko==2.1.2
 
