@@ -18,8 +18,6 @@ lxml==3.8.0
 fuzzywuzzy==0.15.1
 sure==1.4.6
 ptyprocess==0.5.2
-ipython==5.5.0 # pyup: <6.0.0
-ipdb==0.10.3
 rdflib==4.2.2
 
 coverage==4.4.1
@@ -89,7 +87,6 @@ django-debug-toolbar==1.8
 django-waffle==0.12.0
 django-discover-jenkins==0.1.4
 django-smoketest==1.1.0
-django-extensions==1.9.1
 django-stagingcontext==0.1.0
 django-ga-context==0.1.0
 django-impersonate==1.1

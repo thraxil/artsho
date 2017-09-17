@@ -110,7 +110,6 @@ INSTALLED_APPS = [
     'smoketest',
     'infranil',
     'flatblocks',
-    'django_extensions',
     'impersonate',
     'gunicorn',
     'artsho.main',
