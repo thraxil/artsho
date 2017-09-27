@@ -42,7 +42,7 @@ Faker==0.8.4
 
 factory_boy==2.9.2
 
-sqlparse==0.2.3
+sqlparse==0.2.4
 pycrypto==2.6.1
 ecdsa==0.13
 
