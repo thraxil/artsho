@@ -55,6 +55,6 @@ if AWS_S3_CUSTOM_DOMAIN:
     AWS_QUERYSTRING_AUTH = False
 
 try:
-    from local_settings import *
+    from .local_settings import *
 except ImportError:
     pass
