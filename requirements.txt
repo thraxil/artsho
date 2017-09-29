@@ -11,7 +11,6 @@ pycodestyle==2.3.1
 enum34==1.1.6
 configparser==3.5.0
 flake8==3.4.1
-tornado==4.5.2
 
 cssselect==1.0.1
 lxml==4.0.0
@@ -87,7 +86,7 @@ django-debug-toolbar==1.8
 django-waffle==0.12.0
 django-discover-jenkins==0.1.4
 django-smoketest==1.1.0
-django-stagingcontext==0.1.0
+
 django-ga-context==0.1.0
 django-impersonate==1.1
 django-markwhat==1.5.1
