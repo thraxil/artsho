@@ -19,7 +19,7 @@ class Show(models.Model):
     class Meta:
         ordering = ['year']
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
     def get_absolute_url(self):
@@ -60,7 +60,7 @@ class Picture(models.Model):
     class Meta:
         order_with_respect_to = 'show'
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
     def get_absolute_url(self):
@@ -84,7 +84,7 @@ class Artist(models.Model):
     class Meta:
         ordering = ['name']
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     def get_absolute_url(self):
@@ -113,7 +113,7 @@ class Auction(models.Model):
         ))
     description = models.TextField(blank=True, default=u"")
 
-    def __unicode__(self):
+    def __str__(self):
         return "Auction for %s" % str(self.show)
 
     def is_ongoing(self):
@@ -168,7 +168,7 @@ class Item(models.Model):
     class Meta:
         order_with_respect_to = 'auction'
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
     def get_absolute_url(self):
@@ -223,7 +223,7 @@ class ItemArtist(models.Model):
     item = models.ForeignKey(Item)
     artist = models.ForeignKey(Artist)
 
-    def __unicode__(self):
+    def __str__(self):
         return "%s - %s" % (self.item, self.artist)
 
 
@@ -245,7 +245,7 @@ class Bid(models.Model):
     class Meta:
         ordering = ('-amount',)
 
-    def __unicode__(self):
+    def __str__(self):
         return "bid for $%d on %s by %s at %s" % (
             self.amount, self.item, self.user.email,
             self.entered)
@@ -292,7 +292,7 @@ class NewsItem(models.Model):
     topcontent = models.TextField(blank=True, default=u"")
     content = models.TextField(blank=True, default=u"")
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
 

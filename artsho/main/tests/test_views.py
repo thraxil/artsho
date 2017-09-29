@@ -1,3 +1,4 @@
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase
 from django.test.client import Client
 from artsho.main.models import NewsItem
@@ -11,6 +12,7 @@ from .factories import (
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.test.utils import override_settings
+from django.utils.encoding import force_text
 
 
 class BasicTest(TestCase):
@@ -34,7 +36,7 @@ class IndexTest(TestCase):
         NewsItemFactory()
         response = self.c.get("/")
         self.assertEquals(response.status_code, 200)
-        self.assertTrue("test news item" in response.content)
+        self.assertTrue("test news item" in force_text(response.content))
 
 
 class EditTest(TestCase):
@@ -76,7 +78,7 @@ class EditTest(TestCase):
         self.assertEqual(r.status_code, 302)
         r = self.c.get("/edit/show/%d/" % s.id)
         self.assertEqual(r.status_code, 200)
-        self.assertTrue("new title" in r.content)
+        self.assertTrue("new title" in force_text(r.content))
 
     def test_reorder_show_pictures(self):
         s = ShowFactory()
@@ -86,7 +88,7 @@ class EditTest(TestCase):
             reverse('reorder_show_pictures', args=[s.id]),
             dict(pic_1=p2.id, pic_2=p1.id))
         self.assertEqual(r.status_code, 200)
-        self.assertEqual(r.content, "ok")
+        self.assertEqual(force_text(r.content), "ok")
 
     def test_reorder_auction_items(self):
         i = ItemFactory()
@@ -94,7 +96,7 @@ class EditTest(TestCase):
             reverse('reorder_auction_items', args=[i.auction.id]),
             dict(item_1=i.id))
         self.assertEqual(r.status_code, 200)
-        self.assertEqual(r.content, "ok")
+        self.assertEqual(force_text(r.content), "ok")
 
     def test_reorder_show_videos(self):
         s = ShowFactory()
@@ -104,7 +106,7 @@ class EditTest(TestCase):
             reverse('reorder_show_videos', args=[s.id]),
             dict(video_1=p2.id, video_2=p1.id))
         self.assertEqual(r.status_code, 200)
-        self.assertEqual(r.content, "ok")
+        self.assertEqual(force_text(r.content), "ok")
 
     def test_add_video(self):
         s = ShowFactory()
@@ -115,7 +117,7 @@ class EditTest(TestCase):
         self.assertEqual(r.status_code, 302)
         r = self.c.get("/edit/show/%d/" % s.id)
         self.assertEqual(r.status_code, 200)
-        self.assertTrue("iframe" in r.content)
+        self.assertTrue("iframe" in force_text(r.content))
 
     def test_delete_picture(self):
         p = PictureFactory()
@@ -151,7 +153,7 @@ class EditTest(TestCase):
     @override_settings(MEDIA_ROOT="/tmp/")
     def test_add_picture(self):
         s = ShowFactory()
-        with open('media/img/artsho5_poster.png') as img:
+        with open('media/img/artsho5_poster.png', 'rb') as img:
             r = self.c.post(
                 "/edit/show/%d/add_picture/" % s.id,
                 dict(image=img))
@@ -160,10 +162,12 @@ class EditTest(TestCase):
     @override_settings(MEDIA_ROOT="/tmp/")
     def test_add_newspicture(self):
         s = NewsItemFactory()
-        with open('media/img/artsho5_poster.png') as img:
+        with open('media/img/artsho5_poster.png', 'rb') as img:
+            uimg = SimpleUploadedFile("artsho5_poster.png", img.read(),
+                                      "image/png")
             r = self.c.post(
                 reverse('add_news_picture', args=[s.id]),
-                dict(image=img))
+                dict(image=uimg))
             self.assertEqual(r.status_code, 302)
 
     def test_add_picture_unsupported_extension(self):
@@ -223,7 +227,7 @@ class EditTest(TestCase):
         self.assertEqual(r.status_code, 302)
         r = self.c.get("/edit/news/%d/" % ni.id)
         self.assertEqual(r.status_code, 200)
-        self.assertTrue("new title" in r.content)
+        self.assertTrue("new title" in force_text(r.content))
 
     def test_edit_news_item_publish(self):
         ni = NewsItemFactory()
@@ -253,7 +257,7 @@ class EditTest(TestCase):
         self.assertEqual(r.status_code, 302)
         r = self.c.get(reverse('edit_auction', args=[s.id]))
         self.assertEqual(r.status_code, 200)
-        self.assertTrue("3000" in r.content)
+        self.assertTrue("3000" in force_text(r.content))
 
     def test_end_auction(self):
         a = AuctionFactory()
@@ -295,7 +299,7 @@ class EditTest(TestCase):
             dict(title="new title"))
         self.assertEqual(r.status_code, 302)
         r = self.c.get(reverse("edit_auction_item", args=(ai.id,)))
-        self.assertTrue("new title" in r.content)
+        self.assertTrue("new title" in force_text(r.content))
 
     def test_delete_auction_item(self):
         ai = ItemFactory()
@@ -351,7 +355,7 @@ class EditTest(TestCase):
     @override_settings(MEDIA_ROOT="/tmp/")
     def test_add_picture_to_item(self):
         i = ItemFactory()
-        with open('media/img/artsho5_poster.png') as img:
+        with open('media/img/artsho5_poster.png', 'rb') as img:
             r = self.c.post(
                 reverse('add_picture_to_item', args=[i.id]),
                 dict(image=img))
