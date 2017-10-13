@@ -96,4 +96,4 @@ django-flatblocks==0.9.4
 django-storages==1.6.5
 django-cacheds3storage==0.1.2
 
-opbeat==3.5.2
+opbeat==3.5.3
