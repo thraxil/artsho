@@ -77,6 +77,8 @@ traitlets==4.3.2
 wrapt==1.10.11
 boto==2.48.0
 
+text-unidecode==1.0
+
 django-appconf==1.0.2
 django-compressor==2.1.1
 django-statsd-mozilla==0.4.0
