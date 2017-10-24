@@ -305,7 +305,7 @@ class BidOnItemView(View):
         try:
             bid = request.POST.get('bid', '0')
             bid = int(float(bid))
-        except:
+        except ValueError:
             messages.warning(
                 request,
                 "oops! we couldn't parse that bid as a number.")
