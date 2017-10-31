@@ -35,7 +35,7 @@ pylint==1.7.4
 six==1.11.0
 ipaddress==1.0.18
 python-dateutil==2.6.1
-pytz==2017.2
+pytz==2017.3
 
 Faker==0.8.6
 
