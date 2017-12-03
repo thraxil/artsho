@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
                 ('title', models.TextField(default='', blank=True)),
                 ('caption', models.TextField(default='', blank=True)),
                 ('image', models.TextField(default='', blank=True)),
-                ('show', models.ForeignKey(to='main.Show')),
+                ('show', models.ForeignKey(to='main.Show', on_delete=models.CASCADE)),
             ],
             options={
             },

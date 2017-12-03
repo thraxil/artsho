@@ -32,7 +32,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('image', models.TextField(default='', blank=True)),
                 ('caption', models.TextField(default='', blank=True)),
-                ('newsitem', models.ForeignKey(to='main.NewsItem')),
+                ('newsitem', models.ForeignKey(to='main.NewsItem', on_delete=models.CASCADE)),
             ],
             options={
             },

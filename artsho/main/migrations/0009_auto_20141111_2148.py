@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='bid',
             name='item',
-            field=models.ForeignKey(to='main.Item'),
+            field=models.ForeignKey(to='main.Item', on_delete=models.CASCADE),
             preserve_default=True,
         ),
     ]

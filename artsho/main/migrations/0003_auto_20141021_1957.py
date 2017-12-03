@@ -32,7 +32,7 @@ class Migration(migrations.Migration):
                 ('title', models.TextField(default='', blank=True)),
                 ('description', models.TextField(default='', blank=True)),
                 ('medium', models.TextField(default='', blank=True)),
-                ('show', models.ForeignKey(to='main.Show')),
+                ('show', models.ForeignKey(to='main.Show', on_delete=models.CASCADE)),
             ],
             options={
             },
@@ -42,8 +42,8 @@ class Migration(migrations.Migration):
             name='ItemArtist',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
-                ('artist', models.ForeignKey(to='main.Artist')),
-                ('item', models.ForeignKey(to='main.Item')),
+                ('artist', models.ForeignKey(to='main.Artist', on_delete=models.CASCADE)),
+                ('item', models.ForeignKey(to='main.Item', on_delete=models.CASCADE)),
             ],
             options={
             },

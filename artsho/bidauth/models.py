@@ -3,12 +3,12 @@ from django.contrib.auth.models import User
 from itsdangerous import URLSafeSerializer
 from django.conf import settings
 from django.core.mail import send_mail
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 import time
 
 
 class Token(models.Model):
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     token = models.TextField(blank=False, db_index=True)
     redirect_to = models.TextField(blank=True, default=u"")
 
