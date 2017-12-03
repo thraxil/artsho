@@ -40,7 +40,7 @@ class LoginView(View):
     template_name = "bidauth/login.html"
 
     def get(self, request):
-        if not request.user.is_anonymous():
+        if not request.user.is_anonymous:
             return HttpResponse("you are already logged in...")
 
         token = request.GET.get('token', False)

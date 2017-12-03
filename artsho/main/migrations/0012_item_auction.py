@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='item',
             name='auction',
-            field=models.ForeignKey(default=0, to='main.Auction'),
+            field=models.ForeignKey(default=0, to='main.Auction', on_delete=models.CASCADE),
             preserve_default=False,
         ),
     ]

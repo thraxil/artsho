@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('youtube_id', models.TextField()),
-                ('show', models.ForeignKey(to='main.Show')),
+                ('show', models.ForeignKey(to='main.Show', on_delete=models.CASCADE)),
             ],
             options={
             },

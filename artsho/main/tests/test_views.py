@@ -10,9 +10,9 @@ from .factories import (
     ItemArtistFactory, ArtistFactory
 )
 from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse
 from django.test.utils import override_settings
 from django.utils.encoding import force_text
+from django.urls import reverse
 
 
 class BasicTest(TestCase):

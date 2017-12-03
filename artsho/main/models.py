@@ -4,7 +4,7 @@ from datetime import datetime
 from django.conf import settings
 from django.core.mail import send_mail
 from django.contrib.auth.models import User
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 import math
 import os.path
 import requests
@@ -51,7 +51,7 @@ class Show(models.Model):
 
 
 class Picture(models.Model):
-    show = models.ForeignKey(Show)
+    show = models.ForeignKey(Show, on_delete=models.CASCADE)
     title = models.TextField(blank=True, default=u"")
     caption = models.TextField(blank=True, default=u"")
     rkey = models.CharField(max_length=256, default="", blank=True)
@@ -68,7 +68,7 @@ class Picture(models.Model):
 
 
 class ShowVideo(models.Model):
-    show = models.ForeignKey(Show)
+    show = models.ForeignKey(Show, on_delete=models.CASCADE)
     youtube_id = models.TextField()
 
     class Meta:
@@ -100,7 +100,7 @@ def get_or_create_artist(name):
 
 
 class Auction(models.Model):
-    show = models.ForeignKey(Show)
+    show = models.ForeignKey(Show, on_delete=models.CASCADE)
     start = models.DateField(blank=True)
     end = models.DateField(blank=True)
     status = models.CharField(
@@ -159,7 +159,7 @@ def lock_n(x, n=5.):
 
 
 class Item(models.Model):
-    auction = models.ForeignKey(Auction)
+    auction = models.ForeignKey(Auction, on_delete=models.CASCADE)
     title = models.TextField(blank=True, default=u"")
     description = models.TextField(blank=True, default=u"")
     medium = models.TextField(blank=True, default=u"")
@@ -220,15 +220,15 @@ class Item(models.Model):
 
 
 class ItemArtist(models.Model):
-    item = models.ForeignKey(Item)
-    artist = models.ForeignKey(Artist)
+    item = models.ForeignKey(Item, on_delete=models.CASCADE)
+    artist = models.ForeignKey(Artist, on_delete=models.CASCADE)
 
     def __str__(self):
         return "%s - %s" % (self.item, self.artist)
 
 
 class ItemPicture(models.Model):
-    item = models.ForeignKey(Item)
+    item = models.ForeignKey(Item, on_delete=models.CASCADE)
     rkey = models.CharField(max_length=256, default="", blank=True)
     extension = models.CharField(max_length=256, default=".jpg")
 
@@ -237,8 +237,8 @@ class ItemPicture(models.Model):
 
 
 class Bid(models.Model):
-    item = models.ForeignKey(Item)
-    user = models.ForeignKey(User)
+    item = models.ForeignKey(Item, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     amount = models.PositiveIntegerField(default=1)
     entered = models.DateTimeField(auto_now_add=True)
 
@@ -297,7 +297,7 @@ class NewsItem(models.Model):
 
 
 class NewsPicture(models.Model):
-    newsitem = models.ForeignKey(NewsItem)
+    newsitem = models.ForeignKey(NewsItem, on_delete=models.CASCADE)
     caption = models.TextField(blank=True, default=u"")
     rkey = models.CharField(max_length=256, default="", blank=True)
     extension = models.CharField(max_length=256, default=".jpg")

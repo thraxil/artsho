@@ -7,9 +7,9 @@ from django.contrib import messages
 from django.conf import settings
 from django.http import (
     HttpResponseRedirect, HttpResponse, HttpResponseForbidden)
-from django.core.urlresolvers import reverse
 from django.contrib.auth.views import redirect_to_login
 from django.contrib.auth import REDIRECT_FIELD_NAME
+from django.urls import reverse
 
 
 from .models import (
@@ -21,7 +21,7 @@ from .models import (
 
 class StaffMixin(object):
     def dispatch(self, request, *args, **kwargs):
-        if not request.user or request.user.is_anonymous():
+        if not request.user or request.user.is_anonymous:
             return redirect_to_login(request.get_full_path(),
                                      settings.LOGIN_URL,
                                      REDIRECT_FIELD_NAME)
@@ -300,7 +300,7 @@ class ItemDetailsView(DetailView):
 class BidOnItemView(View):
     def post(self, request, pk):
         item = get_object_or_404(Item, pk=pk)
-        if request.user.is_anonymous():
+        if request.user.is_anonymous:
             return HttpResponse("you must login before you can bid")
         try:
             bid = request.POST.get('bid', '0')
