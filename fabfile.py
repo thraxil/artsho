@@ -1,12 +1,12 @@
 from fabric.api import run, sudo, local, cd, env
 
-env.hosts = ['gustav.spokehub.org']
+env.hosts = ['188.166.52.181']
 env.user = 'anders'
 
 
 def restart_gunicorn():
-    sudo("stop artsho || true", shell=False)
-    sudo("start artsho", shell=False)
+    sudo("systemctl stop artsho || true", shell=False)
+    sudo("systemctl start artsho", shell=False)
 
 def prepare_deploy():
     local("make")
