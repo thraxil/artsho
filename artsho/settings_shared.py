@@ -113,6 +113,7 @@ INSTALLED_APPS = [
     'gunicorn',
     'artsho.main',
     'artsho.bidauth',
+    'raven.contrib.django.raven_compat',
 ]
 
 INTERNAL_IPS = ('127.0.0.1', )

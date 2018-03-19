@@ -22,6 +22,16 @@ def opbeat():
     -d status=completed""" % url)
 
 
+def sentry():
+    url = ("https://sentry.io/api/hooks/release/builtin/"
+           "306657/98843a4763d48947b2f283fc6d9642f59f8da"
+           "b5493fad0f98aed5353db5adb2c/")
+    local("""COMMIT=$(git log -n 1 --pretty=format:'%%H') && curl %s \
+    -X POST \
+    -H 'Content-Type: application/json' \
+    -d "{\\\"version\\\": \\\"$COMMIT\\\"}" """ % (url))
+
+
 def deploy():
     code_dir = "/var/www/artsho/artsho"
     with cd(code_dir):
@@ -31,3 +41,4 @@ def deploy():
         run("./manage.py compress --settings=artsho.settings_production")
     restart_gunicorn()
     opbeat()
+    sentry()
