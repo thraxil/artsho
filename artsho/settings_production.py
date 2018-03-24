@@ -27,11 +27,6 @@ COMPRESS_ROOT = "/var/www/artsho/artsho/media/"
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
-INSTALLED_APPS += [
-    'opbeat.contrib.django',
-]
-MIDDLEWARE.insert(0, 'opbeat.contrib.django.middleware.OpbeatAPMMiddleware')
-
 AWS_S3_CUSTOM_DOMAIN = os.environ.get('AWS_S3_CUSTOM_DOMAIN', '')
 AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME', '')
 AWS_ACCESS_KEY = os.environ.get('AWS_ACCESS_KEY', '')
