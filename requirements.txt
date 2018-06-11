@@ -22,7 +22,7 @@ rdflib==4.2.2
 coverage==4.5.1
 
 chardet==3.0.4
-idna==2.6
+idna==2.7
 urllib3==1.22
 certifi==2018.1.18
 
