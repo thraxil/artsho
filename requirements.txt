@@ -24,7 +24,7 @@ coverage==4.5.1
 chardet==3.0.4
 idna==2.7
 urllib3==1.22
-certifi==2018.1.18
+certifi==2018.8.13
 
 requests==2.19.1
 
@@ -54,7 +54,7 @@ astroid==2.0.4
 contextlib2==0.5.5
 backports-abc==0.5
 backports.ssl-match-hostname==3.5.0.1
-certifi==2018.1.18
+certifi==2018.8.13
 decorator==4.2.1
 funcsigs==1.0.2
 html5lib==1.0.1
