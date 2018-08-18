@@ -1,5 +1,5 @@
 import os.path
-import django.contrib.auth.views
+import django.contrib.auth.views as auth_views
 import django.views.static
 
 from django.conf.urls import include, url
@@ -12,8 +12,7 @@ admin.autodiscover()
 site_media_root = os.path.join(os.path.dirname(__file__), "../media")
 
 urlpatterns = [
-    url(r'^accounts/logout/$', django.contrib.auth.views.logout,
-        {'next_page': '/'}),
+    url(r'^accounts/logout/$', auth_views.LogoutView.as_view(next_page='/')),
     url(r'^accounts/', include('django.contrib.auth.urls')),
     url(r'^$', views.IndexView.as_view()),
 
