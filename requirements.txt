@@ -54,7 +54,7 @@ astroid==2.0.4
 contextlib2==0.5.5
 backports-abc==0.5
 backports.ssl-match-hostname==3.5.0.1
-certifi==2018.1.18
+
 decorator==4.2.1
 funcsigs==1.0.2
 html5lib==1.0.1
