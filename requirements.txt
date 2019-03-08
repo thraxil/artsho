@@ -53,7 +53,7 @@ Fabric3==1.14.post1
 paramiko==2.4.2
 
 itsdangerous==0.24
-astroid==2.1.0
+astroid==2.2.5
 contextlib2==0.5.5
 backports-abc==0.5
 backports.ssl-match-hostname==3.7.0.1
