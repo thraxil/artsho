@@ -60,7 +60,7 @@ contextlib2==0.5.5
 backports-abc==0.5
 backports.ssl-match-hostname==3.7.0.1
 
-decorator==4.3.2
+decorator==4.4.0
 funcsigs==1.0.2
 html5lib==1.0.1
 ipython-genutils==0.2.0
