@@ -38,7 +38,7 @@ colorama==0.4.1
 
 ipaddress==1.0.22
 python-dateutil==2.8.0
-pytz==2018.9
+pytz==2019.1
 
 Faker==1.0.4
 
