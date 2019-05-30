@@ -45,7 +45,7 @@ Faker==1.0.7
 factory_boy==2.12.0
 
 sqlparse==0.3.0
-pycryptodome==3.8.1
+pycryptodome==3.8.2
 ecdsa==0.13.2
 
 Fabric3==1.14.post1
