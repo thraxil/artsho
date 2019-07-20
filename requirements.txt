@@ -77,12 +77,12 @@ path.py==12.0.1
 pickleshare==0.7.5
 pyparsing==2.4.0
 rcssmin==1.0.6
-rjsmin==1.0.12
+rjsmin==1.1.0
 simplegeneric==0.8.1
 singledispatch==3.4.0.3
 traitlets==4.3.2
 wrapt==1.11.2
-boto==2.49.0
+boto3==1.9.191
 
 text-unidecode==1.2
 
@@ -103,6 +103,6 @@ gunicorn==19.9.0
 django-infranil==1.1.0
 django-flatblocks==0.9.4
 django-storages==1.7.1
-django-cacheds3storage==0.1.2
+django-cacheds3storage==0.2.1
 
 raven==6.10.0
