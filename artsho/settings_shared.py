@@ -55,6 +55,11 @@ MEDIA_URL = '/uploads/'
 STATIC_URL = '/media/'
 SECRET_KEY = ')ng#)ef_u@_^zvvu@dxm7ql-yb^_!a6%v3v^j3b(mp+)l+5%@h'
 
+# put any static media here to override app served static media
+STATICMEDIA_MOUNTS = [
+    ('/sitemedia', 'sitemedia'),
+]
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
