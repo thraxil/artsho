@@ -1,7 +1,7 @@
-Django==2.2.1
+Django==2.2.3
 Markdown==2.6.11 # pyup: <3.0
 
-psycopg2-binary==2.8.2
+psycopg2-binary==2.8.3
 versiontools==1.9.1
 statsd==3.3.0
 pep8==1.7.1
@@ -13,7 +13,7 @@ configparser==3.7.4
 flake8==3.7.7
 
 cssselect==1.0.3
-lxml==4.3.3
+lxml==4.3.4
 fuzzywuzzy==0.17.0
 sure==1.4.11
 ptyprocess==0.6.0
@@ -23,10 +23,10 @@ coverage==4.5.3
 
 chardet==3.0.4
 idna==2.8
-urllib3==1.25.2
+urllib3==1.25.3
 certifi==2019.3.9
 
-requests==2.21.0
+requests==2.22.0
 
 logilab-common==1.4.2
 logilab-astng==0.24.3
@@ -40,12 +40,12 @@ ipaddress==1.0.22
 python-dateutil==2.8.0
 pytz==2019.1
 
-Faker==1.0.6
+Faker==1.0.7
 
-factory_boy==2.11.1
+factory_boy==2.12.0
 
 sqlparse==0.3.0
-pycryptodome==3.8.1
+pycryptodome==3.8.2
 ecdsa==0.13.2
 
 Fabric3==1.14.post1
@@ -68,33 +68,34 @@ isodate==0.6.0
 keepalive==0.5
 
 mock==3.0.5
-lazy-object-proxy==1.4.0
+
+lazy-object-proxy==1.4.1
 
 nose==1.3.7
 
-pbr==5.2.0
+pbr==5.3.1
 
 path.py==12.0.1
 
 pickleshare==0.7.5
 pyparsing==2.4.0
 rcssmin==1.0.6
-rjsmin==1.0.12
+rjsmin==1.1.0
 simplegeneric==0.8.1
 singledispatch==3.4.0.3
 traitlets==4.3.2
-wrapt==1.11.1
-boto==2.49.0
+wrapt==1.11.2
+boto3==1.9.191
 
 text-unidecode==1.2
 
 django-appconf==1.0.3
-django-compressor==2.1.1
+django-compressor==2.3
 django-statsd-mozilla==0.4.0
 django-bootstrap3==11.0.0
 django-bootstrap-form==3.4
 django-debug-toolbar==1.11
-django-waffle==0.16.0
+django-waffle==0.17.0
 django-discover-jenkins==0.1.4
 django-smoketest==1.1.0
 
@@ -105,6 +106,6 @@ gunicorn==19.9.0
 django-infranil==1.1.0
 django-flatblocks==0.9.4
 django-storages==1.7.1
-django-cacheds3storage==0.1.2
+django-cacheds3storage==0.2.1
 
 raven==6.10.0
