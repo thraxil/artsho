@@ -2,6 +2,7 @@ from fabric.api import run, sudo, local, cd, env
 
 env.hosts = ['188.166.52.181']
 env.user = 'anders'
+nginx_hosts = ['10.133.47.51']
 
 
 def restart_gunicorn():
@@ -28,6 +29,11 @@ def deploy():
         run("git pull origin master")
         run("make migrate")
         run("make collectstatic")
+        run("make compress")
+        for n in nginx_hosts:
+            run(("rsync -avp media/ "
+                 "%s:/var/www/artsho/artsho/media/") % n)
+
         run("./manage.py compress --settings=artsho.settings_production")
     restart_gunicorn()
     sentry()
