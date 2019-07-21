@@ -87,7 +87,6 @@ simplegeneric==0.8.1
 singledispatch==3.4.0.3
 traitlets==4.3.2
 wrapt==1.11.2
-boto3==1.9.191
 
 text-unidecode==1.2
 
@@ -107,7 +106,5 @@ django-markwhat==1.6.1
 gunicorn==19.9.0
 django-infranil==1.1.0
 django-flatblocks==0.9.4
-django-storages==1.7.1
-django-cacheds3storage==0.2.1
 
 raven==6.10.0
