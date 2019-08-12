@@ -17,7 +17,6 @@ lxml==4.4.1
 fuzzywuzzy==0.17.0
 sure==1.4.11
 ptyprocess==0.6.0
-rdflib==4.2.2
 
 coverage==4.5.4
 
