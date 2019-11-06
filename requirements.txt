@@ -33,7 +33,7 @@ logilab-common==1.4.3
 logilab-astng==0.24.3
 
 pylint==2.4.3
-six==1.12.0
+six==1.13.0
 
 colorama==0.4.1
 
