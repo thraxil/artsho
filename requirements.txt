@@ -47,7 +47,7 @@ factory_boy==2.12.0
 
 sqlparse==0.3.0
 pycryptodome==3.9.1
-ecdsa==0.13.3
+ecdsa==0.14.1
 
 Fabric3==1.14.post1
 
