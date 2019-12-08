@@ -35,7 +35,7 @@ logilab-astng==0.24.3
 pylint==2.4.4
 six==1.13.0
 
-colorama==0.4.1
+colorama==0.4.3
 
 ipaddress==1.0.23
 python-dateutil==2.8.1
