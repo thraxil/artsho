@@ -79,7 +79,7 @@ pbr==5.4.4
 path.py==12.4.0
 
 pickleshare==0.7.5
-pyparsing==2.4.5
+pyparsing==2.4.6
 rcssmin==1.0.6
 rjsmin==1.1.0
 simplegeneric==0.8.1
